@@ -3,41 +3,42 @@ import pickle
 
 
 class _To():
-    
+
     def __init__(self, value):
         self.value = value
-    
+
     def _equal(self, something):
         return self.value == something
-    
+
     def _be(self, something):
         return str(self.value) == str(something) or pickle.dumps(self.value) == pickle.dumps(something)
-    
+
     def _contain(self, something):
         return something in self.value
-    
+
     def _be_contained_in(self, something):
         return self.value in something
-    
+
     def _be_empty(self):
         try:
             iter(self.value)
             return not self.value
         except TypeError:
-            raise TypeError(f"Emptiness of '{type(self.value)}' object doesn't make sense")
+            raise TypeError(
+                f"Emptiness of '{type(self.value)}' object doesn't make sense")
 
     def _be_true(self):
         return self.value is True
-    
+
     def _be_false(self):
         return self.value is False
-    
+
     def _be_truthy(self):
         return self.value
-    
+
     def _be_falsey(self):
         return not self.value
-    
+
     def _be_of_type(self, something):
         return type(self.value) is something
 
@@ -109,6 +110,9 @@ class _ToNot(_To):
 
     def be_of_type(self, something):
         assert not super()._be_of_type(something)
+
+    def inherit(self, something):
+        assert not self._inherit(something)
 
 
 class _Expect:
