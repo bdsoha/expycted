@@ -18,5 +18,5 @@ build-backend = "poetry.core.masonry.api"
 python_files = ["*test*.py"]
 python_functions = ["test"]
 minversion = "6.0"
-addopts = "--cov=pyst --cov-report=term-missing"
+addopts = "--cov=expycted --cov-report=term-missing"
 testpaths = ["test"]
