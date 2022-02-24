@@ -19,170 +19,154 @@ def get_singleton():
     return singleton
 
 
-@pytest.mark.parametrize("v1,v2,raised", [
-    (1, 2, True),
-    (1, 1, False),
-    (1, 0, True),
-    (0, 0, False),
-    (True, 'True', True),
-    (True, True, False),
-    (True, False, True),
-    ('string', 'another', True),
-    ('string', 'string', False),
-    (1, '1', True),
-    (get_singleton, get_singleton, False),
-    (get_singleton, Person("John", 30), True),
+@pytest.mark.parametrize("v1,v2,true", [
+    (1, 2, False),
+    (1, 1, True),
+    (1, 0, False),
+    (0, 0, True),
+    (True, 'True', False),
+    (True, True, True),
+    (True, False, False),
+    ('string', 'another', False),
+    ('string', 'string', True),
+    (1, '1', False),
+    (get_singleton, get_singleton, True),
+    (get_singleton, Person("John", 30), False),
 ]
 )
-def test_to_equal(v1, v2, raised):
-    if raised:
+def test_to_equal(v1, v2, true):
+    if not true:
         with pytest.raises(AssertionError):
             expect(v1).to.equal(v2)
     else:
         expect(v1).to.equal(v2)
 
 
-@pytest.mark.parametrize("v1,v2,raised", [
-    (1, 2, True),
-    (1, 1, False),
-    (1, 0, True),
-    (0, 0, False),
-    (True, 'True', False),
-    (True, True, False),
-    (True, False, True),
-    ('string', 'another', True),
-    ('string', 'string', False),
-    (1, '1', False),
-    (get_singleton, get_singleton, False),
-    (get_singleton, Person("John", 30), True),
+@pytest.mark.parametrize("v1,v2,true", [
+    (1, 2, False),
+    (1, 1, True),
+    (1, 0, False),
+    (0, 0, True),
+    (True, 'True', True),
+    (True, True, True),
+    (True, False, False),
+    ('string', 'another', False),
+    ('string', 'string', True),
+    (1, '1', True),
+    (get_singleton, get_singleton, True),
+    (get_singleton, Person("John", 30), False),
+    (1, 1.0, True),
+    (2.0, 3, False)
 ]
 )
-def test_to_be(v1, v2, raised):
-    if raised:
+def test_to_be(v1, v2, true):
+    if not true:
         with pytest.raises(AssertionError):
             expect(v1).to.be(v2)
     else:
         expect(v1).to.be(v2)
 
 
-@pytest.mark.parametrize("v1,v2,raised", [
-    ([1], None, True),
-    ([2], 2, False),
-    (['a', 2], ['b'], True),
-    (set(['a', 'b']), 'a', False),
-    ('abcd', 'bc', False),
-    ({'a': 1, 'b': 2}.values(), 2, False),
-    ('True', True, True),
-    ('string', 'ings', True),
-    ('string', 'string', False),
-    (get_singleton, get_singleton, True),
-    (get_singleton, Person("John", 30), True),
+@pytest.mark.parametrize("v1,v2,true", [
+    ([1], None, False),
+    ([2], 2, True),
+    (['a', 2], ['b'], False),
+    (set(['a', 'b']), 'a', True),
+    ('abcd', 'bc', True),
+    ({'a': 1, 'b': 2}.values(), 2, True),
+    ('True', True, False),
+    ('string', 'ings', False),
+    ('string', 'string', True),
+    (get_singleton, get_singleton, False),
+    (get_singleton, Person("John", 30), False),
 ]
 )
-def test_to_contain(v1, v2, raised):
-    if raised:
+def test_to_contain(v1, v2, true):
+    if not true:
         with pytest.raises((AssertionError, TypeError)):
             expect(v1).to.contain(v2)
     else:
         expect(v1).to.contain(v2)
 
 
-@pytest.mark.parametrize("v1,v2,raised", [
-    ([1], None, True),
-    ([2], 2, False),
-    (['a', 2], ['b'], True),
-    (set(['a', 'b']), 'a', False),
-    ('abcd', 'bc', False),
-    ({'a': 1, 'b': 2}.values(), 2, False),
-    ('True', True, True),
-    ('string', 'ings', True),
-    ('string', 'string', False),
-    (get_singleton, get_singleton, True),
-    (get_singleton, Person("John", 30), True),
+@pytest.mark.parametrize("v1,v2,true", [
+    ([1], None, False),
+    ([2], 2, True),
+    (['a', 2], ['b'], False),
+    (set(['a', 'b']), 'a', True),
+    ('abcd', 'bc', True),
+    ({'a': 1, 'b': 2}.values(), 2, True),
+    ('True', True, False),
+    ('string', 'ings', False),
+    ('string', 'string', True),
+    (get_singleton, get_singleton, False),
+    (get_singleton, Person("John", 30), False),
 ]
 )
-def test_to_be_contained_in(v1, v2, raised):
-    if raised:
+def test_to_be_contained_in(v1, v2, true):
+    if not true:
         with pytest.raises((AssertionError, TypeError)):
             expect(v2).to.be_contained_in(v1)
     else:
         expect(v2).to.be_contained_in(v1)
 
 
-@pytest.mark.parametrize("v1,raised", [
-    ([], False),
-    ({}, False),
-    (set([]), False),
-    ('', False),
-    ((), False),
-    ('abcd', True),
-    ({'a': 1, 'b': 2}, True),
-    ('True', True),
-    ([1, 2], True),
-    (set([1, 2]), True),
-    ((1, 3), True),
-    (1, True)
+@pytest.mark.parametrize("v1,true", [
+    ([], True),
+    ({}, True),
+    (set([]), True),
+    ('', True),
+    ((), True),
+    ('abcd', False),
+    ({'a': 1, 'b': 2}, False),
+    ('True', False),
+    ([1, 2], False),
+    (set([1, 2]), False),
+    ((1, 3), False),
+    (1, False)
 ]
 )
-def test_to_be_empty(v1, raised):
-    if raised:
+def test_to_be_empty(v1, true):
+    if not true:
         with pytest.raises((AssertionError, TypeError)):
             expect(v1).to.be_empty()
     else:
         expect(v1).to.be_empty()
 
 
-@pytest.mark.parametrize("v1,raised", [
-    (True, False),
-    (False, True),
-    ([], True),
-    (get_singleton, True),
+@pytest.mark.parametrize("v1,true", [
+    (True, True),
+    (False, False),
+    ([], False),
+    (get_singleton, False),
 
 ]
 )
-def test_to_be_true(v1, raised):
-    if raised:
+def test_to_be_true(v1, true):
+    if not true:
         with pytest.raises(AssertionError):
             expect(v1).to.be_true()
     else:
         expect(v1).to.be_true()
 
 
-@pytest.mark.parametrize("v1,raised", [
-    (True, True),
-    (False, False),
-    ([], True),
-    (get_singleton, True),
+@pytest.mark.parametrize("v1,true", [
+    (True, False),
+    (False, True),
+    ([], False),
+    (get_singleton, False),
 
 ]
 )
-def test_to_be_false(v1, raised):
-    if raised:
+def test_to_be_false(v1, true):
+    if not true:
         with pytest.raises(AssertionError):
             expect(v1).to.be_false()
     else:
         expect(v1).to.be_false()
 
 
-@pytest.mark.parametrize("v1,raised", [
-    (True, False),
-    (1, False),
-    (get_singleton, False),
-    ([1], False),
-    ([], True),
-    (0, True),
-    (False, True)
-]
-)
-def test_to_be_truthy(v1, raised):
-    if raised:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_truthy()
-    else:
-        expect(v1).to.be_truthy()
-
-
-@pytest.mark.parametrize("v1,raised", [
+@pytest.mark.parametrize("v1,true", [
     (True, True),
     (1, True),
     (get_singleton, True),
@@ -192,61 +176,178 @@ def test_to_be_truthy(v1, raised):
     (False, False)
 ]
 )
-def test_to_be_falsey(v1, raised):
-    if raised:
+def test_to_be_truthy(v1, true):
+    if not true:
+        with pytest.raises(AssertionError):
+            expect(v1).to.be_truthy()
+    else:
+        expect(v1).to.be_truthy()
+
+
+@pytest.mark.parametrize("v1,true", [
+    (True, False),
+    (1, False),
+    (get_singleton, False),
+    ([1], False),
+    ([], True),
+    (0, True),
+    (False, True)
+]
+)
+def test_to_be_falsey(v1, true):
+    if not true:
         with pytest.raises(AssertionError):
             expect(v1).to.be_falsey()
     else:
         expect(v1).to.be_falsey()
 
 
-@pytest.mark.parametrize("v1,v2,raised", [
-    ([1], list, False),
-    (2, int, False),
-    ('a', str, False),
-    (set(['a', 'b']), set, False),
-    ({'a': 1, 'b': 2}, dict, False),
-    (True, bool, False),
-    (Person("John", 30), Person, False),
-    (1, int, False),
-    (1.0, float, False),
-    (Person("John", 30), object, True),
-    ('string', 'ings', True),
-    ('string', int, True),
-    (1, str, True),
-    (1, float, True),
-    (1.0, int, True)
+@pytest.mark.parametrize("v1,v2,true", [
+    ([1], list, True),
+    (2, int, True),
+    ('a', str, True),
+    (set(['a', 'b']), set, True),
+    ({'a': 1, 'b': 2}, dict, True),
+    (True, bool, True),
+    (Person("John", 30), Person, True),
+    (1, int, True),
+    (1.0, float, True),
+    (Person("John", 30), object, False),
+    ('string', 'ings', False),
+    ('string', int, False),
+    (1, str, False),
+    (1, float, False),
+    (1.0, int, False)
 ]
 )
-def test_to_be_of_type(v1, v2, raised):
-    if raised:
+def test_to_be_of_type(v1, v2, true):
+    if not true:
         with pytest.raises((AssertionError, TypeError)):
             expect(v1).to.be_of_type(v2)
     else:
         expect(v1).to.be_of_type(v2)
 
 
-@pytest.mark.parametrize("v1,v2,raised", [
-    ([1], list, False),
-    (2, int, False),
-    ('a', str, False),
-    (set(['a', 'b']), set, False),
-    ({'a': 1, 'b': 2}, dict, False),
-    (True, bool, False),
-    (Person("John", 30), Person, False),
-    (Person("John", 30), object, False),
-    (1, int, False),
-    (1.0, float, False),
-    ('string', 'ings', True),
-    ('string', int, True),
-    (1, str, True),
-    (1, float, True),
-    (1.0, int, True)
+@pytest.mark.parametrize("v1,v2,true", [
+    ([1], list, True),
+    (2, int, True),
+    ('a', str, True),
+    (set(['a', 'b']), set, True),
+    ({'a': 1, 'b': 2}, dict, True),
+    (True, bool, True),
+    (Person("John", 30), Person, True),
+    (Person("John", 30), object, True),
+    (1, int, True),
+    (1.0, float, True),
+    ('string', 'ings', False),
+    ('string', int, False),
+    (1, str, False),
+    (1, float, False),
+    (1.0, int, False)
 ]
 )
-def test_to_inherit(v1, v2, raised):
-    if raised:
+def test_to_inherit(v1, v2, true):
+    if not true:
         with pytest.raises((AssertionError, TypeError)):
             expect(v1).to.inherit(v2)
     else:
         expect(v1).to.inherit(v2)
+
+# TODO: copy to expect_to_not_test_suite
+
+
+@pytest.mark.parametrize("v1,v2,true", [
+    (1, 2, False),
+    (3, 2, True),
+    (3.2, 1, True),
+    (100.1, 100.2, False),
+    ([1, 2], [1, 2, 3], False),
+    ([1], [2], False),
+    (2, 2, False),
+
+]
+)
+def test_to_be_greater_than(v1, v2, true):
+    if not true:
+        with pytest.raises((AssertionError, TypeError)):
+            expect(v1).to.be_greater_than(v2)
+    else:
+        expect(v1).to.be_greater_than(v2)
+
+
+@pytest.mark.parametrize("v1,v2,true", [
+    (1, 2, True),
+    (3, 2, False),
+    (3.2, 1, False),
+    (100.1, 100.2, True),
+    ([1, 2], [1, 2, 3], True),
+    ([1], [2], True),
+    (2, 2, False),
+
+]
+)
+def test_to_be_lesser_than(v1, v2, true):
+    if not true:
+        with pytest.raises((AssertionError, TypeError)):
+            expect(v1).to.be_lesser_than(v2)
+    else:
+        expect(v1).to.be_lesser_than(v2)
+
+
+@pytest.mark.parametrize("v1,v2,true", [
+    (1, 2, False),
+    (3, 2, True),
+    (3.2, 1, True),
+    (100.1, 100.2, False),
+    ([1, 2], [1, 2, 3], False),
+    ([1], [2], False),
+    (2, 2, True),
+
+]
+)
+def test_to_be_greater_or_equal_to(v1, v2, true):
+    if not true:
+        with pytest.raises((AssertionError, TypeError)):
+            expect(v1).to.be_greater_or_equal_to(v2)
+    else:
+        expect(v1).to.be_greater_or_equal_to(v2)
+
+
+@pytest.mark.parametrize("v1,v2,true", [
+    (1, 2, True),
+    (3, 2, False),
+    (3.2, 1, False),
+    (100.1, 100.2, True),
+    ([1, 2], [1, 2, 3], True),
+    ([1], [2], True),
+    (2, 2, True),
+
+]
+)
+def test_to_be_lesser_or_equal_to(v1, v2, true):
+    if not true:
+        with pytest.raises((AssertionError, TypeError)):
+            expect(v1).to.be_lesser_or_equal_to(v2)
+    else:
+        expect(v1).to.be_lesser_or_equal_to(v2)
+
+
+@pytest.mark.parametrize("v1,true", [
+    (1, True),
+    (3, True),
+    (3.2, True),
+    ('a', False),
+    ([1, 2], False),
+    (set(), False),
+    (tuple(), False),
+    ('123', True),
+    (lambda x: x, False),
+    (Person('Fero', 12), False),
+]
+)
+def test_to_be_numeric(v1, true):
+    if not true:
+        with pytest.raises((AssertionError, TypeError)):
+            expect(v1).to.be_numeric()
+    else:
+        expect(v1).to.be_numeric()
