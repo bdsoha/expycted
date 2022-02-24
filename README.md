@@ -1,7 +1,5 @@
 # Expycted
 
-:no_good: :no_good: __WARNING: LIBRARY IS CURRENTY UNTESTED__ :no_good: :no_good:
-
 I wished my Python tests were more readable. Now yours can be too. :mag: :mag:
 
 Examples:
@@ -30,6 +28,7 @@ Currently available matchers are:
 - `be_truthy`
 - `be_falsey`
 - `be_of_type`
+- `inherit`
 
 :building_construction: __Note__: Numeric matchers are in-progress :building_construction:
 
