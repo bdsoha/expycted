@@ -7,11 +7,23 @@ class _To():
     def __init__(self, value):
         self.value = value
 
+    def _has_len(self):
+        try:
+            len(self.value)
+            return True
+        except TypeError:
+            return False
+
+
     def _equal(self, something):
         return self.value == something
 
     def _be(self, something):
-        return str(self.value) == str(something) or pickle.dumps(self.value) == pickle.dumps(something)
+        return any([
+            str(self.value) == str(something),
+            pickle.dumps(self.value) == pickle.dumps(something),
+            self.value == something,
+        ])
 
     def _contain(self, something):
         return something in self.value
@@ -45,6 +57,25 @@ class _To():
     def _inherit(self, something):
         return issubclass(type(self.value), something)
 
+    def _be_greater_than(self, something):
+        return self.value > something
+
+    def _be_lesser_than(self, something):
+        return self.value < something
+
+    def _be_greater_or_equal_to(self, something):
+        return self.value >= something
+
+    def _be_lesser_or_equal_to(self, something):
+        return self.value <= something
+
+    def _be_numeric(self):
+        if type(self.value) in [int, float, complex]:
+            return True
+        elif type(self.value) is str:
+            return all([i.isdigit() for i in self.value])
+
+
     def equal(self, something):
         assert self._equal(something)
 
@@ -77,6 +108,23 @@ class _To():
 
     def inherit(self, something):
         assert self._inherit(something)
+
+    def be_greater_than(self, something):
+        assert self._be_greater_than(something)
+
+    def be_lesser_than(self, something):
+        assert self._be_lesser_than(something)
+
+    def be_greater_or_equal_to(self, something):
+        assert self._be_greater_or_equal_to(something)
+
+    def be_lesser_or_equal_to(self, something):
+        assert self._be_lesser_or_equal_to(something)
+
+    def be_numeric(self):
+        assert self._be_numeric()
+
+
 
 
 class _ToNot(_To):
@@ -112,7 +160,22 @@ class _ToNot(_To):
         assert not super()._be_of_type(something)
 
     def inherit(self, something):
-        assert not self._inherit(something)
+        assert not super()._inherit(something)
+
+    def be_greater_than(self, something):
+        assert not super()._be_greater_than(something)
+
+    def be_lesser_than(self, something):
+        assert not super()._be_lesser_than(something)
+
+    def be_greater_or_equal_to(self, something):
+        assert not super()._be_greater_or_equal_to(something)
+
+    def be_lesser_or_equal_to(self, something):
+        assert not super()._be_lesser_or_equal_to(something)
+
+    def be_numeric(self):
+        assert not super()._be_numeric()
 
 
 class _Expect:
