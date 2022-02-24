@@ -2,8 +2,12 @@
 
 I wished my Python tests were more readable. Now yours can be too. :mag: :mag:
 
+Expycted is not dependent on any testing framework and can plug into any as it is just an abstraction over `assert`.
+
 Examples:
 ```python
+from expycted import expect
+
 expect(True).to_not.be_false()    # This will succeed
 
 expect([]).to.be_empty()          # This will succeed
@@ -15,6 +19,8 @@ expect(10).to.equal("10")         # This will raise AssertionError
 expect(10).to.be("10")            # This will succeed
 
 ```
+
+## Matchers
 
 Currently available matchers are:
 
@@ -40,4 +46,4 @@ Currently available matchers are:
     - `be_of_type(self, value)`: checks if `self.value` is of specified type
     - `inherit(self, value)`: checks if `self.value` inherits/is a specified type
 
-__Project is currently in its infancy, contributors and issues are welcome__
+__Project is currently in its infancy, contributors, pull requests and issues are welcome__
