@@ -73,7 +73,12 @@ class _To():
         if type(self.value) in [int, float, complex]:
             return True
         elif type(self.value) is str:
-            return all([i.isdigit() for i in self.value])
+
+            try:
+                float(self.value)
+                return True
+            except Exception:
+                return False
 
 
     def equal(self, something):
