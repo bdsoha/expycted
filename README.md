@@ -1,6 +1,6 @@
 # Expycted
 
-I wished my Python tests were more readable. Now yours can be too. :mag: :mag:
+Yet another `expect` pattern implementation.
 
 Expycted is not dependent on any testing framework and can plug into any as it is just an abstraction over `assert`.
 
