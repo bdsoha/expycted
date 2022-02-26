@@ -6,3 +6,4 @@ name = "pypi"
 [packages]
 pytest = "*"
 pytest-cov = "*"
+poetry = "*"
