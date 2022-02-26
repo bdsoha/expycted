@@ -14,7 +14,6 @@ class _To():
         except TypeError:
             return False
 
-
     def _equal(self, something):
         return self.value == something
 
@@ -80,7 +79,6 @@ class _To():
             except Exception:
                 return False
 
-
     def equal(self, something):
         assert self._equal(something)
 
@@ -128,8 +126,6 @@ class _To():
 
     def be_numeric(self):
         assert self._be_numeric()
-
-
 
 
 class _ToNot(_To):
@@ -183,11 +179,39 @@ class _ToNot(_To):
         assert not super()._be_numeric()
 
 
-class _Expect:
-    def __init__(self, value: None):
+class expect:
+    def __init__(self, value):
         self.to = _To(value)
         self.to_not = _ToNot(value)
 
+    @staticmethod
+    def function(function: callable):
+        return _Function(function)
 
-def expect(something) -> _Expect:
-    return _Expect(something)
+    def value(value):
+        return expect(value)
+
+
+class _Function:
+    def __init__(self, function: callable):
+        self.function = function
+
+    def to_raise(self, exception: Exception):
+        return _ToRaise(exception=exception, function=self.function)
+
+
+class _ToRaise:
+    def __init__(self, exception: Exception, function: callable):
+        self.function = function
+        self.exception = exception
+
+    def when_called_with(self, *args, **kwargs):
+        try:
+            self.function(*args, **kwargs)
+        except Exception as e:
+            print(e)
+            print(self.exception)
+            assert type(e) == self.exception
+        else:
+            raise AssertionError(
+                f"Expected '{self.exception}' to be raised, but nothing was raised")
