@@ -138,6 +138,26 @@ class _To():
     def be_numeric(self):
         assert self._be_numeric()
 
+    # Aliases
+
+    be_a_number = be_numeric
+
+    be_lesser = be_less = be_less_than = be_lesser_than
+    be_lesser_or_equal = be_less_or_equal = be_less_than_or_equal_to = be_lesser_than_or_equal_to = be_lesser_or_equal_to
+
+    be_greater_or_equal = be_greater_than_or_equal_to = be_greater_or_equal_to
+    be_greater = be_greater_than
+
+    be_falsy = be_falsish = be_falsey
+    be_truey = be_trueish = be_truthy
+
+    be_in = be_included_in = be_contained_in
+    have = include = contain
+
+    be_equal_to = equal
+    be_type = have_type = be_of_type
+    be_subclass_of = have_parent = inherit
+
 
 class _ToNot(_To):
 
@@ -189,6 +209,26 @@ class _ToNot(_To):
     def be_numeric(self):
         assert not super()._be_numeric()
 
+    # Aliases
+
+    be_a_number = be_numeric
+
+    be_lesser = be_less = be_less_than = be_lesser_than
+    be_lesser_or_equal = be_less_or_equal = be_less_than_or_equal_to = be_lesser_than_or_equal_to = be_lesser_or_equal_to
+
+    be_greater_or_equal = be_greater_than_or_equal_to = be_greater_or_equal_to
+    be_greater = be_greater_than
+
+    be_falsy = be_falsish = be_falsey
+    be_truey = be_trueish = be_truthy
+
+    be_in = be_included_in = be_contained_in
+    have = include = contain
+
+    be_equal_to = equal
+    be_type = have_type = be_of_type
+    be_subclass_of = have_parent = inherit
+
 
 class _Function:
     def __init__(self, function: callable):
@@ -221,6 +261,8 @@ class _ToRaise:
             raise AssertionError(
                 f"Expected '{self.exception}' to be raised, but nothing was raised")
 
+    when_called_with_args = when_called_with_arguments = when_called_with
+
 
 class _ToReturn:
     def __init__(self, function: callable, value, type_of_value):
@@ -234,6 +276,8 @@ class _ToReturn:
             assert ret == self.value
         if self.type_of_value is not None:
             assert type(ret) == self.type_of_value
+
+    when_called_with_args = when_called_with_arguments = when_called_with
 
 
 class expect:
