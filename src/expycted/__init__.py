@@ -1,4 +1,3 @@
-
 import pickle
 
 
@@ -191,25 +190,19 @@ class _ToNot(_To):
         assert not super()._be_numeric()
 
 
-class expect:
-    def __init__(self, value):
-        self.to = _To(value)
-        self.to_not = _ToNot(value)
-
-    @staticmethod
-    def function(function: callable):
-        return _Function(function)
-
-    def value(value):
-        return expect(value)
-
-
 class _Function:
     def __init__(self, function: callable):
         self.function = function
 
     def to_raise(self, exception: Exception):
         return _ToRaise(exception=exception, function=self.function)
+
+    def to_return(self, value=None, type_of_value=None):
+        if value is None and type_of_value is None:
+            raise AssertionError(
+                'You must specify either value or type_of_value in to_return function')
+        else:
+            return _ToReturn(value=value, type_of_value=type_of_value, function=self.function)
 
 
 class _ToRaise:
@@ -227,3 +220,31 @@ class _ToRaise:
         else:
             raise AssertionError(
                 f"Expected '{self.exception}' to be raised, but nothing was raised")
+
+
+class _ToReturn:
+    def __init__(self, function: callable, value, type_of_value):
+        self.function = function
+        self.value = value
+        self.type_of_value = type_of_value
+
+    def when_called_with(self, *args, **kwargs):
+        ret = self.function(*args, **kwargs)
+        if self.value is not None:
+            assert ret == self.value
+        if self.type_of_value is not None:
+            assert type(ret) == self.type_of_value
+
+
+class expect:
+    def __init__(self, value):
+        self.to = _To(value)
+        self.to_not = _ToNot(value)
+
+    @staticmethod
+    def function(function: callable):
+        return _Function(function)
+
+    @staticmethod
+    def value(value):
+        return expect(value)
