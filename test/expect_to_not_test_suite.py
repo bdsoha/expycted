@@ -81,7 +81,7 @@ def test_to_not_be(v1, v2, true):
 )
 def test_to_not_contain(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.contain(v2)
     else:
         expect(v1).to_not.contain(v2)
@@ -102,7 +102,7 @@ def test_to_not_contain(v1, v2, true):
 )
 def test_to_not_be_contained_in(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v2).to_not.be_contained_in(v1)
     else:
         expect(v2).to_not.be_contained_in(v1)
@@ -218,7 +218,7 @@ def test_to_not_be_falsey(v1, true):
 )
 def test_to_not_be_of_type(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.be_of_type(v2)
     else:
         expect(v1).to_not.be_of_type(v2)
@@ -244,7 +244,7 @@ def test_to_not_be_of_type(v1, v2, true):
 )
 def test_to_not_inherit(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.inherit(v2)
     else:
         expect(v1).to_not.inherit(v2)
@@ -265,7 +265,7 @@ def test_to_not_inherit(v1, v2, true):
 )
 def test_to_not_be_greater_than(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.be_greater_than(v2)
     else:
         expect(v1).to_not.be_greater_than(v2)
@@ -284,7 +284,7 @@ def test_to_not_be_greater_than(v1, v2, true):
 )
 def test_to_not_be_lesser_than(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.be_lesser_than(v2)
     else:
         expect(v1).to_not.be_lesser_than(v2)
@@ -303,7 +303,7 @@ def test_to_not_be_lesser_than(v1, v2, true):
 )
 def test_to_not_be_greater_or_equal_to(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.be_greater_or_equal_to(v2)
     else:
         expect(v1).to_not.be_greater_or_equal_to(v2)
@@ -322,7 +322,7 @@ def test_to_not_be_greater_or_equal_to(v1, v2, true):
 )
 def test_to_not_be_lesser_or_equal_to(v1, v2, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.be_lesser_or_equal_to(v2)
     else:
         expect(v1).to_not.be_lesser_or_equal_to(v2)
@@ -343,7 +343,7 @@ def test_to_not_be_lesser_or_equal_to(v1, v2, true):
 )
 def test_to_not_be_numeric(v1, true):
     if not true:
-        with pytest.raises((AssertionError, TypeError)):
+        with pytest.raises(AssertionError):
             expect(v1).to_not.be_numeric()
     else:
         expect(v1).to_not.be_numeric()
