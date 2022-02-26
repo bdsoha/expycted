@@ -25,17 +25,25 @@ class _To():
         ])
 
     def _contain(self, something):
-        return something in self.value
+        try:
+            return something in self.value
+        except Exception:
+            raise AssertionError(
+                f'Type "{type(self.value)} cannot contain {something}"')
 
     def _be_contained_in(self, something):
-        return self.value in something
+        try:
+            return self.value in something
+        except Exception:
+            raise AssertionError(
+                f'Type "{type(something)} cannot contain {self.value}"')
 
     def _be_empty(self):
         try:
             iter(self.value)
             return not self.value
         except TypeError:
-            raise TypeError(
+            raise AssertionError(
                 f"Emptiness of '{type(self.value)}' object doesn't make sense")
 
     def _be_true(self):
@@ -54,7 +62,11 @@ class _To():
         return type(self.value) is something
 
     def _inherit(self, something):
-        return issubclass(type(self.value), something)
+        try:
+            return issubclass(type(self.value), something)
+        except Exception:
+            raise AssertionError(
+                'Second argument must be a class, not an instance')
 
     def _be_greater_than(self, something):
         return self.value > something
