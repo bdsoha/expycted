@@ -93,51 +93,161 @@ class _To():
                 return False
 
     def equal(self, something: Any) -> bool:
+        """Checks whether that the value is equal to something
+
+        Args:
+            something (Any): The value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert self._equal(something)
 
     def be(self, something: Any) -> bool:
+        """Checks whether the value is 'softly' equal to something
+
+        Args:
+            something (Any): The value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert self._be(something)
 
     def contain(self, something: Any) -> bool:
+        """Checks whether the value contains something
+
+        Args:
+            something (Any): The value to be contained
+
+        Returns:
+            bool: Result
+        """
         assert self._contain(something)
 
     def be_contained_in(self, something: Collection) -> bool:
+        """Checks whether the value is contained in something
+
+        Args:
+            something (Any): The value to contain something
+
+        Returns:
+            bool: Result
+        """
         assert self._be_contained_in(something)
 
     def be_empty(self) -> bool:
+        """Checks whether the value is empty
+
+        Returns:
+            bool: Result
+        """
         assert self._be_empty()
 
     def be_true(self) -> bool:
+        """Checks whether the value is true
+
+        Returns:
+            bool: Result
+        """
         assert self._be_true()
 
     def be_false(self) -> bool:
+        """Checks whether the value is false
+
+        Returns:
+            bool: Result
+        """
         assert self._be_false()
 
     def be_truthy(self) -> bool:
+        """Checks whether the value is truthy
+
+        Returns:
+            bool: Result
+        """
         assert self._be_truthy()
 
     def be_falsey(self) -> bool:
+        """Checks whether the value is falsey
+
+        Returns:
+            bool: Result
+        """
         assert self._be_falsey()
 
     def be_of_type(self, something: type) -> bool:
+        """Checks whether the value is of provided type
+
+        Args:
+            something (type): Type to be checked against
+
+        Returns:
+            bool: Result
+        """
         assert self._be_of_type(something)
 
     def inherit(self, something: type) -> bool:
+        """Checks whether the value inherits from provided type
+
+        Args:
+            something (type): Type to inherit from
+
+        Returns:
+            bool: Result
+        """
         assert self._inherit(something)
 
     def be_greater_than(self, something: Any) -> bool:
+        """Check whether the value is greater than something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert self._be_greater_than(something)
 
     def be_lesser_than(self, something: Any) -> bool:
+        """Check whether the value is lesser than something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert self._be_lesser_than(something)
 
     def be_greater_or_equal_to(self, something: Any) -> bool:
+        """Check whether the value is greater than or equal to something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert self._be_greater_or_equal_to(something)
 
     def be_lesser_or_equal_to(self, something: Any) -> bool:
+        """Check whether the value is lesser than or equal to something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert self._be_lesser_or_equal_to(something)
 
     def be_numeric(self) -> bool:
+        """Check whether the value is numeric
+
+        Returns:
+            bool: Result
+        """
         assert self._be_numeric()
 
     # Aliases
@@ -165,51 +275,161 @@ class _ToNot(_To):
     value: Any
 
     def equal(self, something: Any) -> bool:
+        """Checks whether that the value is not equal to something
+
+        Args:
+            something (Any): The value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert not super()._equal(something)
 
     def be(self, something: Any) -> bool:
+        """Checks whether the value is not 'softly' equal to something
+
+        Args:
+            something (Any): The value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be(something)
 
     def contain(self, something: Any) -> bool:
+        """Checks whether the value does not contains something
+
+        Args:
+            something (Any): The value to be contained
+
+        Returns:
+            bool: Result
+        """
         assert not super()._contain(something)
 
     def be_contained_in(self, something: Collection) -> bool:
+        """Checks whether the value is not contained in something
+
+        Args:
+            something (Any): The value to contain something
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_contained_in(something)
 
     def be_empty(self) -> bool:
+        """Checks whether the value is not empty
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_empty()
 
     def be_true(self) -> bool:
+        """Checks whether the value is not true
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_true()
 
     def be_false(self) -> bool:
+        """Checks whether the value is not false
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_false()
 
     def be_truthy(self) -> bool:
+        """Checks whether the value is not truthy
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_truthy()
 
     def be_falsey(self) -> bool:
+        """Checks whether the value is not falsey
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_falsey()
 
     def be_of_type(self, something: type) -> bool:
+        """Checks whether the value is not of provided type
+
+        Args:
+            something (type): Type to be checked against
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_of_type(something)
 
     def inherit(self, something: type) -> bool:
+        """Checks whether the value does not inherits from provided type
+
+        Args:
+            something (type): Type to inherit from
+
+        Returns:
+            bool: Result
+        """
         assert not super()._inherit(something)
 
     def be_greater_than(self, something: Any) -> bool:
+        """Check whether the value is not greater than something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_greater_than(something)
 
     def be_lesser_than(self, something: Any) -> bool:
+        """Check whether the value is not lesser than something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_lesser_than(something)
 
     def be_greater_or_equal_to(self, something) -> bool:
+        """Check whether the value is not greater than or equal to something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_greater_or_equal_to(something)
 
     def be_lesser_or_equal_to(self, something: Any) -> bool:
+        """Check whether the value is not lesser than or equal to something
+
+        Args:
+            something (Any): Value to compare to
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_lesser_or_equal_to(something)
 
     def be_numeric(self) -> bool:
+        """Check whether the value is not numeric
+
+        Returns:
+            bool: Result
+        """
         assert not super()._be_numeric()
 
     # Aliases
@@ -238,9 +458,23 @@ class _Function:
         self.function = function
 
     def to_raise(self, exception: Exception):
+        """Check if the function raises the exception
+
+        Args:
+            exception (Exception): Exception to expect
+        """
         return _ToRaise(exception=exception, function=self.function)
 
     def to_return(self, value: Any = None, type_of_value: type = None):
+        """ Check if the function returns provided value or type
+
+        Args:
+            value (Any, optional): Value that is expected to be returned. Defaults to None.
+            type_of_value (type, optional): Type of value that is expected to be returned. Defaults to None.
+
+        Raises:
+            AssertionError: When neither of type_of_value and value is not provided AssertionError is raised
+        """
         if value is None and type_of_value is None:
             raise AssertionError(
                 'You must specify either value or type_of_value in to_return function')
@@ -257,6 +491,11 @@ class _ToRaise:
         self.exception = exception
 
     def when_called_with(self, *args, **kwargs):
+        """Arguments to call the function with
+
+        Raises:
+            AssertionError: When function doesn't raise the expected exception AssertionError is raised
+        """
         try:
             self.function(*args, **kwargs)
         except Exception as e:
@@ -281,6 +520,11 @@ class _ToReturn:
         self.type_of_value = type_of_value
 
     def when_called_with(self, *args, **kwargs):
+        """Arguments to call the function with
+
+        Raises:
+            AssertionError: When function value or type_of_value is not matched AssertionError is raised
+        """
         ret = self.function(*args, **kwargs)
         if self.value is not None:
             assert ret == self.value
@@ -292,13 +536,28 @@ class _ToReturn:
 
 class expect:
     def __init__(self, value: any):
+        """Expect a value to be something
+
+        Args:
+            value (any): Value to check for some sort of condition
+        """
         self.to = _To(value)
         self.to_not = _ToNot(value)
 
     @staticmethod
     def function(function: callable):
+        """Expect a function to do something
+
+        Args:
+            function (callable): Function to check for some sort of condition
+        """
         return _Function(function)
 
     @staticmethod
     def value(value: any):
+        """Expect a value to be something
+
+        Args:
+            value (any): Value to check for some sort of condition
+        """
         return expect(value)
