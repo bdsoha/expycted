@@ -1,36 +1,38 @@
 import pickle
+from typing import Any, Collection
 
 
 class _To():
+    value: Any
 
     def __init__(self, value):
         self.value = value
 
-    def _has_len(self):
+    def _has_len(self: Any) -> bool:
         try:
             len(self.value)
             return True
         except TypeError:
             return False
 
-    def _equal(self, something):
+    def _equal(self, something: Any) -> bool:
         return self.value == something
 
-    def _be(self, something):
+    def _be(self, something: Any) -> bool:
         return any([
             str(self.value) == str(something),
             pickle.dumps(self.value) == pickle.dumps(something),
             self.value == something,
         ])
 
-    def _contain(self, something):
+    def _contain(self, something: Any) -> bool:
         try:
             return something in self.value
         except Exception:
             raise AssertionError(
                 f'Type "{type(self.value)} cannot contain {something}"')
 
-    def _be_contained_in(self, something):
+    def _be_contained_in(self, something: Collection) -> bool:
         try:
             return self.value in something
         except Exception:
@@ -45,41 +47,41 @@ class _To():
             raise AssertionError(
                 f"Emptiness of '{type(self.value)}' object doesn't make sense")
 
-    def _be_true(self):
+    def _be_true(self) -> bool:
         return self.value is True
 
-    def _be_false(self):
+    def _be_false(self) -> bool:
         return self.value is False
 
-    def _be_truthy(self):
-        return self.value
+    def _be_truthy(self) -> bool:
+        return True if self.value else False
 
-    def _be_falsey(self):
-        return not self.value
+    def _be_falsey(self) -> bool:
+        return True if not self.value else False
 
-    def _be_of_type(self, something):
+    def _be_of_type(self, something: type) -> bool:
         return type(self.value) is something
 
-    def _inherit(self, something):
+    def _inherit(self, something: type) -> bool:
         try:
             return issubclass(type(self.value), something)
         except Exception:
             raise AssertionError(
                 'Second argument must be a class, not an instance')
 
-    def _be_greater_than(self, something):
+    def _be_greater_than(self, something: Any) -> bool:
         return self.value > something
 
-    def _be_lesser_than(self, something):
+    def _be_lesser_than(self, something: Any) -> bool:
         return self.value < something
 
-    def _be_greater_or_equal_to(self, something):
+    def _be_greater_or_equal_to(self, something: Any) -> bool:
         return self.value >= something
 
-    def _be_lesser_or_equal_to(self, something):
+    def _be_lesser_or_equal_to(self, something: Any) -> bool:
         return self.value <= something
 
-    def _be_numeric(self):
+    def _be_numeric(self: Any) -> bool:
         if type(self.value) in [int, float, complex]:
             return True
         elif type(self.value) is str:
@@ -90,52 +92,52 @@ class _To():
             except Exception:
                 return False
 
-    def equal(self, something):
+    def equal(self, something: Any) -> bool:
         assert self._equal(something)
 
-    def be(self, something):
+    def be(self, something: Any) -> bool:
         assert self._be(something)
 
-    def contain(self, something):
+    def contain(self, something: Any) -> bool:
         assert self._contain(something)
 
-    def be_contained_in(self, something):
+    def be_contained_in(self, something: Collection) -> bool:
         assert self._be_contained_in(something)
 
-    def be_empty(self):
+    def be_empty(self) -> bool:
         assert self._be_empty()
 
-    def be_true(self):
+    def be_true(self) -> bool:
         assert self._be_true()
 
-    def be_false(self):
+    def be_false(self) -> bool:
         assert self._be_false()
 
-    def be_truthy(self):
+    def be_truthy(self) -> bool:
         assert self._be_truthy()
 
-    def be_falsey(self):
+    def be_falsey(self) -> bool:
         assert self._be_falsey()
 
-    def be_of_type(self, something):
+    def be_of_type(self, something: type) -> bool:
         assert self._be_of_type(something)
 
-    def inherit(self, something):
+    def inherit(self, something: type) -> bool:
         assert self._inherit(something)
 
-    def be_greater_than(self, something):
+    def be_greater_than(self, something: Any) -> bool:
         assert self._be_greater_than(something)
 
-    def be_lesser_than(self, something):
+    def be_lesser_than(self, something: Any) -> bool:
         assert self._be_lesser_than(something)
 
-    def be_greater_or_equal_to(self, something):
+    def be_greater_or_equal_to(self, something: Any) -> bool:
         assert self._be_greater_or_equal_to(something)
 
-    def be_lesser_or_equal_to(self, something):
+    def be_lesser_or_equal_to(self, something: Any) -> bool:
         assert self._be_lesser_or_equal_to(something)
 
-    def be_numeric(self):
+    def be_numeric(self) -> bool:
         assert self._be_numeric()
 
     # Aliases
@@ -160,53 +162,54 @@ class _To():
 
 
 class _ToNot(_To):
+    value: Any
 
-    def equal(self, something):
+    def equal(self, something: Any) -> bool:
         assert not super()._equal(something)
 
-    def be(self, something):
+    def be(self, something: Any) -> bool:
         assert not super()._be(something)
 
-    def contain(self, something):
+    def contain(self, something: Any) -> bool:
         assert not super()._contain(something)
 
-    def be_contained_in(self, something):
+    def be_contained_in(self, something: Collection) -> bool:
         assert not super()._be_contained_in(something)
 
-    def be_empty(self):
+    def be_empty(self) -> bool:
         assert not super()._be_empty()
 
-    def be_true(self):
+    def be_true(self) -> bool:
         assert not super()._be_true()
 
-    def be_false(self):
+    def be_false(self) -> bool:
         assert not super()._be_false()
 
-    def be_truthy(self):
+    def be_truthy(self) -> bool:
         assert not super()._be_truthy()
 
-    def be_falsey(self):
+    def be_falsey(self) -> bool:
         assert not super()._be_falsey()
 
-    def be_of_type(self, something):
+    def be_of_type(self, something: type) -> bool:
         assert not super()._be_of_type(something)
 
-    def inherit(self, something):
+    def inherit(self, something: type) -> bool:
         assert not super()._inherit(something)
 
-    def be_greater_than(self, something):
+    def be_greater_than(self, something: Any) -> bool:
         assert not super()._be_greater_than(something)
 
-    def be_lesser_than(self, something):
+    def be_lesser_than(self, something: Any) -> bool:
         assert not super()._be_lesser_than(something)
 
-    def be_greater_or_equal_to(self, something):
+    def be_greater_or_equal_to(self, something) -> bool:
         assert not super()._be_greater_or_equal_to(something)
 
-    def be_lesser_or_equal_to(self, something):
+    def be_lesser_or_equal_to(self, something: Any) -> bool:
         assert not super()._be_lesser_or_equal_to(something)
 
-    def be_numeric(self):
+    def be_numeric(self) -> bool:
         assert not super()._be_numeric()
 
     # Aliases
@@ -237,7 +240,7 @@ class _Function:
     def to_raise(self, exception: Exception):
         return _ToRaise(exception=exception, function=self.function)
 
-    def to_return(self, value=None, type_of_value=None):
+    def to_return(self, value: Any = None, type_of_value: type = None):
         if value is None and type_of_value is None:
             raise AssertionError(
                 'You must specify either value or type_of_value in to_return function')
@@ -246,6 +249,9 @@ class _Function:
 
 
 class _ToRaise:
+    function: callable
+    exception: Exception
+
     def __init__(self, exception: Exception, function: callable):
         self.function = function
         self.exception = exception
@@ -265,6 +271,10 @@ class _ToRaise:
 
 
 class _ToReturn:
+    function: callable
+    value: Any
+    type_of_value: type
+
     def __init__(self, function: callable, value, type_of_value):
         self.function = function
         self.value = value
@@ -281,7 +291,7 @@ class _ToReturn:
 
 
 class expect:
-    def __init__(self, value):
+    def __init__(self, value: any):
         self.to = _To(value)
         self.to_not = _ToNot(value)
 
@@ -290,5 +300,5 @@ class expect:
         return _Function(function)
 
     @staticmethod
-    def value(value):
+    def value(value: any):
         return expect(value)
