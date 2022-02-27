@@ -7,3 +7,7 @@ name = "pypi"
 pytest = "*"
 pytest-cov = "*"
 poetry = "*"
+
+[scripts]
+test = "pytest"
+build = "poetry build"

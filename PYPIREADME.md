@@ -89,28 +89,3 @@ Currently available matchers are:
 - `to_raise(self, exception_type)` - checks if function raises a specified exception.
 
 In each case we have to specify arguments with which function is called in `.when_called_with` method. Method has aliases `when_called_with_args`, `when_called_with_arguments`
-
-__Project is currently in its infancy, contributors, pull requests and issues are welcome__
-
-# Development
-For development a combination of `poetry` and `pipenv` is used. `pipenv` is used to install dependencies and manage virtual environments while `poetry` is used for building and metadata management.
-
-To begin developing you can clone the repository:
-```sh
-git clone https://github.com/petereon/expycted.git
-```
-
-Then you can install dependencies using:
-```sh
-pipenv install
-```
-
-After that you can run tests using:
-```sh
-pipenv run test
-```
-
-Then, package can be built using:
-```sh
-pipenv run build
-```
