@@ -62,7 +62,7 @@ Currently available matchers are:
     - `be_lesser_than(self, value)`: equivalent to "`<`". With alias `be_lesser `, `be_less`, `be_less_than`
     - `be_greater_or_equal_to(self, value)`: equivalent to "`>=`". With aliases `be_greater_or_equal`, `be_greater_than_or_equal_to`
     - `be_lesser_or_equal_to(self, value)`: equivalent to "`<=`". With aliases `be_lesser_or_equal`, `be_less_or_equal`, `be_less_than_or_equal_to`, `be_lesser_than_or_equal_to`
-    - `is_numeric(self)`: checks if `self.value` is a number or string covertible to a number. With alias `be_a_number`
+    - `be_numeric(self)`: checks if `self.value` is a number or string covertible to a number. With alias `be_a_number`
 - Containment and Emptiness
     - `contain(self, value)`: equivalent to "`in`". With aliases `have`, `include`
     - `be_contained_in(self, value)`: equivalent to "`in`". Qith aliases `be_in`, `be_included_in`
