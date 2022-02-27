@@ -4,8 +4,17 @@ version = "0.3.0"
 description = "Because tests should be easy to read"
 authors = ["Petereon <pvyboch1@gmail.com>"]
 license = "MIT"
+repository = 'https://github.com/petereon/expycted'
 readme = 'README.md'
-
+keywords = ['expect', 'expect-pattern', 'testing', 'test', 'matchers']
+classifiers = [
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python :: 3',
+    'Natural Language :: English',
+    'Topic :: Software Development :: Testing',
+    'Topic :: Software Development :: Libraries',
+    'Typing :: Typed'
+]
 [tool.poetry.dependencies]
 python = "^3.6"
 
