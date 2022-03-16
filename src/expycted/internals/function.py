@@ -4,7 +4,7 @@ class Function:
     def __init__(self, function: callable):
         self.function = function
 
-    def to_raise(self, exception: Exception):
+    def to_raise(self, exception: Exception = Exception):
         """Check if the function raises the exception
 
         Args:
@@ -46,9 +46,7 @@ class ToRaise:
         try:
             self.function(*args, **kwargs)
         except Exception as e:
-            print(e)
-            print(self.exception)
-            assert type(e) == self.exception
+            assert issubclass(type(e), self.exception)
         else:
             raise AssertionError(
                 f"Expected '{self.exception}' to be raised, but nothing was raised")
