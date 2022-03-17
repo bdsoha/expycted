@@ -103,7 +103,7 @@ Currently available matchers are:
 - `exist(self)` - checks if folder exists.
 - `be_empty(self)` - checks if folder is empty.
 
-They can be used with both 'expect.folder('/some/folder').to' and 'expect.folder('/some/folder').to_not' to check both positive and negative expectations.
+They can be used with both `expect.folder('/some/folder').to` and `expect.folder('/some/folder').to_not` to check both positive and negative expectations.
 
 # Development
 For development a combination of `poetry` and `pipenv` is used. `pipenv` is used to install dependencies and manage virtual environments while `poetry` is used for building and metadata management.
