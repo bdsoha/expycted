@@ -62,7 +62,7 @@ Currently available matchers are:
     - `be_lesser_than(self, value)`: equivalent to "`<`". With alias `be_lesser `, `be_less`, `be_less_than`
     - `be_greater_or_equal_to(self, value)`: equivalent to "`>=`". With aliases `be_greater_or_equal`, `be_greater_than_or_equal_to`
     - `be_lesser_or_equal_to(self, value)`: equivalent to "`<=`". With aliases `be_lesser_or_equal`, `be_less_or_equal`, `be_less_than_or_equal_to`, `be_lesser_than_or_equal_to`
-    - `is_numeric(self)`: checks if `self.value` is a number or string covertible to a number. With alias `be_a_number`
+    - `be_numeric(self)`: checks if `self.value` is a number or string covertible to a number. With alias `be_a_number`
 - Containment and Emptiness
     - `contain(self, value)`: equivalent to "`in`". With aliases `have`, `include`
     - `be_contained_in(self, value)`: equivalent to "`in`". Qith aliases `be_in`, `be_included_in`
@@ -89,3 +89,18 @@ Currently available matchers are:
 - `to_raise(self, exception_type)` - checks if function raises a specified exception.
 
 In each case we have to specify arguments with which function is called in `.when_called_with` method. Method has aliases `when_called_with_args`, `when_called_with_arguments`
+
+## Filesystem Matchers
+
+Filesystem matchers can be called as such:
+```python
+expect.folder('/some/folder').to.contain('subfolder')
+```
+Currently available matchers are:
+- `contain(self, name, type: Union[File, Folder, None, str] = None)` - checks if folder contains a specified file or folder. If type is specified, it will check if file is file or folder is folder.
+- `contain_file(self, name)` - checks if folder contains a specified file.
+- `contain_folder(self, name)` - checks if folder contains a specified folder.
+- `exist(self)` - checks if folder exists.
+- `be_empty(self)` - checks if folder is empty.
+
+They can be used with both 'expect.folder('/some/folder').to' and 'expect.folder('/some/folder').to_not' to check both positive and negative expectations.

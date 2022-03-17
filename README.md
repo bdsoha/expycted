@@ -90,8 +90,6 @@ Currently available matchers are:
 
 In each case we have to specify arguments with which function is called in `.when_called_with` method. Method has aliases `when_called_with_args`, `when_called_with_arguments`
 
-__Project is currently in its infancy, contributors, pull requests and issues are welcome__
-
 ## Filesystem Matchers
 
 Filesystem matchers can be called as such:
@@ -129,3 +127,5 @@ Then, package can be built using:
 ```sh
 pipenv run build
 ```
+
+__Project is currently in its infancy, contributors, pull requests and issues are welcome__
