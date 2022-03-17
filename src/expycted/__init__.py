@@ -1,4 +1,4 @@
-from expycted.internals import (
+from expycted.internals.value import (
     To,
     ToNot
 )
