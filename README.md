@@ -92,6 +92,21 @@ In each case we have to specify arguments with which function is called in `.whe
 
 __Project is currently in its infancy, contributors, pull requests and issues are welcome__
 
+## Filesystem Matchers
+
+Filesystem matchers can be called as such:
+```python
+expect.folder('/some/folder').to.contain('subfolder')
+```
+Currently available matchers are:
+- `contain(self, name, type: Union[File, Folder, None, str] = None)` - checks if folder contains a specified file or folder. If type is specified, it will check if file is file or folder is folder.
+- `contain_file(self, name)` - checks if folder contains a specified file.
+- `contain_folder(self, name)` - checks if folder contains a specified folder.
+- `exist(self)` - checks if folder exists.
+- `be_empty(self)` - checks if folder is empty.
+
+They can be used with both 'expect.folder('/some/folder').to' and 'expect.folder('/some/folder').to_not' to check both positive and negative expectations.
+
 # Development
 For development a combination of `poetry` and `pipenv` is used. `pipenv` is used to install dependencies and manage virtual environments while `poetry` is used for building and metadata management.
 
