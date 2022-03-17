@@ -2,6 +2,7 @@ from expycted.internals import (
     To,
     ToNot
 )
+from expycted.internals.filesystem import Directory
 
 from expycted.internals.function import Function
 
@@ -32,3 +33,14 @@ class expect:
             value (any): Value to check for some sort of condition
         """
         return expect(value)
+    
+    @staticmethod
+    def folder(path: str):
+        """Expect a folder to be something
+
+        Args:
+            path (str): Path to folder to check for some sort of condition
+        """
+        return Directory(path)
+    
+    directory = folder
