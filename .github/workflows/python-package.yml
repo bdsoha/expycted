@@ -15,7 +15,7 @@ jobs:
       contains(github.event.head_commit.message, 'feat') || 
       contains(github.event.head_commit.message, 'fix') || 
       contains(github.event.head_commit.message, 'test') ||
-      contains((github.event.head_commit.message, 'refactor')
+      contains(github.event.head_commit.message, 'refactor')
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
