@@ -1,10 +1,11 @@
-from typing import Any
+from typing import Any, Callable, Type
+
 
 class Function:
-    def __init__(self, function: callable):
+    def __init__(self, function: Callable):
         self.function = function
 
-    def to_raise(self, exception: Exception = Exception):
+    def to_raise(self, exception: Type[Exception] = Exception):
         """Check if the function raises the exception
 
         Args:
@@ -13,7 +14,7 @@ class Function:
         return ToRaise(exception=exception, function=self.function)
 
     def to_return(self, value: Any = None, type_of_value: type = None):
-        """ Check if the function returns provided value or type
+        """Check if the function returns provided value or type
 
         Args:
             value (Any, optional): Value that is expected to be returned. Defaults to None.
@@ -24,16 +25,19 @@ class Function:
         """
         if value is None and type_of_value is None:
             raise AssertionError(
-                'You must specify either value or type_of_value in to_return function')
+                "You must specify either value or type_of_value in to_return function"
+            )
         else:
-            return ToReturn(value=value, type_of_value=type_of_value, function=self.function)
+            return ToReturn(
+                value=value, type_of_value=type_of_value, function=self.function
+            )
 
 
 class ToRaise:
-    function: callable
+    function: Callable
     exception: Exception
 
-    def __init__(self, exception: Exception, function: callable):
+    def __init__(self, exception: Exception, function: Callable):
         self.function = function
         self.exception = exception
 
@@ -49,17 +53,18 @@ class ToRaise:
             assert issubclass(type(e), self.exception)
         else:
             raise AssertionError(
-                f"Expected '{self.exception}' to be raised, but nothing was raised")
+                f"Expected '{self.exception}' to be raised, but nothing was raised"
+            )
 
     when_called_with_args = when_called_with_arguments = when_called_with
 
 
 class ToReturn:
-    function: callable
+    function: Callable
     value: Any
     type_of_value: type
 
-    def __init__(self, function: callable, value, type_of_value):
+    def __init__(self, function: Callable, value, type_of_value):
         self.function = function
         self.value = value
         self.type_of_value = type_of_value

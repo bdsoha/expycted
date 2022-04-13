@@ -1,10 +1,9 @@
-from expycted.internals.value import (
-    To,
-    ToNot
-)
+from typing import Callable
+from expycted.internals.value import To, ToNot
 from expycted.internals.filesystem import Directory
 
 from expycted.internals.function import Function
+
 
 class expect:
     def __init__(self, value: any):
@@ -17,7 +16,7 @@ class expect:
         self.to_not = ToNot(value)
 
     @staticmethod
-    def function(function: callable):
+    def function(function: Callable):
         """Expect a function to do something
 
         Args:
@@ -33,7 +32,7 @@ class expect:
             value (any): Value to check for some sort of condition
         """
         return expect(value)
-    
+
     @staticmethod
     def folder(path: str):
         """Expect a folder to be something
@@ -42,5 +41,5 @@ class expect:
             path (str): Path to folder to check for some sort of condition
         """
         return Directory(path)
-    
+
     directory = folder
