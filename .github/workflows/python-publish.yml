@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install pipenv
-        pipenv install
+        pipenv install --dev
     - name: Build and install the library
       run: |
         pipenv run poetry build
