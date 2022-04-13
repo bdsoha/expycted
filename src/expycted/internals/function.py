@@ -35,9 +35,9 @@ class Function:
 
 class ToRaise:
     function: Callable
-    exception: Exception
+    exception: Type[Exception]
 
-    def __init__(self, exception: Exception, function: Callable):
+    def __init__(self, exception: Type[Exception], function: Callable):
         self.function = function
         self.exception = exception
 

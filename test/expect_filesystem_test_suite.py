@@ -63,11 +63,6 @@ def test_to_not_contain_file_failing(get_test_directory):
         expect.folder(get_test_directory).to_not.contain_file("test_file.txt")
 
 
-def test_to_contain_file_failing(get_empty_test_directory):
-    with pytest.raises(AssertionError):
-        expect.folder(get_empty_test_directory).to.contain_file("test_file3.txt")
-
-
 def test_to_be_empty(get_empty_test_directory):
     expect.folder(get_empty_test_directory).to.be_empty()
 
@@ -75,15 +70,6 @@ def test_to_be_empty(get_empty_test_directory):
 def test_to_be_empty_failing(get_test_directory):
     with pytest.raises(AssertionError):
         expect.folder(get_test_directory).to.be_empty()
-
-
-def test_to_not_be_empty(get_test_directory):
-    expect.folder(get_test_directory).to_not.be_empty()
-
-
-def test_to_not_be_empty_failing(get_empty_test_directory):
-    with pytest.raises(AssertionError):
-        expect.folder(get_empty_test_directory).to_not.be_empty()
 
 
 def test_to_contain_subfolder(get_test_directory_with_subdirectory):
