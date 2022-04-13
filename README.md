@@ -1,3 +1,5 @@
+[![Build and test Python package](https://github.com/petereon/expycted/actions/workflows/python-package.yml/badge.svg)](https://github.com/petereon/expycted/actions/workflows/python-package.yml)
+
 # Overview
 
 __Expycted__ is yet another `expect` pattern implementation.
