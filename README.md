@@ -1,4 +1,4 @@
-[![Build and test Python package](https://github.com/petereon/expycted/actions/workflows/python-package.yml/badge.svg)](https://github.com/petereon/expycted/actions/workflows/python-package.yml)
+[![Build and Test Python Package](https://github.com/petereon/expycted/actions/workflows/python-package.yml/badge.svg)](https://github.com/petereon/expycted/actions/workflows/python-package.yml)
 
 # Overview
 
