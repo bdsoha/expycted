@@ -1,5 +1,11 @@
 from typing import Any, Callable, Type
 
+assertion_texts = {
+    "to_raise": "Expected function `{function}` to raise {exc} when called with: {arguments}",
+    "to_return": "Expected function {function} to return {value} when called with: {arguments}",
+    "to_return_type": "Expected value ({value}) returned by function {function} to be of type {type} when called with: {arguments}",
+}
+
 
 class Function:
     def __init__(self, function: Callable):
@@ -32,6 +38,21 @@ class Function:
                 value=value, type_of_value=type_of_value, function=self.function
             )
 
+def format_args_kwargs(args: Any, kwargs: Any) -> str:
+    """Format arguments and keyword arguments to string
+
+    Args:
+        args (Any): Arguments
+        kwargs (Any): Keyword arguments
+
+    Returns:
+        str: Formatted arguments and keyword arguments
+    """
+    args_str = ", ".join(map(str, args))
+    kwargs_str = ", ".join(
+        map(lambda x: "{}={}".format(x[0], x[1]), kwargs.items())
+    )
+    return f"\n\t- arguments: {args_str} \n\t- keyword arguments: {kwargs_str}"
 
 class ToRaise:
     function: Callable
@@ -50,7 +71,10 @@ class ToRaise:
         try:
             self.function(*args, **kwargs)
         except Exception as e:
-            assert issubclass(type(e), self.exception)
+            assert issubclass(type(e), self.exception), assertion_texts["to_raise"].format(
+                function=self.function.__name__, 
+                exc=self.exception, 
+                arguments=format_args_kwargs(args, kwargs))
         else:
             raise AssertionError(
                 f"Expected '{self.exception}' to be raised, but nothing was raised"
@@ -77,8 +101,15 @@ class ToReturn:
         """
         ret = self.function(*args, **kwargs)
         if self.value is not None:
-            assert ret == self.value
+            assert ret == self.value, assertion_texts["to_return"].format(
+                function=self.function.__name__, 
+                value=self.value, 
+                arguments=format_args_kwargs(args, kwargs))
         if self.type_of_value is not None:
-            assert type(ret) == self.type_of_value
+            assert type(ret) == self.type_of_value, assertion_texts["to_return_type"].format(
+                function=self.function.__name__, 
+                value=self.value, 
+                arguments=format_args_kwargs(args, kwargs),
+                type=self.type_of_value)
 
     when_called_with_args = when_called_with_arguments = when_called_with
