@@ -83,7 +83,7 @@ Currently available matchers are:
 
 Function matchers can be called as such:
 ```python
-expect.function(string.replace).to_return('strength').when_called_with('ing', 'ength')
+expect.function(string.replace).to_return('strength').when_called_with('string', 'ength')
 ```
 
 Currently available matchers are:
