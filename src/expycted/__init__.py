@@ -12,8 +12,15 @@ class expect:
         Args:
             value (Any): Value to check for some sort of condition
         """
-        self.to = To(value)
-        self.to_not = ToNot(value)
+        self.value = value
+
+    @property
+    def to(self):
+        return To(self.value)
+
+    @property
+    def to_not(self):
+        return ToNot(self.value)
 
     @staticmethod
     def function(function: Callable):
