@@ -1,7 +1,7 @@
 import os
 from typing import Tuple, Type, Union
 
-from expycted.internals.utils import to_not_fn
+from expycted.internals.utils import hidetraceback, to_not_fn
 
 assertion_texts = {
     "contain": "Expected {value1} to contain {value2}",
@@ -71,6 +71,7 @@ class To:
             value1=self.path
         )
 
+    @hidetraceback
     def contain(
         self, name: str, type: Union[Type[File], Type[Folder], None, str] = None
     ) -> None:
@@ -80,6 +81,7 @@ class To:
         res = self._internal_contain(name, type)
         assert res[0], res[1]
 
+    @hidetraceback
     def contain_file(self, name: str) -> None:
         """
         Check if folder contains file with given name
@@ -87,6 +89,7 @@ class To:
         res = self._internal_contain_file(name)
         assert res[0], res[1]
 
+    @hidetraceback
     def contain_folder(self, name: str) -> None:
         """
         Check if folder contains folder with given name
@@ -94,6 +97,7 @@ class To:
         res = self._internal_contain_folder(name)
         assert res[0], res[1]
 
+    @hidetraceback
     def exist(self) -> None:
         """
         Check if folder exists
@@ -101,6 +105,7 @@ class To:
         res = self._internal_exist()
         assert res[0], res[1]
 
+    @hidetraceback
     def be_empty(self) -> None:
         """
         Check if folder is empty

@@ -1,3 +1,4 @@
+import os
 from typing import Callable
 
 
@@ -17,3 +18,19 @@ def to_not_fn(fn: Callable) -> Callable:
         assert not res[0], res[1].replace("to", "to not")
 
     return to_not_fn_inner
+
+def hidetraceback(fn: Callable) -> Callable:
+    """Decorate helper methods to ignore internal assertion traceback
+
+    Args:
+        fn (Callable): Function to decorate
+
+    Returns:
+        Callable: The decorated function
+    """
+    @wraps(fn)
+    def _(*args, **kwargs):
+        fn.__globals__['__tracebackhide__'] = os.getenv('EXPYCTED_HIDETRACEBACK', True)
+        return fn(*args, **kwargs)
+
+    return _
