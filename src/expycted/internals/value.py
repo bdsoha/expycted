@@ -1,7 +1,7 @@
 import pickle
 from typing import Any, Callable, Collection, Tuple
 
-from expycted.internals.utils import to_not_fn
+from expycted.internals.utils import hidetraceback, to_not_fn
 
 assertion_texts = {
     "equal": "Expected {value1} to equal {value2}",
@@ -144,6 +144,7 @@ class To:
                 return False, assertion_text
         return False, assertion_text
 
+    @hidetraceback
     def equal(self, something: Any) -> None:
         """Checks whether that the value is equal to something
 
@@ -156,6 +157,7 @@ class To:
         res = self._internal_equal(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be(self, something: Any) -> None:
         """Checks whether the value is 'softly' equal to something
 
@@ -169,6 +171,7 @@ class To:
         res = self._internal_be(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def contain(self, something: Any) -> None:
         """Checks whether the value contains something
 
@@ -181,6 +184,7 @@ class To:
         res = self._internal_contain(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be_contained_in(self, something: Collection) -> None:
         """Checks whether the value is contained in something
 
@@ -193,6 +197,7 @@ class To:
         res = self._internal_be_contained_in(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be_empty(self) -> None:
         """Checks whether the value is empty
 
@@ -202,6 +207,7 @@ class To:
         res = self._internal_be_empty()
         assert res[0], res[1]
 
+    @hidetraceback
     def be_true(self) -> None:
         """Checks whether the value is true
 
@@ -211,6 +217,7 @@ class To:
         res = self._internal_be_true()
         assert res[0], res[1]
 
+    @hidetraceback
     def be_false(self) -> None:
         """Checks whether the value is false
 
@@ -220,6 +227,7 @@ class To:
         res = self._internal_be_false()
         assert res[0], res[1]
 
+    @hidetraceback
     def be_truthy(self) -> None:
         """Checks whether the value is truthy
 
@@ -229,6 +237,7 @@ class To:
         res = self._internal_be_truthy()
         assert res[0], res[1]
 
+    @hidetraceback
     def be_falsey(self) -> None:
         """Checks whether the value is falsey
 
@@ -238,6 +247,7 @@ class To:
         res = self._internal_be_falsey()
         assert res[0], res[1]
 
+    @hidetraceback
     def be_of_type(self, something: type) -> None:
         """Checks whether the value is of provided type
 
@@ -250,6 +260,7 @@ class To:
         res = self._internal_be_of_type(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def inherit(self, something: type) -> None:
         """Checks whether the value inherits from provided type
 
@@ -262,6 +273,7 @@ class To:
         res = self._internal_inherit(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be_greater_than(self, something: Any) -> None:
         """Check whether the value is greater than something
 
@@ -274,6 +286,7 @@ class To:
         res = self._internal_be_greater_than(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be_lesser_than(self, something: Any) -> None:
         """Check whether the value is lesser than something
 
@@ -286,6 +299,7 @@ class To:
         res = self._internal_be_lesser_than(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be_greater_or_equal_to(self, something: Any) -> None:
         """Check whether the value is greater than or equal to something
 
@@ -298,6 +312,7 @@ class To:
         res = self._internal_be_greater_or_equal_to(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be_lesser_or_equal_to(self, something: Any) -> None:
         """Check whether the value is lesser than or equal to something
 
@@ -310,6 +325,7 @@ class To:
         res = self._internal_be_lesser_or_equal_to(something)
         assert res[0], res[1]
 
+    @hidetraceback
     def be_numeric(self) -> None:
         """Check whether the value is numeric
 

@@ -1,5 +1,7 @@
 from typing import Any, Callable, Type
 
+from expycted.internals.utils import hidetraceback
+
 assertion_texts = {
     "to_raise": "Expected function `{function}` to raise {exc} when called with: {arguments}",
     "to_return": "Expected function {function} to return {value} when called with: {arguments}",
@@ -30,7 +32,7 @@ class Function:
             AssertionError: When neither of type_of_value and value is not provided AssertionError is raised
         """
         if value is None and type_of_value is None:
-            raise AssertionError(
+            raise ValueError(
                 "You must specify either value or type_of_value in to_return function"
             )
         else:
@@ -62,6 +64,7 @@ class ToRaise:
         self.function = function
         self.exception = exception
 
+    @hidetraceback
     def when_called_with(self, *args, **kwargs):
         """Arguments to call the function with
 
@@ -93,6 +96,7 @@ class ToReturn:
         self.value = value
         self.type_of_value = type_of_value
 
+    @hidetraceback
     def when_called_with(self, *args, **kwargs):
         """Arguments to call the function with
 
