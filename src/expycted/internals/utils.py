@@ -29,9 +29,10 @@ def to_not_fn(fn: Callable) -> Callable:
     Returns:
         Callable: Negated function
     """
+    @hidetraceback
     @wraps(fn)
     def to_not_fn_inner(*args, **kwargs):
         res = fn(*args, **kwargs)
         assert not res[0], res[1].replace("to", "to not")
 
-    return hidetraceback(to_not_fn_inner)
+    return to_not_fn_inner
