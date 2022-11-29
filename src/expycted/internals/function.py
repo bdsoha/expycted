@@ -32,7 +32,7 @@ class Function:
             AssertionError: When neither of type_of_value and value is not provided AssertionError is raised
         """
         if value is None and type_of_value is None:
-            raise AssertionError(
+            raise ValueError(
                 "You must specify either value or type_of_value in to_return function"
             )
         else:
@@ -79,7 +79,7 @@ class ToRaise:
                 exc=self.exception, 
                 arguments=format_args_kwargs(args, kwargs))
         else:
-            raise ValueError(
+            raise AssertionError(
                 f"Expected '{self.exception}' to be raised, but nothing was raised"
             )
 
