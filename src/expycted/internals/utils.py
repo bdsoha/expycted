@@ -12,6 +12,7 @@ def hidetraceback(fn: Callable) -> Callable:
     Returns:
         Callable: The decorated function
     """
+
     @wraps(fn)
     def _(*args, **kwargs):
         fn.__globals__['__tracebackhide__'] = os.getenv('EXPYCTED_HIDETRACEBACK', True)
@@ -19,20 +20,12 @@ def hidetraceback(fn: Callable) -> Callable:
 
     return _
 
-def to_not_fn(fn: Callable) -> Callable:
-    """Returns a function that negates the result of the provided function
 
-    Args:
-        fn (Callable): Function to negate
-        *args: Arguments to pass to the function
-
-    Returns:
-        Callable: Negated function
-    """
+def assertion(fn: Callable) -> Callable:
     @hidetraceback
     @wraps(fn)
-    def to_not_fn_inner(*args, **kwargs):
-        res = fn(*args, **kwargs)
-        assert not res[0], res[1].replace("to", "to not")
+    def _(self, *args, **kwargs):
+        self._execute_internal_assertion(fn.__name__, *args, **kwargs)
+        fn(self, *args, **kwargs)
 
-    return to_not_fn_inner
+    return _
