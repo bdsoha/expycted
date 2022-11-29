@@ -1,5 +1,5 @@
 import os
-from functools import wrap
+from functools import wraps
 from typing import Callable
 
 
