@@ -79,7 +79,7 @@ class ToRaise:
                 exc=self.exception, 
                 arguments=format_args_kwargs(args, kwargs))
         else:
-            raise AssertionError(
+            raise ValueError(
                 f"Expected '{self.exception}' to be raised, but nothing was raised"
             )
 
