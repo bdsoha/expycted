@@ -1,7 +1,7 @@
 import pytest
 from expycted import expect
 
-from test_utils import DOES_NOT_RAISE, RAISES_ASSERTION
+from test_utils import DOES_NOT_RAISE, RAISES_ASSERTION, expected_params, expected_actual_params
 
 
 class Person:
@@ -21,395 +21,299 @@ def get_singleton():
     return singleton
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, False),
-        (1, 1, True),
-        (1, 0, False),
-        (0, 0, True),
-        (True, "True", False),
-        (True, True, True),
-        (True, False, False),
-        ("string", "another", False),
-        ("string", "string", True),
-        (1, "1", False),
-        (get_singleton, get_singleton, True),
-        (get_singleton, Person("John", 30), False),
-    ],
-)
-def test_to_equal(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.equal(v2)
-    else:
-        expect(v1).to.equal(v2)
+@expected_actual_params([
+    (1, 2, RAISES_ASSERTION),
+    (1, 1, DOES_NOT_RAISE),
+    (1, 0, RAISES_ASSERTION),
+    (0, 0, DOES_NOT_RAISE),
+    (True, "True", RAISES_ASSERTION),
+    (True, True, DOES_NOT_RAISE),
+    (True, False, RAISES_ASSERTION),
+    ("string", "another", RAISES_ASSERTION),
+    ("string", "string", DOES_NOT_RAISE),
+    (1, "1", RAISES_ASSERTION),
+    (get_singleton, get_singleton, DOES_NOT_RAISE),
+    (get_singleton, Person("John", 30), RAISES_ASSERTION),
+])
+def test_to_equal(expected, actual, context):
+    with context:
+        expect(expected).to.equal(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, False),
-        (1, 1, True),
-        (1, 0, False),
-        (0, 0, True),
-        (True, "True", True),
-        (True, True, True),
-        (True, False, False),
-        ("string", "another", False),
-        ("string", "string", True),
-        (1, "1", True),
-        (get_singleton, get_singleton, True),
-        (get_singleton, Person("John", 30), False),
-        (1, 1.0, True),
-        (2.0, 3, False),
-    ],
-)
-def test_to_be(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be(v2)
-    else:
-        expect(v1).to.be(v2)
+@expected_actual_params([
+    (1, 2, RAISES_ASSERTION),
+    (1, 1, DOES_NOT_RAISE),
+    (1, 0, RAISES_ASSERTION),
+    (0, 0, DOES_NOT_RAISE),
+    (True, "True", DOES_NOT_RAISE),
+    (True, True, DOES_NOT_RAISE),
+    (True, False, RAISES_ASSERTION),
+    ("string", "another", RAISES_ASSERTION),
+    ("string", "string", DOES_NOT_RAISE),
+    (1, "1", DOES_NOT_RAISE),
+    (get_singleton, get_singleton, DOES_NOT_RAISE),
+    (get_singleton, Person("John", 30), RAISES_ASSERTION),
+    (1, 1.0, DOES_NOT_RAISE),
+    (2.0, 3, RAISES_ASSERTION),
+])
+def test_to_be(expected, actual, context):
+    with context:
+        expect(expected).to.be(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], None, False),
-        ([2], 2, True),
-        (["a", 2], ["b"], False),
-        (set(["a", "b"]), "a", True),
-        ("abcd", "bc", True),
-        ({"a": 1, "b": 2}.values(), 2, True),
-        ("True", True, False),
-        ("string", "ings", False),
-        ("string", "string", True),
-        (get_singleton, get_singleton, False),
-        (get_singleton, Person("John", 30), False),
-    ],
-)
-def test_to_contain(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.contain(v2)
-    else:
-        expect(v1).to.contain(v2)
+@expected_actual_params([
+    ([1], None, RAISES_ASSERTION),
+    ([2], 2, DOES_NOT_RAISE),
+    (["a", 2], ["b"], RAISES_ASSERTION),
+    (set(["a", "b"]), "a", DOES_NOT_RAISE),
+    ("abcd", "bc", DOES_NOT_RAISE),
+    ({"a": 1, "b": 2}.values(), 2, DOES_NOT_RAISE),
+    ("True", True, RAISES_ASSERTION),
+    ("string", "ings", RAISES_ASSERTION),
+    ("string", "string", DOES_NOT_RAISE),
+    (get_singleton, get_singleton, RAISES_ASSERTION),
+    (get_singleton, Person("John", 30), RAISES_ASSERTION),
+])
+def test_to_contain(expected, actual, context):
+    with context:
+        expect(expected).to.contain(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], None, False),
-        ([2], 2, True),
-        (["a", 2], ["b"], False),
-        (set(["a", "b"]), "a", True),
-        ("abcd", "bc", True),
-        ({"a": 1, "b": 2}.values(), 2, True),
-        ("True", True, False),
-        ("string", "ings", False),
-        ("string", "string", True),
-        (get_singleton, get_singleton, False),
-        (get_singleton, Person("John", 30), False),
-    ],
-)
-def test_to_be_contained_in(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v2).to.be_contained_in(v1)
-    else:
-        expect(v2).to.be_contained_in(v1)
+@expected_actual_params([
+    (None, [1], RAISES_ASSERTION),
+    (2, [2], DOES_NOT_RAISE),
+    (["b"], ["a", 2], RAISES_ASSERTION),
+    ("a", set(["a", "b"]), DOES_NOT_RAISE),
+    ("bc", "abcd", DOES_NOT_RAISE),
+    (2, {"a": 1, "b": 2}.values(), DOES_NOT_RAISE),
+    (True, "True", RAISES_ASSERTION),
+    ("ings", "string", RAISES_ASSERTION),
+    ("string", "string", DOES_NOT_RAISE),
+    (get_singleton, get_singleton, RAISES_ASSERTION),
+    (Person("John", 30), get_singleton, RAISES_ASSERTION),
+])
+def test_to_be_contained_in(expected, actual, context):
+    with context:
+        expect(expected).to.be_contained_in(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        ([], True),
-        ({}, True),
-        (set([]), True),
-        ("", True),
-        ((), True),
-        ("abcd", False),
-        ({"a": 1, "b": 2}, False),
-        ("True", False),
-        ([1, 2], False),
-        (set([1, 2]), False),
-        ((1, 3), False),
-        (1, False),
-    ],
-)
-def test_to_be_empty(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_empty()
-    else:
-        expect(v1).to.be_empty()
+@expected_params([
+    ([], DOES_NOT_RAISE),
+    ({}, DOES_NOT_RAISE),
+    (set([]), DOES_NOT_RAISE),
+    ("", DOES_NOT_RAISE),
+    ((), DOES_NOT_RAISE),
+    ("abcd", RAISES_ASSERTION),
+    ({"a": 1, "b": 2}, RAISES_ASSERTION),
+    ("True", RAISES_ASSERTION),
+    ([1, 2], RAISES_ASSERTION),
+    (set([1, 2]), RAISES_ASSERTION),
+    ((1, 3), RAISES_ASSERTION),
+    (1, RAISES_ASSERTION),
+])
+def test_to_be_empty(expected, context):
+    with context:
+        expect(expected).to.be_empty()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, True),
-        (False, False),
-        ([], False),
-        (get_singleton, False),
-    ],
-)
-def test_to_be_true(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_true()
-    else:
-        expect(v1).to.be_true()
+@expected_params([
+    (True, DOES_NOT_RAISE),
+    (1, RAISES_ASSERTION),
+    (False, RAISES_ASSERTION),
+    ([], RAISES_ASSERTION),
+    (get_singleton, RAISES_ASSERTION),
+])
+def test_to_be_true(expected, context):
+    with context:
+        expect(expected).to.be_true()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, False),
-        (False, True),
-        ([], False),
-        (get_singleton, False),
-    ],
-)
-def test_to_be_false(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_false()
-    else:
-        expect(v1).to.be_false()
+@expected_params([
+    (True, RAISES_ASSERTION),
+    (0, RAISES_ASSERTION),
+    (False, DOES_NOT_RAISE),
+    ([], RAISES_ASSERTION),
+    (get_singleton, RAISES_ASSERTION),
+])
+def test_to_be_false(expected, context):
+    with context:
+        expect(expected).to.be_false()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, True),
-        (1, True),
-        (get_singleton, True),
-        ([1], True),
-        ([], False),
-        (0, False),
-        (False, False),
-    ],
-)
-def test_to_be_truthy(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_truthy()
-    else:
-        expect(v1).to.be_truthy()
+@expected_params([
+    (True, DOES_NOT_RAISE),
+    (1, DOES_NOT_RAISE),
+    (get_singleton, DOES_NOT_RAISE),
+    ([1], DOES_NOT_RAISE),
+    ([], RAISES_ASSERTION),
+    (0, RAISES_ASSERTION),
+    (False, RAISES_ASSERTION),
+])
+def test_to_be_truthy(expected, context):
+    with context:
+        expect(expected).to.be_truthy()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, False),
-        (1, False),
-        (get_singleton, False),
-        ([1], False),
-        ([], True),
-        (0, True),
-        (False, True),
-    ],
-)
-def test_to_be_falsey(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_falsey()
-    else:
-        expect(v1).to.be_falsey()
+@expected_params([
+    (True, RAISES_ASSERTION),
+    (1, RAISES_ASSERTION),
+    (get_singleton, RAISES_ASSERTION),
+    ([1], RAISES_ASSERTION),
+    ([], DOES_NOT_RAISE),
+    (0, DOES_NOT_RAISE),
+    (False, DOES_NOT_RAISE),
+])
+def test_to_be_falsey(expected, context):
+    with context:
+        expect(expected).to.be_falsey()
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], list, True),
-        (2, int, True),
-        ("a", str, True),
-        (set(["a", "b"]), set, True),
-        ({"a": 1, "b": 2}, dict, True),
-        (True, bool, True),
-        (Person("John", 30), Person, True),
-        (1, int, True),
-        (1.0, float, True),
-        (Person("John", 30), object, False),
-        ("string", "ings", False),
-        ("string", int, False),
-        (1, str, False),
-        (1, float, False),
-        (1.0, int, False),
-    ],
-)
-def test_to_be_of_type(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_of_type(v2)
-    else:
-        expect(v1).to.be_of_type(v2)
+@expected_actual_params([
+    ([1], list, DOES_NOT_RAISE),
+    (2, int, DOES_NOT_RAISE),
+    ("a", str, DOES_NOT_RAISE),
+    (set(["a", "b"]), set, DOES_NOT_RAISE),
+    ({"a": 1, "b": 2}, dict, DOES_NOT_RAISE),
+    (True, bool, DOES_NOT_RAISE),
+    (Person("John", 30), Person, DOES_NOT_RAISE),
+    (1, int, DOES_NOT_RAISE),
+    (1.0, float, DOES_NOT_RAISE),
+    (Person("John", 30), object, RAISES_ASSERTION),
+    ("string", "ings", RAISES_ASSERTION),
+    ("string", int, RAISES_ASSERTION),
+    (1, str, RAISES_ASSERTION),
+    (1, float, RAISES_ASSERTION),
+    (1.0, int, RAISES_ASSERTION),
+])
+def test_to_be_of_type(expected, actual, context):
+    with context:
+        expect(expected).to.be_of_type(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], list, True),
-        (2, int, True),
-        ("a", str, True),
-        (set(["a", "b"]), set, True),
-        ({"a": 1, "b": 2}, dict, True),
-        (True, bool, True),
-        (Person("John", 30), Person, True),
-        (Person("John", 30), object, True),
-        (1, int, True),
-        (1.0, float, True),
-        ("string", "ings", False),
-        ("string", int, False),
-        (1, str, False),
-        (1, float, False),
-        (1.0, int, False),
-    ],
-)
-def test_to_inherit(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.inherit(v2)
-    else:
-        expect(v1).to.inherit(v2)
+@expected_actual_params([
+    ([1], list, DOES_NOT_RAISE),
+    (2, int, DOES_NOT_RAISE),
+    ("a", str, DOES_NOT_RAISE),
+    (set(["a", "b"]), set, DOES_NOT_RAISE),
+    ({"a": 1, "b": 2}, dict, DOES_NOT_RAISE),
+    (True, bool, DOES_NOT_RAISE),
+    (Person("John", 30), Person, DOES_NOT_RAISE),
+    (Person("John", 30), object, DOES_NOT_RAISE),
+    (1, int, DOES_NOT_RAISE),
+    (1.0, float, DOES_NOT_RAISE),
+    ("string", "ings", RAISES_ASSERTION),
+    ("string", int, RAISES_ASSERTION),
+    (1, str, RAISES_ASSERTION),
+    (1, float, RAISES_ASSERTION),
+    (1.0, int, RAISES_ASSERTION),
+])
+def test_to_inherit(expected, actual, context):
+    with context:
+        expect(expected).to.inherit(actual)
 
 
 # TODO: copy to expect_to_not_test_suite
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, False),
-        (3, 2, True),
-        (3.2, 1, True),
-        (100.1, 100.2, False),
-        ([1, 2], [1, 2, 3], False),
-        ([1], [2], False),
-        (2, 2, False),
-    ],
-)
-def test_to_be_greater_than(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_greater_than(v2)
-    else:
-        expect(v1).to.be_greater_than(v2)
+@expected_actual_params([
+    (1, 2, RAISES_ASSERTION),
+    (3, 2, DOES_NOT_RAISE),
+    (3.2, 1, DOES_NOT_RAISE),
+    (100.1, 100.2, RAISES_ASSERTION),
+    ([1, 2], [1, 2, 3], RAISES_ASSERTION),
+    ([1], [2], RAISES_ASSERTION),
+    (2, 2, RAISES_ASSERTION),
+])
+def test_to_be_greater_than(expected, actual, context):
+    with context:
+        expect(expected).to.be_greater_than(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, True),
-        (3, 2, False),
-        (3.2, 1, False),
-        (100.1, 100.2, True),
-        ([1, 2], [1, 2, 3], True),
-        ([1], [2], True),
-        (2, 2, False),
-    ],
-)
-def test_to_be_lesser_than(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_lesser_than(v2)
-    else:
-        expect(v1).to.be_lesser_than(v2)
+@expected_actual_params([
+    (1, 2, DOES_NOT_RAISE),
+    (3, 2, RAISES_ASSERTION),
+    (3.2, 1, RAISES_ASSERTION),
+    (100.1, 100.2, DOES_NOT_RAISE),
+    ([1, 2], [1, 2, 3], DOES_NOT_RAISE),
+    ([1], [2], DOES_NOT_RAISE),
+    (2, 2, RAISES_ASSERTION),
+])
+def test_to_be_lesser_than(expected, actual, context):
+    with context:
+        expect(expected).to.be_lesser_than(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, False),
-        (3, 2, True),
-        (3.2, 1, True),
-        (100.1, 100.2, False),
-        ([1, 2], [1, 2, 3], False),
-        ([1], [2], False),
-        (2, 2, True),
-    ],
-)
-def test_to_be_greater_or_equal_to(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_greater_or_equal_to(v2)
-    else:
-        expect(v1).to.be_greater_or_equal_to(v2)
+@expected_actual_params([
+    (1, 2, RAISES_ASSERTION),
+    (3, 2, DOES_NOT_RAISE),
+    (3.2, 1, DOES_NOT_RAISE),
+    (100.1, 100.2, RAISES_ASSERTION),
+    ([1, 2], [1, 2, 3], RAISES_ASSERTION),
+    ([1], [2], RAISES_ASSERTION),
+    (2, 2, DOES_NOT_RAISE),
+])
+def test_to_be_greater_or_equal_to(expected, actual, context):
+    with context:
+        expect(expected).to.be_greater_or_equal_to(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, True),
-        (3, 2, False),
-        (3.2, 1, False),
-        (100.1, 100.2, True),
-        ([1, 2], [1, 2, 3], True),
-        ([1], [2], True),
-        (2, 2, True),
-    ],
-)
-def test_to_be_lesser_or_equal_to(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to.be_lesser_or_equal_to(v2)
-    else:
-        expect(v1).to.be_lesser_or_equal_to(v2)
+@expected_actual_params([
+    (1, 2, DOES_NOT_RAISE),
+    (3, 2, RAISES_ASSERTION),
+    (3.2, 1, RAISES_ASSERTION),
+    (100.1, 100.2, DOES_NOT_RAISE),
+    ([1, 2], [1, 2, 3], DOES_NOT_RAISE),
+    ([1], [2], DOES_NOT_RAISE),
+    (2, 2, DOES_NOT_RAISE),
+])
+def test_to_be_lesser_or_equal_to(expected, actual, context):
+    with context:
+        expect(expected).to.be_lesser_or_equal_to(actual)
 
 
-@pytest.mark.parametrize(
-    "expected,context",
-    [
-        (1, DOES_NOT_RAISE),
-        (3, DOES_NOT_RAISE),
-        (3.2, DOES_NOT_RAISE),
-        ("a", RAISES_ASSERTION),
-        ([1, 2], RAISES_ASSERTION),
-        (set(), RAISES_ASSERTION),
-        (tuple(), RAISES_ASSERTION),
-        ("123", DOES_NOT_RAISE),
-        (lambda x: x, RAISES_ASSERTION),
-        (Person("Fero", 12), RAISES_ASSERTION),
-    ],
-)
+@expected_params([
+    (1, DOES_NOT_RAISE),
+    (3, DOES_NOT_RAISE),
+    (3.2, DOES_NOT_RAISE),
+    ("a", RAISES_ASSERTION),
+    ([1, 2], RAISES_ASSERTION),
+    (set(), RAISES_ASSERTION),
+    (tuple(), RAISES_ASSERTION),
+    ("123", DOES_NOT_RAISE),
+    (lambda x: x, RAISES_ASSERTION),
+    (Person("Fero", 12), RAISES_ASSERTION),
+])
 def test_to_be_numeric(expected, context):
     with context:
         expect(expected).to.be_numeric()
 
 
-@pytest.mark.parametrize(
-    "expected,context",
-    [
-        (1, DOES_NOT_RAISE),
-        (3, DOES_NOT_RAISE),
-        (3.2, DOES_NOT_RAISE),
-        ("a", RAISES_ASSERTION),
-        ([1, 2], RAISES_ASSERTION),
-        (set(), RAISES_ASSERTION),
-        (tuple(), RAISES_ASSERTION),
-        ("123", RAISES_ASSERTION),
-        (lambda x: x, RAISES_ASSERTION),
-        (Person("Fero", 12), RAISES_ASSERTION),
-    ],
-)
+@expected_params([
+    (1, DOES_NOT_RAISE),
+    (3, DOES_NOT_RAISE),
+    (3.2, DOES_NOT_RAISE),
+    ("a", RAISES_ASSERTION),
+    ([1, 2], RAISES_ASSERTION),
+    (set(), RAISES_ASSERTION),
+    (tuple(), RAISES_ASSERTION),
+    ("123", RAISES_ASSERTION),
+    (lambda x: x, RAISES_ASSERTION),
+    (Person("Fero", 12), RAISES_ASSERTION),
+])
 def test_to_be_strictly_numeric(expected, context):
     with context:
         expect(expected).to.be_numeric(strict=True)
 
-@pytest.mark.parametrize(
-    "expected,context",
-    [
-        (1, RAISES_ASSERTION),
-        ("a", RAISES_ASSERTION),
-        ([1, 2], RAISES_ASSERTION),
-        (set(), RAISES_ASSERTION),
-        (tuple(), RAISES_ASSERTION),
-        (lambda x: x, DOES_NOT_RAISE),
-        (Person, DOES_NOT_RAISE),
-    ],
-)
+
+@expected_params([
+    (1, RAISES_ASSERTION),
+    ("a", RAISES_ASSERTION),
+    ([1, 2], RAISES_ASSERTION),
+    (set(), RAISES_ASSERTION),
+    (tuple(), RAISES_ASSERTION),
+    (lambda x: x, DOES_NOT_RAISE),
+    (Person, DOES_NOT_RAISE),
+])
 def test_to_be_callable(expected, context):
     with context:
         expect(expected).to.be_callable()
