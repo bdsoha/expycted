@@ -356,3 +356,25 @@ def test_to_be_str(expected, context):
 def test_to_be_bool(expected, context):
     with context:
         expect(expected).to.be_bool()
+
+
+@expected_params([
+    (0, DOES_NOT_RAISE),
+    (-1, DOES_NOT_RAISE),
+    (0.0, RAISES_ASSERTION),
+    (-10.1, RAISES_ASSERTION),
+])
+def test_to_be_int(expected, context):
+    with context:
+        expect(expected).to.be_int()
+
+
+@expected_params([
+    (0, RAISES_ASSERTION),
+    (-1, RAISES_ASSERTION),
+    (0.0, DOES_NOT_RAISE),
+    (-10.1, DOES_NOT_RAISE),
+])
+def test_to_be_float(expected, context):
+    with context:
+        expect(expected).to.be_float()

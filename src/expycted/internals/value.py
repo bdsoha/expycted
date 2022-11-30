@@ -334,6 +334,24 @@ class Value(BaseExpectation):
         """
         return self.be_of_type(bool)
 
+    @hidetraceback
+    def be_int(self) -> None:
+        """Check whether the expected value is an int
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(int)
+
+    @hidetraceback
+    def be_float(self) -> None:
+        """Check whether the expected value is a float
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(float)
+
     # Aliases
 
     be_a_number = be_numeric
