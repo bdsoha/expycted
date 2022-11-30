@@ -352,6 +352,15 @@ class Value(BaseExpectation):
         """
         return self.be_of_type(float)
 
+    @hidetraceback
+    def be_list(self) -> None:
+        """Check whether the expected value is a list
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(list)
+
     # Aliases
 
     be_a_number = be_numeric

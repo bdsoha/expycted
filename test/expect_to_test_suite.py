@@ -378,3 +378,14 @@ def test_to_be_int(expected, context):
 def test_to_be_float(expected, context):
     with context:
         expect(expected).to.be_float()
+
+
+@expected_params([
+    ('', RAISES_ASSERTION),
+    ([], DOES_NOT_RAISE),
+    ([1], DOES_NOT_RAISE),
+    ((1,), RAISES_ASSERTION),
+])
+def test_to_be_list(expected, context):
+    with context:
+        expect(expected).to.be_list()
