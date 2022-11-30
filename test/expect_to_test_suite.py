@@ -358,7 +358,7 @@ def test_to_be_lesser_or_equal_to(v1, v2, true):
 
 
 @pytest.mark.parametrize(
-    "v1,true",
+    "expected,true",
     [
         (1, True),
         (3, True),
@@ -372,9 +372,51 @@ def test_to_be_lesser_or_equal_to(v1, v2, true):
         (Person("Fero", 12), False),
     ],
 )
-def test_to_be_numeric(v1, true):
+def test_to_be_numeric(expected, true):
     if not true:
         with pytest.raises(AssertionError):
-            expect(v1).to.be_numeric()
+            expect(expected).to.be_numeric()
     else:
-        expect(v1).to.be_numeric()
+        expect(expected).to.be_numeric()
+
+
+@pytest.mark.parametrize(
+    "expected,true",
+    [
+        (1, True),
+        (3, True),
+        (3.2, True),
+        ("a", False),
+        ([1, 2], False),
+        (set(), False),
+        (tuple(), False),
+        ("123", False),
+        (lambda x: x, False),
+        (Person("Fero", 12), False),
+    ],
+)
+def test_to_be_strictly_numeric(expected, true):
+    if not true:
+        with pytest.raises(AssertionError):
+            expect(expected).to.be_numeric(strict=True)
+    else:
+        expect(expected).to.be_numeric(strict=True)
+
+@pytest.mark.parametrize(
+    "expected,true",
+    [
+        (1, False),
+        ("a", False),
+        ([1, 2], False),
+        (set(), False),
+        (tuple(), False),
+        (lambda x: x, True),
+        (Person, True),
+    ],
+)
+def test_to_be_callable(expected, true):
+    if not true:
+        with pytest.raises(AssertionError):
+            expect(expected).to.be_callable()
+    else:
+        expect(expected).to.be_callable()

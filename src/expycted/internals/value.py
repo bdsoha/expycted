@@ -23,6 +23,8 @@ class Value(BaseExpectation):
         "be_greater_or_equal_to": "Expected {value1} to be greater than or equal to {value2}",
         "be_lesser_or_equal_to": "Expected {value1} to be less than or equal to {value2}",
         "be_numeric": "Expected {value1} to be numeric",
+        "be_numeric_strict": "Expected {value1} to be strictly a number type",
+        "be_callable": "Expected {value1} to be callable",
     }
 
     def _internal_has_len(self: Any) -> bool:
@@ -102,11 +104,14 @@ class Value(BaseExpectation):
     def _internal_be_lesser_or_equal_to(self, something: Any) -> Tuple[bool, str]:
         return self.value <= something, self._message("be_lesser_or_equal_to", something)
 
-    def _internal_be_numeric(self: Any) -> Tuple[bool, str]:
+    def _internal_be_numeric(self: Any, strict=False) -> Tuple[bool, str]:
         assertion_text = self._message("be_numeric")
         if type(self.value) in [int, float, complex]:
             return True, assertion_text
         
+        if type(self.value) is str and strict:
+            return False, self._message("be_numeric_strict")
+
         if type(self.value) is str:
             try:
                 float(self.value)
@@ -115,6 +120,9 @@ class Value(BaseExpectation):
             except Exception:
                 pass
         return False, assertion_text
+
+    def _internal_be_callable(self) -> Tuple[bool, str]:
+        return callable(self.value), self._message("be_callable")
 
     @assertion
     def equal(self, something: Any) -> None:
@@ -282,8 +290,17 @@ class Value(BaseExpectation):
         pass
 
     @assertion
-    def be_numeric(self) -> None:
+    def be_numeric(self, strict=False) -> None:
         """Check whether the value is numeric
+
+        Returns:
+            bool: Result
+        """
+        pass
+
+    @assertion
+    def be_callable(self) -> None:
+        """Check whether the expected value is of type callable
 
         Returns:
             bool: Result
