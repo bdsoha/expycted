@@ -27,5 +27,5 @@ def assertion(fn: Callable) -> Callable:
     def _(self, *args, **kwargs):
         self._execute_internal_assertion(fn.__name__, *args, **kwargs)
         fn(self, *args, **kwargs)
-
+        return self
     return _
