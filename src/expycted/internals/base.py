@@ -1,5 +1,7 @@
 from typing import Any
 
+from expycted.internals.utils import hidetraceback
+
 _SENTIAL = object()
 
 
@@ -18,6 +20,7 @@ class BaseExpectation:
 
         return self._ASSERTION_MESSAGES[method].format(**placeholders)
 
+    @hidetraceback
     def _execute_internal_assertion(self, method: str, *args, **kwargs):
         internal_assert = getattr(self, f"_internal_{method}")
         res, message = internal_assert(*args, **kwargs)

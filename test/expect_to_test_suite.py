@@ -317,3 +317,42 @@ def test_to_be_strictly_numeric(expected, context):
 def test_to_be_callable(expected, context):
     with context:
         expect(expected).to.be_callable()
+
+
+@expected_params([
+    ('', RAISES_ASSERTION),
+    (0, RAISES_ASSERTION),
+    (False, RAISES_ASSERTION),
+    ([], RAISES_ASSERTION),
+    (None, DOES_NOT_RAISE),
+])
+def test_to_be_none(expected, context):
+    with context:
+        expect(expected).to.be_none()
+
+
+@expected_params([
+    ('', DOES_NOT_RAISE),
+    (r'hello', DOES_NOT_RAISE),
+    (0, RAISES_ASSERTION),
+    (False, RAISES_ASSERTION),
+    ([], RAISES_ASSERTION),
+    (None, RAISES_ASSERTION),
+])
+def test_to_be_str(expected, context):
+    with context:
+        expect(expected).to.be_str()
+
+
+@expected_params([
+    ('', RAISES_ASSERTION),
+    (0, RAISES_ASSERTION),
+    (1, RAISES_ASSERTION),
+    (False, DOES_NOT_RAISE),
+    (True, DOES_NOT_RAISE),
+    ([], RAISES_ASSERTION),
+    (None, RAISES_ASSERTION),
+])
+def test_to_be_bool(expected, context):
+    with context:
+        expect(expected).to.be_bool()

@@ -1,7 +1,7 @@
 import pickle
 from typing import Any, Collection, Tuple
 
-from expycted.internals.utils import assertion
+from expycted.internals.utils import assertion, hidetraceback
 from expycted.internals.base import BaseExpectation
 
 
@@ -306,6 +306,33 @@ class Value(BaseExpectation):
             bool: Result
         """
         pass
+
+    @hidetraceback
+    def be_none(self) -> None:
+        """Check whether the expected value is None
+
+        Returns:
+            bool: Result
+        """
+        return self.be(None)
+
+    @hidetraceback
+    def be_str(self) -> None:
+        """Check whether the expected value is a string
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(str)
+
+    @hidetraceback
+    def be_bool(self) -> None:
+        """Check whether the expected value is a bool
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(bool)
 
     # Aliases
 
