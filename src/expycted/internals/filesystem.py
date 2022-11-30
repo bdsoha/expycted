@@ -20,11 +20,11 @@ def check_stringiness(param):
 
 class Directory(BaseExpectation):
     _ASSERTION_MESSAGES = {
-        "contain": "Expected {value1} to contain {value2}",
-        "contain_file": "Expected {value1} to contain file {value2}",
-        "contain_folder": "Expected {value1} to contain folder {value2}",
-        "exist": "Expected {value1} to exist",
-        "be_empty": "Expected {value1} to be empty",
+        "contain": "Expected `{expected}` {to} contain {value2}",
+        "contain_file": "Expected `{expected}` {to} contain file {value2}",
+        "contain_folder": "Expected `{expected}` {to} contain folder {value2}",
+        "exist": "Expected `{expected}` {to} exist",
+        "be_empty": "Expected `{expected}` {to} be empty",
     }
 
     def __init__(self, value: str):

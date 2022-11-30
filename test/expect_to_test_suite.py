@@ -39,6 +39,9 @@ def test_to_equal(expected, actual, context):
     with context:
         expect(expected).to.equal(actual)
 
+    with context:
+        expect(expected).to.be_equal_to(actual)
+
 
 @expected_actual_params([
     (1, 2, RAISES_ASSERTION),
@@ -65,7 +68,7 @@ def test_to_be(expected, actual, context):
     ([1], None, RAISES_ASSERTION),
     ([2], 2, DOES_NOT_RAISE),
     (["a", 2], ["b"], RAISES_ASSERTION),
-    (set(["a", "b"]), "a", DOES_NOT_RAISE),
+    ({"a", "b"}, "a", DOES_NOT_RAISE),
     ("abcd", "bc", DOES_NOT_RAISE),
     ({"a": 1, "b": 2}.values(), 2, DOES_NOT_RAISE),
     ("True", True, RAISES_ASSERTION),
@@ -78,12 +81,18 @@ def test_to_contain(expected, actual, context):
     with context:
         expect(expected).to.contain(actual)
 
+    with context:
+        expect(expected).to.have(actual)
+
+    with context:
+        expect(expected).to.include(actual)
+
 
 @expected_actual_params([
     (None, [1], RAISES_ASSERTION),
     (2, [2], DOES_NOT_RAISE),
     (["b"], ["a", 2], RAISES_ASSERTION),
-    ("a", set(["a", "b"]), DOES_NOT_RAISE),
+    ("a", {"a", "b"}, DOES_NOT_RAISE),
     ("bc", "abcd", DOES_NOT_RAISE),
     (2, {"a": 1, "b": 2}.values(), DOES_NOT_RAISE),
     (True, "True", RAISES_ASSERTION),
@@ -96,20 +105,28 @@ def test_to_be_contained_in(expected, actual, context):
     with context:
         expect(expected).to.be_contained_in(actual)
 
+    with context:
+        expect(expected).to.be_in(actual)
+
+    with context:
+        expect(expected).to.be_included_in(actual)
+
 
 @expected_params([
     ([], DOES_NOT_RAISE),
     ({}, DOES_NOT_RAISE),
-    (set([]), DOES_NOT_RAISE),
+    (set(), DOES_NOT_RAISE),
     ("", DOES_NOT_RAISE),
-    ((), DOES_NOT_RAISE),
+    (tuple(), DOES_NOT_RAISE),
+    (range(0), DOES_NOT_RAISE),
     ("abcd", RAISES_ASSERTION),
     ({"a": 1, "b": 2}, RAISES_ASSERTION),
     ("True", RAISES_ASSERTION),
     ([1, 2], RAISES_ASSERTION),
-    (set([1, 2]), RAISES_ASSERTION),
+    ({1, 2}, RAISES_ASSERTION),
     ((1, 3), RAISES_ASSERTION),
     (1, RAISES_ASSERTION),
+    (range(100), RAISES_ASSERTION),
 ])
 def test_to_be_empty(expected, context):
     with context:
@@ -172,7 +189,7 @@ def test_to_be_falsey(expected, context):
     ([1], list, DOES_NOT_RAISE),
     (2, int, DOES_NOT_RAISE),
     ("a", str, DOES_NOT_RAISE),
-    (set(["a", "b"]), set, DOES_NOT_RAISE),
+    ({"a", "b"}, set, DOES_NOT_RAISE),
     ({"a": 1, "b": 2}, dict, DOES_NOT_RAISE),
     (True, bool, DOES_NOT_RAISE),
     (Person("John", 30), Person, DOES_NOT_RAISE),
@@ -194,7 +211,7 @@ def test_to_be_of_type(expected, actual, context):
     ([1], list, DOES_NOT_RAISE),
     (2, int, DOES_NOT_RAISE),
     ("a", str, DOES_NOT_RAISE),
-    (set(["a", "b"]), set, DOES_NOT_RAISE),
+    ({"a", "b"}, set, DOES_NOT_RAISE),
     ({"a": 1, "b": 2}, dict, DOES_NOT_RAISE),
     (True, bool, DOES_NOT_RAISE),
     (Person("John", 30), Person, DOES_NOT_RAISE),

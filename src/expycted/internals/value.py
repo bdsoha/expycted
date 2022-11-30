@@ -7,24 +7,24 @@ from expycted.internals.base import BaseExpectation
 
 class Value(BaseExpectation):
     _ASSERTION_MESSAGES = {
-        "equal": "Expected {value1} to equal {value2}",
-        "be": "Expected {value1} to be {value2}",
-        "contain": "Expected {value1} to contain {value2}",
-        "be_contained_in": "Expected {value1} to be contained in {value2}",
-        "be_empty": "Expected {value1} to be empty",
-        "be_true": "Expected {value1} to be true",
-        "be_false": "Expected {value1} to be false",
-        "be_truthy": "Expected {value1} to be truthy",
-        "be_falsey": "Expected {value1} to be falsey",
-        "be_of_type": "Expected {value1} to be of type {value2}",
-        "inherit": "Expected {value1} to inherit {value2}",
-        "be_greater_than": "Expected {value1} to be greater than {value2}",
-        "be_lesser_than": "Expected {value1} to be less than {value2}",
-        "be_greater_or_equal_to": "Expected {value1} to be greater than or equal to {value2}",
-        "be_lesser_or_equal_to": "Expected {value1} to be less than or equal to {value2}",
-        "be_numeric": "Expected {value1} to be numeric",
-        "be_numeric_strict": "Expected {value1} to be strictly a number type",
-        "be_callable": "Expected {value1} to be callable",
+        "equal": "Expected `{expected}` {to} equal `{value2}`",
+        "be": "Expected `{expected}` {to} be `{value2}`",
+        "contain": "Expected `{expected}` {to} contain `{value2}`",
+        "be_contained_in": "Expected `{expected}` {to} be contained in `{value2}`",
+        "be_empty": "Expected `{expected}` {to} be empty",
+        "be_true": "Expected `{expected}` {to} be true",
+        "be_false": "Expected `{expected}` {to} be false",
+        "be_truthy": "Expected `{expected}` {to} be truthy",
+        "be_falsey": "Expected `{expected}` {to} be falsey",
+        "be_of_type": "Expected `{expected}` {to} be of type `{value2}`",
+        "inherit": "Expected `{expected}` {to} inherit `{value2}`",
+        "be_greater_than": "Expected `{expected}` {to} be greater than `{value2}`",
+        "be_lesser_than": "Expected `{expected}` {to} be less than `{value2}`",
+        "be_greater_or_equal_to": "Expected `{expected}` {to} be greater than or equal to `{value2}`",
+        "be_lesser_or_equal_to": "Expected `{expected}` {to} be less than or equal to `{value2}`",
+        "be_numeric": "Expected `{expected}` {to} be numeric",
+        "be_numeric_strict": "Expected `{expected}` {to} be strictly a number type",
+        "be_callable": "Expected `{expected}` {to} be callable",
     }
 
     def _internal_has_len(self: Any) -> bool:
@@ -78,10 +78,10 @@ class Value(BaseExpectation):
         return self.value is False, self._message("be_false")
 
     def _internal_be_truthy(self) -> Tuple[bool, str]:
-        return True if self.value else False, self._message("be_truthy")
+        return bool(self.value), self._message("be_truthy")
 
     def _internal_be_falsey(self) -> Tuple[bool, str]:
-        return True if not self.value else False, self._message("be_falsey")
+        return not bool(self.value), self._message("be_falsey")
 
     def _internal_be_of_type(self, something: type) -> Tuple[bool, str]:
         return type(self.value) is something, self._message("be_of_type", something)
@@ -115,7 +115,6 @@ class Value(BaseExpectation):
         if type(self.value) is str:
             try:
                 float(self.value)
-                print(float(self.value))
                 return True, assertion_text
             except Exception:
                 pass
@@ -314,7 +313,7 @@ class Value(BaseExpectation):
         Returns:
             bool: Result
         """
-        return self.be(None)
+        return self.equal(None)
 
     @hidetraceback
     def be_str(self) -> None:

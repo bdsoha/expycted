@@ -2,7 +2,7 @@ from typing import Any
 
 from expycted.internals.utils import hidetraceback
 
-_SENTIAL = object()
+_SENTINEL = object()
 
 
 class BaseExpectation:
@@ -12,10 +12,14 @@ class BaseExpectation:
         self.value = value
         self.negate = negate
 
-    def _message(self, method: str, actual: Any = _SENTIAL) -> str:
-        placeholders = dict(value1=self.value)
+    def _message(self, method: str, actual: Any = _SENTINEL, **kwargs) -> str:
+        placeholders = dict(
+            expected=self.value,
+            to="not to" if self.negate else "to",
+            **kwargs
+        )
 
-        if actual is not _SENTIAL:
+        if actual is not _SENTINEL:
             placeholders['value2'] = actual
 
         return self._ASSERTION_MESSAGES[method].format(**placeholders)
@@ -27,7 +31,6 @@ class BaseExpectation:
 
         if self.negate:
             res = not res
-            message = message.replace(" to ", " to not ")
 
         assert res, message
 
@@ -36,6 +39,18 @@ class BaseExpectation:
         return self
 
     @property
+    def and_to(self):
+        return self.to
+
+    @property
     def to_not(self):
         self.negate = not self.negate
         return self
+
+    @property
+    def and_to_not(self):
+        return self.to_not
+
+    @property
+    def and_not(self):
+        return self.to_not

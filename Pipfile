@@ -13,3 +13,6 @@ poetry = "*"
 [scripts]
 test = "pytest"
 build = "poetry build"
+
+[packages]
+expycted = {editable = true, path = "."}
