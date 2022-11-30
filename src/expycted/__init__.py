@@ -2,28 +2,12 @@ from typing import Callable, Any
 
 from expycted.internals.filesystem import Directory
 from expycted.internals.function import Function
-from expycted.internals.value import To, ToNot
+from expycted.internals.value import Value
 
 
-class expect:
-    def __init__(self, value: Any):
-        """Expect a value to be something
-
-        Args:
-            value (Any): Value to check for some sort of condition
-        """
-        self.value = value
-
-    @property
-    def to(self):
-        return To(self.value)
-
-    @property
-    def to_not(self):
-        return ToNot(self.value)
-
-    @staticmethod
-    def function(function: Callable):
+class expect(Value):
+    @classmethod
+    def function(cls, function: Callable):
         """Expect a function to do something
 
         Args:
@@ -31,17 +15,17 @@ class expect:
         """
         return Function(function)
 
-    @staticmethod
-    def value(value: Any):
+    @classmethod
+    def value(cls, value: Any):
         """Expect a value to be something
 
         Args:
             value (Any): Value to check for some sort of condition
         """
-        return expect(value)
+        return cls(value)
 
-    @staticmethod
-    def folder(path: str):
+    @classmethod
+    def folder(cls, path: str):
         """Expect a folder to be something
 
         Args:
