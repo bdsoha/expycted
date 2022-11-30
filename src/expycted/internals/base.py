@@ -33,6 +33,18 @@ class BaseExpectation:
         return self
 
     @property
+    def and_to(self):
+        return self.to
+
+    @property
     def to_not(self):
         self.negate = not self.negate
         return self
+
+    @property
+    def and_to_not(self):
+        return self.to_not
+
+    @property
+    def and_not(self):
+        return self.to_not
