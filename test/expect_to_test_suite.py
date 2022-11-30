@@ -1,6 +1,8 @@
 import pytest
 from expycted import expect
 
+from test_utils import DOES_NOT_RAISE, RAISES_ASSERTION
+
 
 class Person:
     def __init__(self, name: str, age: int):
@@ -358,65 +360,56 @@ def test_to_be_lesser_or_equal_to(v1, v2, true):
 
 
 @pytest.mark.parametrize(
-    "expected,true",
+    "expected,context",
     [
-        (1, True),
-        (3, True),
-        (3.2, True),
-        ("a", False),
-        ([1, 2], False),
-        (set(), False),
-        (tuple(), False),
-        ("123", True),
-        (lambda x: x, False),
-        (Person("Fero", 12), False),
+        (1, DOES_NOT_RAISE),
+        (3, DOES_NOT_RAISE),
+        (3.2, DOES_NOT_RAISE),
+        ("a", RAISES_ASSERTION),
+        ([1, 2], RAISES_ASSERTION),
+        (set(), RAISES_ASSERTION),
+        (tuple(), RAISES_ASSERTION),
+        ("123", DOES_NOT_RAISE),
+        (lambda x: x, RAISES_ASSERTION),
+        (Person("Fero", 12), RAISES_ASSERTION),
     ],
 )
-def test_to_be_numeric(expected, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(expected).to.be_numeric()
-    else:
+def test_to_be_numeric(expected, context):
+    with context:
         expect(expected).to.be_numeric()
 
 
 @pytest.mark.parametrize(
-    "expected,true",
+    "expected,context",
     [
-        (1, True),
-        (3, True),
-        (3.2, True),
-        ("a", False),
-        ([1, 2], False),
-        (set(), False),
-        (tuple(), False),
-        ("123", False),
-        (lambda x: x, False),
-        (Person("Fero", 12), False),
+        (1, DOES_NOT_RAISE),
+        (3, DOES_NOT_RAISE),
+        (3.2, DOES_NOT_RAISE),
+        ("a", RAISES_ASSERTION),
+        ([1, 2], RAISES_ASSERTION),
+        (set(), RAISES_ASSERTION),
+        (tuple(), RAISES_ASSERTION),
+        ("123", RAISES_ASSERTION),
+        (lambda x: x, RAISES_ASSERTION),
+        (Person("Fero", 12), RAISES_ASSERTION),
     ],
 )
-def test_to_be_strictly_numeric(expected, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(expected).to.be_numeric(strict=True)
-    else:
+def test_to_be_strictly_numeric(expected, context):
+    with context:
         expect(expected).to.be_numeric(strict=True)
 
 @pytest.mark.parametrize(
-    "expected,true",
+    "expected,context",
     [
-        (1, False),
-        ("a", False),
-        ([1, 2], False),
-        (set(), False),
-        (tuple(), False),
-        (lambda x: x, True),
-        (Person, True),
+        (1, RAISES_ASSERTION),
+        ("a", RAISES_ASSERTION),
+        ([1, 2], RAISES_ASSERTION),
+        (set(), RAISES_ASSERTION),
+        (tuple(), RAISES_ASSERTION),
+        (lambda x: x, DOES_NOT_RAISE),
+        (Person, DOES_NOT_RAISE),
     ],
 )
-def test_to_be_callable(expected, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(expected).to.be_callable()
-    else:
+def test_to_be_callable(expected, context):
+    with context:
         expect(expected).to.be_callable()
