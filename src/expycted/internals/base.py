@@ -1,6 +1,8 @@
 from typing import Any
 
-_SENTIAL = object()
+from expycted.internals.utils import hidetraceback
+
+_SENTINEL = object()
 
 
 class BaseExpectation:
@@ -10,23 +12,29 @@ class BaseExpectation:
         self.value = value
         self.negate = negate
 
-    def _message(self, method: str, actual: Any = _SENTIAL) -> str:
+    def _message(self, method: str, actual: Any = _SENTINEL) -> str:
         placeholders = dict(value1=self.value)
 
-        if actual is not _SENTIAL:
+        if actual is not _SENTINEL:
             placeholders['value2'] = actual
 
         return self._ASSERTION_MESSAGES[method].format(**placeholders)
 
-    def _execute_internal_assertion(self, method: str, *args, **kwargs):
-        internal_assert = getattr(self, f"_internal_{method}")
-        res, message = internal_assert(*args, **kwargs)
-
+    @hidetraceback
+    def _assert(self, result: bool, message: str):
         if self.negate:
-            res = not res
+            result = not result
             message = message.replace(" to ", " to not ")
 
-        assert res, message
+        assert result, message
+
+    @hidetraceback
+    def _execute_internal_assertion(self, method: str, *args, **kwargs):
+        internal_assert = getattr(self, f"_internal_{method}")
+
+        self._assert(
+            *internal_assert(*args, **kwargs)
+        )
 
     @property
     def to(self):
