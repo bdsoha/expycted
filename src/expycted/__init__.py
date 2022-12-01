@@ -1,4 +1,5 @@
-from typing import Callable, Any
+from pathlib import Path
+from typing import Callable, Any, Union
 
 from expycted.internals.filesystem import Directory
 from expycted.internals.function import Function
@@ -25,11 +26,11 @@ class expect(Value):
         return cls(value)
 
     @classmethod
-    def folder(cls, path: str):
+    def folder(cls, path: Union[str, Path]):
         """Expect a folder to be something
 
         Args:
-            path (str): Path to folder to check for some sort of condition
+            path (str|Path): Path to folder to check for some sort of condition
         """
         return Directory(path)
 

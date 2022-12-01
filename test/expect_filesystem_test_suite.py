@@ -1,4 +1,6 @@
 import pytest
+from pathlib import Path
+
 from expycted import expect
 
 from helpers.utils import expected_params
@@ -9,19 +11,21 @@ def get_test_directory(tmp_path):
     tmp_path.joinpath("test_file.txt").write_text("test")
     tmp_path.joinpath("test_file2.txt").write_text("test")
 
-    return tmp_path.as_posix()
+    return tmp_path
 
 
 @pytest.fixture(name="empty_directory")
 def get_empty_test_directory(tmp_path):
     tmp_path.joinpath("empty").mkdir()
-    return tmp_path.joinpath("empty").as_posix()
+
+    return tmp_path.joinpath("empty")
 
 
 @pytest.fixture(name="with_subdirectory")
 def get_test_directory_with_subdirectory(tmp_path):
     tmp_path.joinpath("subdirectory").mkdir()
-    return tmp_path.as_posix()
+
+    return tmp_path
 
 
 def test_to_contain(directory, with_subdirectory, context):
@@ -41,6 +45,7 @@ def test_to_contain(directory, with_subdirectory, context):
 
     with context.raises:
         expect.folder(directory).to.contain("test_file3.txt")
+
 
 def test_to_contain_file(directory, context):
     expect.folder(directory).to.contain_file("test_file.txt")
@@ -65,7 +70,6 @@ def test_to_be_empty(directory, empty_directory, with_subdirectory, context):
     with context.raises:
         expect.folder(empty_directory).to_not.be_empty()
 
-
     with context.raises:
         expect.folder(with_subdirectory).to.be_empty()
 
@@ -82,6 +86,7 @@ def test_to_contain_folder(with_subdirectory, empty_directory, context):
 
     with context.raises:
         expect.folder(empty_directory).to.contain_folder("subdirectory")
+
 
 def test_to_exist(directory, context):
     expect.folder(directory).to.exist()
@@ -101,3 +106,7 @@ def test_passing_wrong_types(expected, context):
 
     with context.raises:
         expect.folder(expected).to_not.exist()
+
+
+def test_path_object_type(directory):
+    expect.folder(directory).to.contain(Path("test_file.txt"))
