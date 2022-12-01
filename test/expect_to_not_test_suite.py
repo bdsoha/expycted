@@ -1,6 +1,9 @@
 import pytest
 from expycted import expect
 
+from helpers import stubs
+from helpers.utils import expected_actual_params, expected_params
+
 
 class Person:
     def __init__(self, name: str, age: int):
@@ -8,369 +11,118 @@ class Person:
         self.age = age
 
 
-singleton = None
+@expected_actual_params(stubs.NOT_EQUAL)
+def test_to_not_equal_success(expected, actual, context):
+    expect(expected).to_not.equal(actual)
+    expect(expected).to_not.be_equal_to(actual)
+
+    with context.raises:
+        expect(expected).to.equal(actual)
+
+    with context.raises:
+        expect(expected).to.be_equal_to(actual)
 
 
-@pytest.fixture
-def get_singleton():
-    global singleton
-    if singleton is None:
-        singleton = Person("John", 30)
-    return singleton
+@expected_actual_params(stubs.NOT_BE)
+def test_to_not_be(expected, actual, context):
+    expect(expected).to_not.be(actual)
+
+    with context.raises:
+        expect(expected).to.be(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, True),
-        (1, 1, False),
-        (1, 0, True),
-        (0, 0, False),
-        (True, "True", True),
-        (True, True, False),
-        (True, False, True),
-        ("string", "another", True),
-        ("string", "string", False),
-        (1, "1", True),
-        (get_singleton, get_singleton, False),
-        (get_singleton, Person("John", 30), True),
-    ],
-)
-def test_to_not_equal(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.equal(v2)
-    else:
-        expect(v1).to_not.equal(v2)
+@expected_actual_params(stubs.NOT_CONTAIN)
+def test_to_not_contain(expected, actual, context):
+    expect(expected).to_not.contain(actual)
+
+    with context.raises:
+        expect(expected).to.contain(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, True),
-        (1, 1, False),
-        (1, 0, True),
-        (0, 0, False),
-        (True, "True", False),
-        (True, True, False),
-        (True, False, True),
-        ("string", "another", True),
-        ("string", "string", False),
-        (1, "1", False),
-        (get_singleton, get_singleton, False),
-        (get_singleton, Person("John", 30), True),
-        (1, 1.0, False),
-        (2.0, 3, True),
-    ],
-)
-def test_to_not_be(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be(v2)
-    else:
-        expect(v1).to_not.be(v2)
+@expected_actual_params(stubs.NOT_CONTAIN)
+def test_to_not_be_contained_in(expected, actual, context):
+    expect(actual).to_not.be_contained_in(expected)
+
+    with context.raises:
+        expect(actual).to.be_contained_in(expected)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], None, True),
-        ([2], 2, False),
-        (["a", 2], ["b"], True),
-        (set(["a", "b"]), "a", False),
-        ("abcd", "bc", False),
-        ({"a": 1, "b": 2}.values(), 2, False),
-        ("True", True, False),
-        ("string", "ings", True),
-        ("string", "string", False),
-    ],
-)
-def test_to_not_contain(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.contain(v2)
-    else:
-        expect(v1).to_not.contain(v2)
+@expected_params(stubs.NOT_EMPTY, extract_ids=False)
+def test_to_not_be_empty(expected, context):
+    expect(expected).to_not.be_empty()
+
+    with context.raises:
+        expect(expected).to.be_empty()
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], None, True),
-        ([2], 2, False),
-        (["a", 2], ["b"], True),
-        (set(["a", "b"]), "a", False),
-        ("abcd", "bc", False),
-        ({"a": 1, "b": 2}.values(), 2, False),
-        ("True", True, False),
-        ("string", "ings", True),
-        ("string", "string", False),
-        (get_singleton, get_singleton, False),
-    ],
-)
-def test_to_not_be_contained_in(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v2).to_not.be_contained_in(v1)
-    else:
-        expect(v2).to_not.be_contained_in(v1)
+@expected_params(stubs.NOT_TRUE, extract_ids=False)
+def test_to_not_be_true(expected, context):
+    expect(expected).to_not.be_true()
+
+    with context.raises:
+        expect(expected).to.be_true()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        ([], False),
-        ({}, False),
-        (set([]), False),
-        ("", False),
-        ((), False),
-        ("abcd", True),
-        ({"a": 1, "b": 2}, True),
-        ("True", True),
-        ([1, 2], True),
-        (set([1, 2]), True),
-        ((1, 3), True),
-    ],
-)
-def test_to_not_be_empty(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_empty()
-    else:
-        expect(v1).to_not.be_empty()
+@expected_params(stubs.NOT_FALSE, extract_ids=False)
+def test_to_not_be_false(expected, context):
+    expect(expected).to_not.be_false()
+
+    with context.raises:
+        expect(expected).to.be_false()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, False),
-        (False, True),
-        ([], True),
-        (get_singleton, True),
-    ],
-)
-def test_to_not_be_true(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_true()
-    else:
-        expect(v1).to_not.be_true()
+@expected_params(stubs.NOT_TRUETHY, extract_ids=False)
+def test_to_not_be_truthy(expected, context):
+    expect(expected).to_not.be_truthy()
+
+    with context.raises:
+        expect(expected).to.be_truthy()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, True),
-        (False, False),
-        ([], True),
-        (get_singleton, True),
-    ],
-)
-def test_to_not_be_false(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_false()
-    else:
-        expect(v1).to_not.be_false()
+@expected_params(stubs.NOT_FALSEY, extract_ids=False)
+def test_to_not_be_falsey(expected, context):
+    expect(expected).to_not.be_falsey()
+
+    with context.raises:
+        expect(expected).to.be_falsey()
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, False),
-        (1, False),
-        (get_singleton, False),
-        ([1], False),
-        ([], True),
-        (0, True),
-        (False, True),
-    ],
-)
-def test_to_not_be_truthy(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_truthy()
-    else:
-        expect(v1).to_not.be_truthy()
+@expected_actual_params(stubs.NOT_TYPE, extract_ids=False)
+def test_to_not_be_of_type(expected, actual, context):
+    expect(expected).to_not.be_of_type(actual)
+
+    with context.raises:
+        expect(expected).to.be_of_type(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (True, True),
-        (1, True),
-        (get_singleton, True),
-        ([1], True),
-        ([], False),
-        (0, False),
-        (False, False),
-    ],
-)
-def test_to_not_be_falsey(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_falsey()
-    else:
-        expect(v1).to_not.be_falsey()
+@expected_actual_params(stubs.NOT_INHERIT, extract_ids=False)
+def test_to_not_inherit(expected, actual, context):
+    expect(expected).to_not.inherit(actual)
+
+    with context.raises:
+        expect(expected).to.inherit(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], list, False),
-        (2, int, False),
-        ("a", str, False),
-        (set(["a", "b"]), set, False),
-        ({"a": 1, "b": 2}, dict, False),
-        (True, bool, False),
-        (Person("John", 30), Person, False),
-        (1, int, False),
-        (1.0, float, False),
-        (Person("John", 30), object, True),
-        ("string", "ings", True),
-        ("string", int, True),
-        (1, str, True),
-        (1, float, True),
-        (1.0, int, True),
-    ],
-)
-def test_to_not_be_of_type(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_of_type(v2)
-    else:
-        expect(v1).to_not.be_of_type(v2)
+
+@expected_actual_params(stubs.LESS_THAN, extract_ids=False)
+def test_to_not_be_greater_than(expected, actual, context):
+    expect(expected).to_not.be_greater_than(actual)
+
+    with context.raises:
+        expect(expected).to.be_greater_than(actual)
 
 
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        ([1], list, False),
-        (2, int, False),
-        ("a", str, False),
-        (set(["a", "b"]), set, False),
-        ({"a": 1, "b": 2}, dict, False),
-        (True, bool, False),
-        (Person("John", 30), Person, False),
-        (Person("John", 30), object, False),
-        (1, int, False),
-        (1.0, float, False),
-        ("string", "ings", False),
-        ("string", int, True),
-        (1, str, True),
-        (1, float, True),
-        (1.0, int, True),
-    ],
-)
-def test_to_not_inherit(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.inherit(v2)
-    else:
-        expect(v1).to_not.inherit(v2)
+@expected_actual_params(stubs.GREATER_THAN, extract_ids=False)
+def test_to_not_be_lesser_than(expected, actual, context):
+    expect(expected).to_not.be_lesser_than(actual)
+
+    with context.raises:
+        expect(expected).to.be_lesser_than(actual)
 
 
-# NUMERIC TESTS
+@expected_params(stubs.NOT_NUMERIC, extract_ids=False)
+def test_to_not_be_numeric(expected, context):
+    expect(expected).to_not.be_numeric()
 
-
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, True),
-        (3, 2, False),
-        (3.2, 1, False),
-        (100.1, 100.2, True),
-        ([1, 2], [1, 2, 3], True),
-        ([1], [2], True),
-        (2, 2, True),
-    ],
-)
-def test_to_not_be_greater_than(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_greater_than(v2)
-    else:
-        expect(v1).to_not.be_greater_than(v2)
-
-
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, False),
-        (3, 2, True),
-        (3.2, 1, True),
-        (100.1, 100.2, False),
-        ([1, 2], [1, 2, 3], False),
-        ([1], [2], False),
-        (2, 2, True),
-    ],
-)
-def test_to_not_be_lesser_than(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_lesser_than(v2)
-    else:
-        expect(v1).to_not.be_lesser_than(v2)
-
-
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, True),
-        (3, 2, False),
-        (3.2, 1, False),
-        (100.1, 100.2, True),
-        ([1, 2], [1, 2, 3], True),
-        ([1], [2], True),
-        (2, 2, False),
-    ],
-)
-def test_to_not_be_greater_or_equal_to(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_greater_or_equal_to(v2)
-    else:
-        expect(v1).to_not.be_greater_or_equal_to(v2)
-
-
-@pytest.mark.parametrize(
-    "v1,v2,true",
-    [
-        (1, 2, False),
-        (3, 2, True),
-        (3.2, 1, True),
-        (100.1, 100.2, False),
-        ([1, 2], [1, 2, 3], False),
-        ([1], [2], False),
-        (2, 2, False),
-    ],
-)
-def test_to_not_be_lesser_or_equal_to(v1, v2, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_lesser_or_equal_to(v2)
-    else:
-        expect(v1).to_not.be_lesser_or_equal_to(v2)
-
-
-@pytest.mark.parametrize(
-    "v1,true",
-    [
-        (1, False),
-        (3, False),
-        (3.2, False),
-        ("a", True),
-        ([1, 2], True),
-        (set(), True),
-        (tuple(), True),
-        ("123", False),
-        (lambda x: x, True),
-        (Person("Fero", 12), True),
-    ],
-)
-def test_to_not_be_numeric(v1, true):
-    if not true:
-        with pytest.raises(AssertionError):
-            expect(v1).to_not.be_numeric()
-    else:
-        expect(v1).to_not.be_numeric()
+    with context.raises:
+        expect(expected).to.be_numeric()
