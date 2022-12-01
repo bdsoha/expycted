@@ -17,13 +17,13 @@ class expect(Value):
         return Function(function)
 
     @classmethod
-    def value(cls, value: Any):
+    def value(cls, expected: Any):
         """Expect a value to be something
 
         Args:
-            value (Any): Value to check for some sort of condition
+            expected (Any): Value to check for some sort of condition
         """
-        return cls(value)
+        return cls(expected)
 
     @classmethod
     def folder(cls, path: Union[str, Path]):
