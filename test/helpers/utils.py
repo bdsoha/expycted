@@ -2,6 +2,7 @@ from typing import NamedTuple
 import pytest
 from contextlib import nullcontext
 
+
 class Context(NamedTuple):
     not_raises = nullcontext()
     raises = pytest.raises(AssertionError)

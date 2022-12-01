@@ -1,14 +1,7 @@
-import pytest
 from expycted import expect
 
 from helpers import stubs
 from helpers.utils import expected_actual_params, expected_params
-
-
-class Person:
-    def __init__(self, name: str, age: int):
-        self.name = name
-        self.age = age
 
 
 @expected_actual_params(stubs.NOT_EQUAL)
