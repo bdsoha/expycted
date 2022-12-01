@@ -7,13 +7,9 @@ from helpers.utils import expected_actual_params, expected_params
 @expected_actual_params(stubs.NOT_EQUAL)
 def test_to_not_equal_success(expected, actual, context):
     expect(expected).to_not.equal(actual)
-    expect(expected).to_not.be_equal_to(actual)
 
     with context.raises:
         expect(expected).to.equal(actual)
-
-    with context.raises:
-        expect(expected).to.be_equal_to(actual)
 
 
 @expected_actual_params(stubs.NOT_BE)

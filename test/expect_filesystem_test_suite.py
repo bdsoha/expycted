@@ -24,6 +24,24 @@ def get_test_directory_with_subdirectory(tmp_path):
     return tmp_path.as_posix()
 
 
+def test_to_contain(directory, with_subdirectory, context):
+    expect.folder(with_subdirectory).to.contain("subdirectory")
+    expect.folder(directory).to.contain("test_file.txt")
+    expect.folder(directory).to.contain("test_file2.txt")
+    expect.folder(directory).to_not.contain("test_file3.txt")
+
+    with context.raises:
+        expect.folder(with_subdirectory).to_not.contain("subdirectory")
+
+    with context.raises:
+        expect.folder(directory).to_not.contain("test_file.txt")
+
+    with context.raises:
+        expect.folder(directory).to_not.contain("test_file2.txt")
+
+    with context.raises:
+        expect.folder(directory).to.contain("test_file3.txt")
+
 def test_to_contain_file(directory, context):
     expect.folder(directory).to.contain_file("test_file.txt")
     expect.folder(directory).to.contain_file("test_file2.txt")
