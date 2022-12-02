@@ -8,15 +8,24 @@ _SENTINEL = object()
 class BaseExpectation:
     _ASSERTION_MESSAGES = {}
 
-    def __init__(self, value: Any, negate=False):
-        self.value = value
+    def __init__(self, expected: Any, negate=False):
+        self.expected = expected
         self.negate = negate
 
-    def _message(self, method: str, actual: Any = _SENTINEL) -> str:
-        placeholders = dict(value1=self.value)
+    def _message(
+            self,
+            method: str,
+            actual: Any = _SENTINEL,
+            expected: Any = None,
+            **kwargs
+    ) -> str:
+        placeholders = dict(
+            expected=self.expected if expected is None else expected,
+            **kwargs
+        )
 
         if actual is not _SENTINEL:
-            placeholders['value2'] = actual
+            placeholders["actual"] = actual
 
         return self._ASSERTION_MESSAGES[method].format(**placeholders)
 

@@ -7,162 +7,159 @@ from expycted.internals.base import BaseExpectation
 
 class Value(BaseExpectation):
     _ASSERTION_MESSAGES = {
-        "equal": "Expected {value1} to equal {value2}",
-        "be": "Expected {value1} to be {value2}",
-        "contain": "Expected {value1} to contain {value2}",
-        "be_contained_in": "Expected {value1} to be contained in {value2}",
-        "be_empty": "Expected {value1} to be empty",
-        "be_true": "Expected {value1} to be true",
-        "be_false": "Expected {value1} to be false",
-        "be_truthy": "Expected {value1} to be truthy",
-        "be_falsey": "Expected {value1} to be falsey",
-        "be_of_type": "Expected {value1} to be of type {value2}",
-        "inherit": "Expected {value1} to inherit {value2}",
-        "be_greater_than": "Expected {value1} to be greater than {value2}",
-        "be_lesser_than": "Expected {value1} to be less than {value2}",
-        "be_greater_or_equal_to": "Expected {value1} to be greater than or equal to {value2}",
-        "be_lesser_or_equal_to": "Expected {value1} to be less than or equal to {value2}",
-        "be_numeric": "Expected {value1} to be numeric",
+        "equal": "Expected {expected} to equal {actual}",
+        "be": "Expected {expected} to be {actual}",
+        "contain": "Expected {expected} to contain {actual}",
+        "be_contained_in": "Expected {expected} to be contained in {actual}",
+        "be_empty": "Expected {expected} to be empty",
+        "be_true": "Expected {expected} to be true",
+        "be_false": "Expected {expected} to be false",
+        "be_truthy": "Expected {expected} to be truthy",
+        "be_falsey": "Expected {expected} to be falsey",
+        "be_of_type": "Expected {expected} to be of type {actual}",
+        "inherit": "Expected {expected} to inherit {actual}",
+        "be_greater_than": "Expected {expected} to be greater than {actual}",
+        "be_lesser_than": "Expected {expected} to be less than {actual}",
+        "be_greater_or_equal_to": "Expected {expected} to be greater than or equal to {actual}",
+        "be_lesser_or_equal_to": "Expected {expected} to be less than or equal to {actual}",
+        "be_numeric": "Expected {expected} to be numeric",
     }
 
     def _internal_has_len(self: Any) -> bool:
         try:
-            len(self.value)
+            len(self.expected)
             return True
         except TypeError:
             return False
 
-    def _internal_equal(self, something: Any) -> Tuple[bool, str]:
-        return self.value == something, self._message("equal", something)
+    def _internal_equal(self, actual: Any) -> Tuple[bool, str]:
+        return self.expected == actual, self._message("equal", actual)
 
-    def _internal_be(self, something: Any) -> Tuple[bool, str]:
+    def _internal_be(self, actual: Any) -> Tuple[bool, str]:
         return any(
             [
-                str(self.value) == str(something),
-                pickle.dumps(self.value) == pickle.dumps(something),
-                self.value == something,
+                str(self.expected) == str(actual),
+                pickle.dumps(self.expected) == pickle.dumps(actual),
+                self.expected == actual,
             ]
-        ), self._message("be", something)
+        ), self._message("be", actual)
 
-    def _internal_contain(self, something: Any) -> Tuple[bool, str]:
+    def _internal_contain(self, actual: Any) -> Tuple[bool, str]:
         try:
-            return something in self.value, self._message("contain", something)
+            return actual in self.expected, self._message("contain", actual)
         except Exception:
             raise AssertionError(
-                f'Type "{type(self.value)} cannot contain {something}"'
+                f'Type "{type(self.expected)} cannot contain {actual}"'
             )
 
-    def _internal_be_contained_in(self, something: Collection) -> Tuple[bool, str]:
+    def _internal_be_contained_in(self, actual: Collection) -> Tuple[bool, str]:
         try:
-            return self.value in something, self._message("be_contained_in", something)
+            return self.expected in actual, self._message("be_contained_in", actual)
         except Exception:
             raise AssertionError(
-                f'Type "{type(something)} cannot contain {self.value}"'
+                f'Type "{type(actual)} cannot contain {self.expected}"'
             )
 
     def _internal_be_empty(self):
         try:
-            iter(self.value)
-            return not self.value, self._message("be_empty")
+            iter(self.expected)
+            return not self.expected, self._message("be_empty")
         except TypeError:
             raise AssertionError(
-                f"Emptiness of '{type(self.value)}' object doesn't make sense"
+                f"Emptiness of '{type(self.expected)}' object doesn't make sense"
             )
 
     def _internal_be_true(self) -> Tuple[bool, str]:
-        return self.value is True, self._message("be_true")
+        return self.expected is True, self._message("be_true")
 
     def _internal_be_false(self) -> Tuple[bool, str]:
-        return self.value is False, self._message("be_false")
+        return self.expected is False, self._message("be_false")
 
     def _internal_be_truthy(self) -> Tuple[bool, str]:
-        return True if self.value else False, self._message("be_truthy")
+        return True if self.expected else False, self._message("be_truthy")
 
     def _internal_be_falsey(self) -> Tuple[bool, str]:
-        return True if not self.value else False, self._message("be_falsey")
+        return True if not self.expected else False, self._message("be_falsey")
 
-    def _internal_be_of_type(self, something: type) -> Tuple[bool, str]:
-        return type(self.value) is something, self._message("be_of_type", something)
+    def _internal_be_of_type(self, actual: type) -> Tuple[bool, str]:
+        return type(self.expected) is actual, self._message("be_of_type", actual)
 
-    def _internal_inherit(self, something: type) -> Tuple[bool, str]:
+    def _internal_inherit(self, actual: type) -> Tuple[bool, str]:
         try:
-            return issubclass(type(self.value), something), self._message("inherit", something)
+            return issubclass(type(self.expected), actual), self._message("inherit", actual)
         except Exception:
             raise AssertionError("Second argument must be a class, not an instance")
 
-    def _internal_be_greater_than(self, something: Any) -> Tuple[bool, str]:
-        return self.value > something, self._message("be_greater_than", something)
+    def _internal_be_greater_than(self, actual: Any) -> Tuple[bool, str]:
+        return self.expected > actual, self._message("be_greater_than", actual)
 
-    def _internal_be_lesser_than(self, something: Any) -> Tuple[bool, str]:
-        return self.value < something, self._message("be_lesser_than", something)
+    def _internal_be_lesser_than(self, actual: Any) -> Tuple[bool, str]:
+        return self.expected < actual, self._message("be_lesser_than", actual)
 
-    def _internal_be_greater_or_equal_to(self, something: Any) -> Tuple[bool, str]:
-        return self.value >= something, self._message("be_greater_or_equal_to", something)
+    def _internal_be_greater_or_equal_to(self, actual: Any) -> Tuple[bool, str]:
+        return self.expected >= actual, self._message("be_greater_or_equal_to", actual)
 
-    def _internal_be_lesser_or_equal_to(self, something: Any) -> Tuple[bool, str]:
-        return self.value <= something, self._message("be_lesser_or_equal_to", something)
+    def _internal_be_lesser_or_equal_to(self, actual: Any) -> Tuple[bool, str]:
+        return self.expected <= actual, self._message("be_lesser_or_equal_to", actual)
 
     def _internal_be_numeric(self: Any) -> Tuple[bool, str]:
         assertion_text = self._message("be_numeric")
-        if type(self.value) in [int, float, complex]:
+
+        if type(self.expected) in [int, float, complex]:
             return True, assertion_text
-        
-        if type(self.value) is str:
+
+        if type(self.expected) is str:
             try:
-                float(self.value)
-                print(float(self.value))
+                float(self.expected)
                 return True, assertion_text
             except Exception:
                 pass
+
         return False, assertion_text
 
     @assertion
-    def equal(self, something: Any) -> None:
+    def equal(self, actual: Any) -> None:
         """Checks whether that the value is equal to something
 
         Args:
-            something (Any): The value to compare to
+            actual (Any): The value to compare to
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def be(self, something: Any) -> None:
+    def be(self, actual: Any) -> None:
         """Checks whether the value is 'softly' equal to something
 
         Args:
-            something (Any): The value to compare to
+            actual (Any): The value to compare to
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def contain(self, something: Any) -> None:
+    def contain(self, actual: Any) -> None:
         """Checks whether the value contains something
 
         Args:
-            something (Any): The value to be contained
+            actual (Any): The value to be contained
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def be_contained_in(self, something: Collection) -> None:
+    def be_contained_in(self, actual: Collection) -> None:
         """Checks whether the value is contained in something
 
         Args:
-            something (Any): The value to contain something
+            actual (Any): The value to contain something
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
     def be_empty(self) -> None:
@@ -171,7 +168,6 @@ class Value(BaseExpectation):
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
     def be_true(self) -> None:
@@ -180,7 +176,6 @@ class Value(BaseExpectation):
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
     def be_false(self) -> None:
@@ -189,7 +184,6 @@ class Value(BaseExpectation):
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
     def be_truthy(self) -> None:
@@ -198,7 +192,6 @@ class Value(BaseExpectation):
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
     def be_falsey(self) -> None:
@@ -207,79 +200,72 @@ class Value(BaseExpectation):
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def be_of_type(self, something: type) -> None:
+    def be_of_type(self, actual: type) -> None:
         """Checks whether the value is of provided type
 
         Args:
-            something (type): Type to be checked against
+            actual (type): Type to be checked against
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def inherit(self, something: type) -> None:
+    def inherit(self, actual: type) -> None:
         """Checks whether the value inherits from provided type
 
         Args:
-            something (type): Type to inherit from
+            actual (type): Type to inherit from
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def be_greater_than(self, something: Any) -> None:
+    def be_greater_than(self, actual: Any) -> None:
         """Check whether the value is greater than something
 
         Args:
-            something (Any): Value to compare to
+            actual (Any): Value to compare to
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def be_lesser_than(self, something: Any) -> None:
+    def be_lesser_than(self, actual: Any) -> None:
         """Check whether the value is lesser than something
 
         Args:
-            something (Any): Value to compare to
+            actual (Any): Value to compare to
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def be_greater_or_equal_to(self, something: Any) -> None:
+    def be_greater_or_equal_to(self, actual: Any) -> None:
         """Check whether the value is greater than or equal to something
 
         Args:
-            something (Any): Value to compare to
+            actual (Any): Value to compare to
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
-    def be_lesser_or_equal_to(self, something: Any) -> None:
+    def be_lesser_or_equal_to(self, actual: Any) -> None:
         """Check whether the value is lesser than or equal to something
 
         Args:
-            something (Any): Value to compare to
+            actual (Any): Value to compare to
 
         Returns:
             bool: Result
         """
-        pass
 
     @assertion
     def be_numeric(self) -> None:
@@ -288,7 +274,6 @@ class Value(BaseExpectation):
         Returns:
             bool: Result
         """
-        pass
 
     # Aliases
 

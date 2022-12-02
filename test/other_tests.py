@@ -2,7 +2,7 @@ from expycted import expect
 import pytest
 
 
-@pytest.mark.parametrize("v1,true", [
+@pytest.mark.parametrize('v1,true', [
     (1, False),
     (3, False),
     (3.2, False),
@@ -13,7 +13,7 @@ import pytest
     ('123', True),
     (lambda x: x, False),
 ]
-)
+                         )
 def test_has_len(v1, true):
     assert expect(v1).to._internal_has_len() == true
 
@@ -21,8 +21,9 @@ def test_has_len(v1, true):
 def test_to_expect_value():
     expect_object = expect.value(1)
     assert isinstance(expect_object, expect)
-    assert expect_object.to.value == 1
-    assert expect_object.to_not.value == 1
+    assert expect_object.expected == 1
+    assert expect_object.expected == 1
+
 
 def test_method_chaining():
     expect_object = expect.value(1)
