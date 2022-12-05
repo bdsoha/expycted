@@ -16,6 +16,7 @@ def hidetraceback(fn: Callable) -> Callable:
     @wraps(fn)
     def _(*args, **kwargs):
         fn.__globals__['__tracebackhide__'] = os.getenv('EXPYCTED_HIDETRACEBACK', True)
+
         return fn(*args, **kwargs)
 
     return _
@@ -25,7 +26,8 @@ def assertion(fn: Callable) -> Callable:
     @hidetraceback
     @wraps(fn)
     def _(self, *args, **kwargs):
-        self._execute_internal_assertion(fn.__name__, *args, **kwargs)
         fn(self, *args, **kwargs)
-        return self
+
+        return self._execute_internal_assertion(fn.__name__, *args, **kwargs)
+
     return _

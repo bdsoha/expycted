@@ -34,4 +34,4 @@ def test_method_chaining():
     assert expect_object.and_not is expect_object
     assert expect_object.and_to_not is expect_object
 
-    expect([1, 2, 3]).to.contain(3).and_to_not.contain(7)
+    expect([1, 2, 3]).to_not.contain(7).and_to.contain(3)
