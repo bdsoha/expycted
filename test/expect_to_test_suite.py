@@ -287,6 +287,7 @@ def test_to_be_int(expected, context):
     with context.raises:
         expect(expected).to_not.be_an_int()
 
+
 @expected_params(stubs.FLOAT, extract_ids=False)
 def test_to_be_float(expected, context):
     expect(expected).to.be_float()
@@ -298,6 +299,7 @@ def test_to_be_float(expected, context):
     with context.raises:
         expect(expected).to_not.be_a_float()
 
+
 @expected_params(stubs.STR, extract_ids=False)
 def test_to_be_str(expected, context):
     expect(expected).to.be_str()
@@ -308,3 +310,11 @@ def test_to_be_str(expected, context):
 
     with context.raises:
         expect(expected).to_not.be_a_str()
+
+
+@expected_params(stubs.CALLABLE, extract_ids=False)
+def test_to_be_callable(expected, context):
+    expect(expected).to.be_callable()
+
+    with context.raises:
+        expect(expected).to_not.be_callable()

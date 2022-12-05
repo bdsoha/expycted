@@ -154,3 +154,11 @@ def test_to_not_be_str(expected, context):
 
     with context.raises:
         expect(expected).to.be_str()
+
+
+@expected_params(stubs.NOT_CALLABLE, extract_ids=False)
+def test_to_not_be_callable(expected, context):
+    expect(expected).to_not.be_callable()
+
+    with context.raises:
+        expect(expected).to.be_callable()

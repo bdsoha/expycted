@@ -23,6 +23,7 @@ class Value(BaseExpectation):
         "be_greater_or_equal_to": "Expected {expected} to be greater than or equal to {actual}",
         "be_lesser_or_equal_to": "Expected {expected} to be less than or equal to {actual}",
         "be_numeric": "Expected {expected} to be numeric",
+        "be_callable": "Expected {expected} to be callable",
     }
 
     def _internal_has_len(self: Any) -> bool:
@@ -116,6 +117,9 @@ class Value(BaseExpectation):
                 pass
 
         return False, assertion_text
+
+    def _internal_be_callable(self) -> Tuple[bool, str]:
+        return callable(self.expected), self._message("be_callable")
 
     @assertion
     def equal(self, actual: Any) -> None:
@@ -270,6 +274,14 @@ class Value(BaseExpectation):
     @assertion
     def be_numeric(self) -> None:
         """Check whether the value is numeric
+
+        Returns:
+            bool: Result
+        """
+
+    @assertion
+    def be_callable(self) -> None:
+        """Check whether the value is callable
 
         Returns:
             bool: Result

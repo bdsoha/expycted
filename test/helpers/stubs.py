@@ -311,3 +311,16 @@ NOT_STR = (
     *BOOL,
     *LIST
 )
+
+CALLABLE = (
+    Person,
+    lambda x: x,
+    print
+)
+
+NOT_CALLABLE = (
+    *INT,
+    *FLOAT,
+    *BOOL,
+    *LIST
+)
