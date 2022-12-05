@@ -37,11 +37,15 @@ class BaseExpectation:
 
         assert result, message
 
+        self.negate = False
+        
+        return self
+
     @hidetraceback
     def _execute_internal_assertion(self, method: str, *args, **kwargs):
         internal_assert = getattr(self, f"_internal_{method}")
 
-        self._assert(
+        return self._assert(
             *internal_assert(*args, **kwargs)
         )
 
