@@ -38,7 +38,7 @@ class BaseExpectation:
         assert result, message
 
         self.negate = False
-        
+
         return self
 
     @hidetraceback
@@ -59,7 +59,7 @@ class BaseExpectation:
 
     @property
     def to_not(self):
-        self.negate = not self.negate
+        self.negate = True
         return self
 
     @property

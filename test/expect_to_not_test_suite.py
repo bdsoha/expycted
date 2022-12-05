@@ -92,7 +92,6 @@ def test_to_not_inherit(expected, actual, context):
         expect(expected).to.inherit(actual)
 
 
-
 @expected_actual_params(stubs.LESS_THAN, extract_ids=False)
 def test_to_not_be_greater_than(expected, actual, context):
     expect(expected).to_not.be_greater_than(actual)
@@ -115,3 +114,43 @@ def test_to_not_be_numeric(expected, context):
 
     with context.raises:
         expect(expected).to.be_numeric()
+
+
+@expected_params(stubs.NOT_LIST, extract_ids=False)
+def test_to_not_be_list(expected, context):
+    expect(expected).to_not.be_list()
+
+    with context.raises:
+        expect(expected).to.be_list()
+
+
+@expected_params(stubs.NOT_BOOL, extract_ids=False)
+def test_to_not_be_bool(expected, context):
+    expect(expected).to_not.be_bool()
+
+    with context.raises:
+        expect(expected).to.be_bool()
+
+
+@expected_params(stubs.NOT_INT, extract_ids=False)
+def test_to_not_be_int(expected, context):
+    expect(expected).to_not.be_int()
+
+    with context.raises:
+        expect(expected).to.be_int()
+
+
+@expected_params(stubs.NOT_FLOAT, extract_ids=False)
+def test_to_not_be_float(expected, context):
+    expect(expected).to_not.be_float()
+
+    with context.raises:
+        expect(expected).to.be_float()
+
+
+@expected_params(stubs.NOT_STR, extract_ids=False)
+def test_to_not_be_str(expected, context):
+    expect(expected).to_not.be_str()
+
+    with context.raises:
+        expect(expected).to.be_str()

@@ -250,3 +250,61 @@ def test_to_be_numeric(expected, context):
 
     with context.raises:
         expect(expected).to_not.be_a_number()
+
+
+@expected_params(stubs.LIST, extract_ids=False)
+def test_to_be_list(expected, context):
+    expect(expected).to.be_list()
+    expect(expected).to.be_a_list()
+
+    with context.raises:
+        expect(expected).to_not.be_list()
+
+    with context.raises:
+        expect(expected).to_not.be_a_list()
+
+
+@expected_params(stubs.BOOL, extract_ids=False)
+def test_to_be_list(expected, context):
+    expect(expected).to.be_bool()
+    expect(expected).to.be_a_bool()
+
+    with context.raises:
+        expect(expected).to_not.be_bool()
+
+    with context.raises:
+        expect(expected).to_not.be_a_bool()
+
+
+@expected_params(stubs.INT, extract_ids=False)
+def test_to_be_int(expected, context):
+    expect(expected).to.be_int()
+    expect(expected).to.be_an_int()
+
+    with context.raises:
+        expect(expected).to_not.be_int()
+
+    with context.raises:
+        expect(expected).to_not.be_an_int()
+
+@expected_params(stubs.FLOAT, extract_ids=False)
+def test_to_be_float(expected, context):
+    expect(expected).to.be_float()
+    expect(expected).to.be_a_float()
+
+    with context.raises:
+        expect(expected).to_not.be_float()
+
+    with context.raises:
+        expect(expected).to_not.be_a_float()
+
+@expected_params(stubs.STR, extract_ids=False)
+def test_to_be_str(expected, context):
+    expect(expected).to.be_str()
+    expect(expected).to.be_a_str()
+
+    with context.raises:
+        expect(expected).to_not.be_str()
+
+    with context.raises:
+        expect(expected).to_not.be_a_str()

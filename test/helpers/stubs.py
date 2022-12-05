@@ -20,14 +20,13 @@ FALSE_STR_EQUIVALENT = (False, "False", "bool (False) str equivalent")
 INT_STR_EQUIVALENT = (1, "1", "int str equivalent")
 INT_FLOAT_EQUIVALENT = (1, 1.0, "int float equivalent")
 
-RSTR_STR_EQUIVALENT = (r"hello","hello", "r-str str equivalent")
-BYTE_STR_EQUIVALENT = (b"hello","hello", "byte-str str equivalent")
+RSTR_STR_EQUIVALENT = (r"hello", "hello", "r-str str equivalent")
+BYTE_STR_EQUIVALENT = (b"hello", "hello", "byte-str str equivalent")
 
 LIST_TUPLE_EQUIVALENT = ([True, 1.1], (True, 1.1), "list tuple equivalent")
 
 SAME_OBJECT = (PERSON, PERSON, "same object in memory")
 COPY_OBJECT = (Person(), Person(), "copied object")
-
 
 EQUAL = (
     TRUE_INT_EQUIVALENT,
@@ -97,6 +96,7 @@ EMPTY = (
     set(),
     "",
     tuple(),
+    range(0),
 )
 
 NOT_EMPTY = (
@@ -105,6 +105,7 @@ NOT_EMPTY = (
     [1],
     {1},
     (1,),
+    range(10)
 )
 
 NOT_EMPTY_TYPE_ERROR = (
@@ -154,6 +155,17 @@ NOT_FALSEY = (
     *TRUE,
     *NOT_EMPTY,
     PERSON
+)
+
+BOOL = (
+    *TRUE,
+    *FALSE
+)
+
+NOT_BOOL = (
+    "True",
+    0,
+    1
 )
 
 TYPE = (
@@ -246,4 +258,56 @@ NOT_NUMERIC = (
     tuple(),
     lambda x: x,
     PERSON
+)
+
+LIST = (
+    [1, 2],
+    ["hello"],
+    []
+)
+
+NOT_LIST = (
+    "string",
+    (1, 2),
+    {1, 2},
+    PERSON
+)
+
+INT = (
+    -1,
+    0,
+    1,
+    1_000_123
+)
+
+FLOAT = (
+    -1.0,
+    0.0,
+    1e1,
+    1.0,
+    1.1
+)
+
+NOT_INT = (
+    *FLOAT,
+    "1",
+)
+
+NOT_FLOAT = (
+    *INT,
+    "1.1"
+)
+
+STR = (
+    "",
+    " ",
+    "hello",
+    r"hello"
+)
+
+NOT_STR = (
+    *INT,
+    *FLOAT,
+    *BOOL,
+    *LIST
 )

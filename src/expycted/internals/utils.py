@@ -12,10 +12,11 @@ def hidetraceback(fn: Callable) -> Callable:
     Returns:
         Callable: The decorated function
     """
+    __tracebackhide__ = os.getenv('EXPYCTED_HIDETRACEBACK', True)
 
     @wraps(fn)
     def _(*args, **kwargs):
-        fn.__globals__['__tracebackhide__'] = os.getenv('EXPYCTED_HIDETRACEBACK', True)
+        fn.__globals__['__tracebackhide__'] = __tracebackhide__
 
         return fn(*args, **kwargs)
 

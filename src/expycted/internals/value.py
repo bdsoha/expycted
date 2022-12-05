@@ -1,7 +1,7 @@
 import pickle
 from typing import Any, Collection, Tuple
 
-from expycted.internals.utils import assertion
+from expycted.internals.utils import assertion, hidetraceback
 from expycted.internals.base import BaseExpectation
 
 
@@ -76,10 +76,10 @@ class Value(BaseExpectation):
         return self.expected is False, self._message("be_false")
 
     def _internal_be_truthy(self) -> Tuple[bool, str]:
-        return True if self.expected else False, self._message("be_truthy")
+        return bool(self.expected), self._message("be_truthy")
 
     def _internal_be_falsey(self) -> Tuple[bool, str]:
-        return True if not self.expected else False, self._message("be_falsey")
+        return not bool(self.expected), self._message("be_falsey")
 
     def _internal_be_of_type(self, actual: type) -> Tuple[bool, str]:
         return type(self.expected) is actual, self._message("be_of_type", actual)
@@ -275,9 +275,60 @@ class Value(BaseExpectation):
             bool: Result
         """
 
+    @hidetraceback
+    def be_list(self) -> None:
+        """Check whether the value is a list
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(list)
+
+    @hidetraceback
+    def be_bool(self) -> None:
+        """Check whether the value is a bool
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(bool)
+
+    @hidetraceback
+    def be_int(self) -> None:
+        """Check whether the value is an int
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(int)
+
+    @hidetraceback
+    def be_float(self) -> None:
+        """Check whether the value is a float
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(float)
+
+    @hidetraceback
+    def be_str(self) -> None:
+        """Check whether the value is a str
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(str)
+
     # Aliases
 
     be_a_number = be_numeric
+
+    be_a_list = be_list
+    be_a_bool = be_bool
+    be_an_int = be_int
+    be_a_float = be_float
+    be_a_str = be_str
 
     be_lesser = be_less = be_less_than = be_lesser_than
     be_lesser_or_equal = (
