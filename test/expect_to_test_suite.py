@@ -318,3 +318,11 @@ def test_to_be_callable(expected, context):
 
     with context.raises:
         expect(expected).to_not.be_callable()
+
+
+@expected_params(stubs.NONE, extract_ids=False)
+def test_to_be_none(expected, context):
+    expect(expected).to.be_none()
+
+    with context.raises:
+        expect(expected).to_not.be_none()

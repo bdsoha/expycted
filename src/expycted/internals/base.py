@@ -51,6 +51,7 @@ class BaseExpectation:
 
     @property
     def to(self):
+        self.negate = False
         return self
 
     @property

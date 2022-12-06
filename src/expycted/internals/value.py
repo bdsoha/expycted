@@ -332,6 +332,16 @@ class Value(BaseExpectation):
         """
         return self.be_of_type(str)
 
+
+    @hidetraceback
+    def be_none(self) -> None:
+        """Check whether the value is None
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(type(None))
+
     # Aliases
 
     be_a_number = be_numeric

@@ -324,3 +324,14 @@ NOT_CALLABLE = (
     *BOOL,
     *LIST
 )
+
+NONE = (
+    None,
+)
+
+NOT_NONE = (
+    *FALSE,
+    *TRUE,
+    0,
+    ""
+)
