@@ -23,7 +23,7 @@ class Value(BaseExpectation):
         "be_greater_or_equal_to": "Expected {expected} to be greater than or equal to {actual}",
         "be_lesser_or_equal_to": "Expected {expected} to be less than or equal to {actual}",
         "be_numeric": "Expected {expected} to be numeric",
-        "be_callable": "Expected {expected} to be callable",
+        "be_callable": "Expected {expected} to be callable function or method",
     }
 
     def _internal_has_len(self: Any) -> bool:
@@ -272,6 +272,22 @@ class Value(BaseExpectation):
         """
 
     @assertion
+    def startswith(self, prefix: str) -> None:
+        """Check whether the value starts with a given prefix
+
+        Returns:
+            bool: Result
+        """
+
+    @assertion
+    def endswith(self, suffix: str) -> None:
+        """Check whether the value ends with a given suffix
+
+        Returns:
+            bool: Result
+        """
+
+    @assertion
     def be_numeric(self) -> None:
         """Check whether the value is numeric
 
@@ -287,7 +303,6 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-
     @hidetraceback
     def be_list(self) -> None:
         """Check whether the value is a list
@@ -296,7 +311,6 @@ class Value(BaseExpectation):
             bool: Result
         """
         return self.be_of_type(list)
-
 
     @hidetraceback
     def be_tuple(self) -> None:
@@ -307,7 +321,6 @@ class Value(BaseExpectation):
         """
         return self.be_of_type(tuple)
 
-
     @hidetraceback
     def be_set(self) -> None:
         """Check whether the value is a set
@@ -317,7 +330,6 @@ class Value(BaseExpectation):
         """
         return self.be_of_type(set)
 
-
     @hidetraceback
     def be_dict(self) -> None:
         """Check whether the value is a dict
@@ -326,7 +338,6 @@ class Value(BaseExpectation):
             bool: Result
         """
         return self.be_of_type(dict)
-
 
     @hidetraceback
     def be_bool(self) -> None:
