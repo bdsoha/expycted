@@ -264,6 +264,42 @@ def test_to_be_list(expected, context):
         expect(expected).to_not.be_a_list()
 
 
+@expected_params(stubs.TUPLE, extract_ids=False)
+def test_to_be_tuple(expected, context):
+    expect(expected).to.be_tuple()
+    expect(expected).to.be_a_tuple()
+
+    with context.raises:
+        expect(expected).to_not.be_tuple()
+
+    with context.raises:
+        expect(expected).to_not.be_a_tuple()
+
+
+@expected_params(stubs.SET, extract_ids=False)
+def test_to_be_set(expected, context):
+    expect(expected).to.be_set()
+    expect(expected).to.be_a_set()
+
+    with context.raises:
+        expect(expected).to_not.be_set()
+
+    with context.raises:
+        expect(expected).to_not.be_a_set()
+
+
+@expected_params(stubs.DICT, extract_ids=False)
+def test_to_be_dict(expected, context):
+    expect(expected).to.be_dict()
+    expect(expected).to.be_a_dict()
+
+    with context.raises:
+        expect(expected).to_not.be_dict()
+
+    with context.raises:
+        expect(expected).to_not.be_a_dict()
+
+
 @expected_params(stubs.BOOL, extract_ids=False)
 def test_to_be_list(expected, context):
     expect(expected).to.be_bool()

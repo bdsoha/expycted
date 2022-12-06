@@ -266,11 +266,51 @@ LIST = (
     []
 )
 
-NOT_LIST = (
-    "string",
+TUPLE = (
     (1, 2),
+    ("hello", ),
+    tuple()
+)
+
+SET = (
+    {"hello"},
     {1, 2},
+    set()
+)
+
+DICT = (
+    dict(),
+    {"a": 1},
+)
+
+NOT_LIST = (
+    *TUPLE,
+    *SET,
+    *DICT,
+    "string",
     PERSON
+)
+
+NOT_TUPLE = (
+    *LIST,
+    *SET,
+    *DICT,
+    "string",
+    PERSON
+)
+
+NOT_SET = (
+    *LIST,
+    *TUPLE,
+    *DICT,
+    "string",
+    PERSON
+)
+
+NOT_DICT = (
+    *TUPLE,
+    *SET,
+    *LIST,
 )
 
 INT = (

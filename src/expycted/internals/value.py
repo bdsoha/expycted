@@ -287,6 +287,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
+
     @hidetraceback
     def be_list(self) -> None:
         """Check whether the value is a list
@@ -295,6 +296,37 @@ class Value(BaseExpectation):
             bool: Result
         """
         return self.be_of_type(list)
+
+
+    @hidetraceback
+    def be_tuple(self) -> None:
+        """Check whether the value is a tuple
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(tuple)
+
+
+    @hidetraceback
+    def be_set(self) -> None:
+        """Check whether the value is a set
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(set)
+
+
+    @hidetraceback
+    def be_dict(self) -> None:
+        """Check whether the value is a dict
+
+        Returns:
+            bool: Result
+        """
+        return self.be_of_type(dict)
+
 
     @hidetraceback
     def be_bool(self) -> None:
