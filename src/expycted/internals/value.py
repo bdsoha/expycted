@@ -379,6 +379,9 @@ class Value(BaseExpectation):
     be_a_number = be_numeric
 
     be_a_list = be_list
+    be_a_set = be_set
+    be_a_tuple = be_tuple
+    be_a_dict = be_dict
     be_a_bool = be_bool
     be_an_int = be_int
     be_a_float = be_float
