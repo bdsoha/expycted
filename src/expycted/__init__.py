@@ -5,6 +5,8 @@ from expycted.internals.filesystem import Directory
 from expycted.internals.function import Function
 from expycted.internals.value import Value
 
+__version__ = "0.8.2"
+
 
 class expect(Value):
     @classmethod
