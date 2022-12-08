@@ -4,6 +4,8 @@ from .types import SENTINEL
 
 
 class ValueFormatter:
+    """Format values to indicate their type when output to the console."""
+
     _LOOKUP = [
         "str",
         "byte",
@@ -56,12 +58,12 @@ class ValueFormatter:
 
     @classmethod
     def _to(cls, name, value):
-        to = getattr(cls, f"_to_{name}")
-
-        return to(value)
+        return getattr(cls, f"_to_{name}")(value)
 
     @classmethod
     def format(cls, value) -> str:
+        """Facade to guess the correct formatter based on the value type."""
+
         if value is SENTINEL:
             return ""
 
@@ -74,6 +76,8 @@ class ValueFormatter:
 
 
 class Message:
+    """Generate assertion output message."""
+
     def __init__(
         self,
         method: str,
@@ -92,6 +96,8 @@ class Message:
         return ValueFormatter.format(value)
 
     def lead(self, *, actual: Any, expected: Any = SENTINEL) -> str:
+        """The expectation *as code* that was executed."""
+
         return "".join([
             f"expect({self._format_value(actual)})",
             ".to_not" if self._negated else ".to",
