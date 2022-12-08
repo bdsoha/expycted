@@ -1,6 +1,6 @@
 from enum import Enum
 from typing import Any, Optional
-from .types import SENTINEL
+from . import SENTINEL
 
 
 class ValueFormatter:
@@ -89,9 +89,6 @@ class Message:
         self._operation = operation
         self._negated = negated
 
-    def _format_operation(self):
-        return f" # Using `{self._operation}`" if self._operation else ""
-
     def _format_value(self, value: Any) -> str:
         return ValueFormatter.format(value)
 
@@ -102,5 +99,5 @@ class Message:
             f"expect({self._format_value(actual)})",
             ".to_not" if self._negated else ".to",
             f".{self._method}({self._format_value(expected)})",
-            self._format_operation()
+            f" # Using `{self._operation}`" if self._operation else ""
         ])
