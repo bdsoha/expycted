@@ -1,6 +1,6 @@
 # Expycted
 
-[![Build and Test Python Package](https://github.com/petereon/expycted/actions/workflows/python-package.yml/badge.svg)](https://github.com/petereon/expycted/actions/workflows/python-package.yml)
+[![Build and Test Python Package](https://github.com/bdsoha/expycted/actions/workflows/python-package.yml/badge.svg)](https://github.com/petereon/expycted/actions/workflows/python-package.yml)
 
 __Table of Contents__
 
@@ -36,6 +36,8 @@ expect(10).to.be("10")                                          # This will succ
 expect.function(int).to_raise(ValueError).when_called_with('a') # This will also succeed
 ```
 
+**This package was originally written by @petereon, many thanks!**
+
 ## Installation
 
 __Expycted__ can be installed from [PyPi](https://pypi.org/project/expycted/) by running:
@@ -45,7 +47,7 @@ pip install expycted
 
 Alternatively, you can clone the repository and build your own distribution using poetry:
 ```sh
-git clone https://github.com/petereon/expycted.git
+git clone https://github.com/bdsoha/expycted.git
 poetry build
 ```
 Then you can install it using:
@@ -236,7 +238,7 @@ For development a combination of `poetry` and `pipenv` is used. `pipenv` is used
 To begin developing run the following commands in your terminal:
 ```sh
 # Clone the repository
-git clone https://github.com/petereon/expycted.git
+git clone https://github.com/bdsoha/expycted.git
 
 # Install dependencies
 pipenv install

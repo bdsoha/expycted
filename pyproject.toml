@@ -2,9 +2,12 @@
 name = "expycted"
 version = "0.8.1"
 description = "Because tests should be easy to read"
-authors = ["Petereon <pvyboch1@gmail.com>"]
+authors = [
+    "Dov Benyomin Sohacheski",
+    "Petereon <pvyboch1@gmail.com>"
+]
 license = "MIT"
-repository = 'https://github.com/petereon/expycted'
+repository = 'https://github.com/bdsoha/expycted'
 readme = 'PYPIREADME.md'
 keywords = ['expect', 'expect-pattern', 'testing', 'test', 'matchers']
 classifiers = [
