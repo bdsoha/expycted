@@ -51,6 +51,8 @@ class BaseExpectation:
 
     @property
     def to(self):
+        self.negate = False
+
         return self
 
     @property
@@ -59,7 +61,8 @@ class BaseExpectation:
 
     @property
     def to_not(self):
-        self.negate = not self.negate
+        self.negate = True
+
         return self
 
     @property
