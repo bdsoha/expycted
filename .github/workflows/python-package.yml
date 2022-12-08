@@ -1,36 +1,32 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
-name: Build and test Python package
+name: Build and Test Python Package
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - "v*-next"
   pull_request:
-    branches: [ master ]
+    branches:
+     - master
+     - "v*-next"
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
-        python-version: ["3.8", "3.10"]
-      fail-fast: false
+        os: [ubuntu-latest]
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+      fail-fast: true
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4.3.1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install pipenv
-        pipenv install --dev
-    - name: Build and install the library
-      run: |
-        pipenv run poetry build
-        pipenv run pip install ./dist/$(ls ./dist | grep .whl)
-    - name: Test with pytest
-      run: |
-        pipenv run pytest
+    - name: Install Dependencies
+      run: python -m pip install ".[ci]"
+    - name: Run Tests
+      run: python -m pytest
+    - name: Build Package
+      run: python -m build
