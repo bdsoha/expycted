@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class Parent:
     pass
 
@@ -6,6 +9,16 @@ class Person(Parent):
     def __init__(self, first_name="John", last_name="Doe"):
         self.first_name = first_name
         self.last_name = last_name
+
+
+class Day(Enum):
+    SUNDAY = 1
+    MONDAY = 2
+    TUESDAY = 3
+    WEDNESDAY = 4
+    THURDAY = 5
+    FRIDAY = 6
+    SATURDAY = 7
 
 
 PERSON = Person()
