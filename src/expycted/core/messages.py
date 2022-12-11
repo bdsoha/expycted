@@ -16,11 +16,13 @@ class Message:
         method: str,
         *,
         operation: Optional[str] = None,
-        negated: bool = False
+        negated: bool = False,
+        message: Optional[Union[DetailMessage, str]] = None
     ):
         self._method = method
         self._operation = operation
         self._negated = negated
+        self._message = message
 
     @staticmethod
     def _format_values(*values: str) -> Tuple[str, str]:
@@ -44,13 +46,7 @@ class Message:
             f" # Using `{self._operation}`" if self._operation else ""
         ])
 
-    def details(
-        self,
-        *,
-        actual: Any,
-        expected: Any = SENTINEL,
-        message: Optional[Union[DetailMessage, str]] = None
-    ) -> str:
+    def details(self, *, actual: Any, expected: Any = SENTINEL) -> str:
         """Detail difference between the ``actual`` and ``expected`` values."""
 
         actual, expected = self._format_values(actual, expected)
@@ -63,8 +59,7 @@ class Message:
             method_split=self._method.replace("_", " ")
         )
 
-        if not message:
-            message = DetailMessage()
+        message = DetailMessage() if not self._message else self._message
 
         if isinstance(message, str):
             return message.format(**placeholders)
