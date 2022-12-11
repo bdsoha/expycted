@@ -4,9 +4,14 @@ from typing import Type
 class MatcherError(TypeError):
     """Matcher cannot handle the provided type."""
 
-    def __init__(self, *allowed: Type):
+    def __init__(self, actual: Type, *allowed: Type):
         super().__init__()
+        self._actual = actual
         self._allowed = allowed
+
+    @staticmethod
+    def _a_or_an(value) -> str:
+        return "an" if value in ["a", "e", "i", "o", "u"] else "a"
 
     def __str__(self) -> str:
         allowed = sorted(map(lambda t: f"`{t.__name__}`", self._allowed))
@@ -24,6 +29,8 @@ class MatcherError(TypeError):
             allowed = ", ".join(allowed)
             allowed += f", or {last}"
 
-        a_or_an = "an" if allowed[1] in ["a", "e", "i", "o", "u"] else "a"
-
-        return f"Matcher Error: recieved value must be {a_or_an} {allowed}"
+        return "\n".join([
+            "Matcher Error:",
+            f"Received value must be {self._a_or_an(allowed[1])} {allowed}.",
+            f"But, {self._a_or_an(self._actual)} `{self._actual.__name__}` was provided."
+        ])
