@@ -34,7 +34,7 @@ class BaseMatcher(ABC):
         if not isinstance(self._actual, allowed_types):
             raise MatcherError(*allowed_types)
 
-    def __call__(self, *, expected: Any = SENTINEL, **kwargs) -> bool:
+    def __call__(self, expected: Any = SENTINEL, **kwargs) -> bool:
         self._validate_allowed_types(**kwargs)
 
         method_name = "_negate" if self._negated else "_matches"
