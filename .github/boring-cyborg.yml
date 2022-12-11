@@ -1,5 +1,5 @@
 labelPRBasedOnFilePath:
-  area:core:
+  🧠 area:core:
     - test/unit/core/**/*
     - src/core/**/*  
 
@@ -11,8 +11,8 @@ labelPRBasedOnFilePath:
     - docs/**/*
     - README.md
     
-  area:matchers:
-    - src/internals/matchers/**/*
+  🧪 area:matchers:
+    - src/matchers/**/*
 
 firstPRWelcomeComment: >
   🎉 Thanks for opening this pull request! Please check out our contributing guidelines.
