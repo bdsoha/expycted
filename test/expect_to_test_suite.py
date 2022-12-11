@@ -4,18 +4,6 @@ from helpers import stubs
 from helpers.utils import expected_actual_params, expected_params
 
 
-@expected_actual_params(stubs.EQUAL)
-def test_to_equal(expected, actual, context):
-    expect(expected).to.equal(actual)
-    expect(expected).to.be_equal_to(actual)
-
-    with context.raises:
-        expect(expected).to_not.equal(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_equal_to(actual)
-
-
 @expected_actual_params(stubs.BE)
 def test_to_be(expected, actual, context):
     expect(expected).to.be(actual)

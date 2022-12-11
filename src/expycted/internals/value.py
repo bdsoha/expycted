@@ -3,11 +3,11 @@ from typing import Any, Collection, Tuple
 
 from expycted.internals.utils import assertion
 from expycted.internals.base import BaseExpectation
+from expycted.matchers.values import EqualMatcher
 
 
 class Value(BaseExpectation):
     _ASSERTION_MESSAGES = {
-        "equal": "Expected {expected} to equal {actual}",
         "be": "Expected {expected} to be {actual}",
         "contain": "Expected {expected} to contain {actual}",
         "be_contained_in": "Expected {expected} to be contained in {actual}",
@@ -25,15 +25,16 @@ class Value(BaseExpectation):
         "be_numeric": "Expected {expected} to be numeric",
     }
 
+    _ALIAS = {
+        "be_equal_to": "equal"
+    }
+
     def _internal_has_len(self: Any) -> bool:
         try:
             len(self.expected)
             return True
         except TypeError:
             return False
-
-    def _internal_equal(self, actual: Any) -> Tuple[bool, str]:
-        return self.expected == actual, self._message("equal", actual)
 
     def _internal_be(self, actual: Any) -> Tuple[bool, str]:
         return any(
@@ -117,16 +118,21 @@ class Value(BaseExpectation):
 
         return False, assertion_text
 
-    @assertion
-    def equal(self, actual: Any) -> None:
-        """Checks whether that the value is equal to something
+    @property
+    def equal(self) -> EqualMatcher:
+        """Asserts that two variables have the same value."""
 
-        Args:
-            actual (Any): The value to compare to
+        return EqualMatcher(actual=self.expected, negated=self.negate)
 
-        Returns:
-            bool: Result
-        """
+    def __getattr__(self, key: str) -> Any:
+        if key in self._ALIAS:
+            matcher = getattr(self, self._ALIAS.get(key))
+
+            matcher.alias = key
+
+            return matcher
+
+        return super().__getattribute__(key)
 
     @assertion
     def be(self, actual: Any) -> None:
@@ -293,6 +299,5 @@ class Value(BaseExpectation):
     be_in = be_included_in = be_contained_in
     have = include = contain
 
-    be_equal_to = equal
     be_type = have_type = be_of_type
     be_subclass_of = have_parent = inherit

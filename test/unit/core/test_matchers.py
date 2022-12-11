@@ -9,8 +9,8 @@ import pytest
 
 
 class AlwaysTrueMatcher(BaseMatcher):
-    def __init__(self, actual, *, negated: bool = False):
-        super().__init__(actual, negated=negated)
+    def __init__(self, actual, **kwargs):
+        super().__init__(actual, **kwargs)
         self.mock = Mock()
         self.mock.return_value = True
 
@@ -24,7 +24,7 @@ class AllowedTypesMatcher(AlwaysTrueMatcher):
 
 @pytest.fixture
 def matcher():
-    return AlwaysTrueMatcher(True)
+    return AlwaysTrueMatcher.safe(True)
 
 def test_matches(matcher):
     assert matcher() is True
@@ -32,7 +32,7 @@ def test_matches(matcher):
     matcher.mock.assert_called_once_with(SENTINEL)
 
 def test_negated():
-    matcher = AlwaysTrueMatcher(True, negated=True)
+    matcher = AlwaysTrueMatcher.safe(True, negated=True)
 
     assert matcher() is False
     matcher.mock.assert_called_once_with(SENTINEL)
@@ -44,7 +44,7 @@ def test_with_expected(matcher):
 
 @pytest.mark.parametrize("actual", [(1, 2), b"hello"])
 def test_allowed_types(actual):
-    matcher = AllowedTypesMatcher(actual)
+    matcher = AllowedTypesMatcher.safe(actual)
 
     with pytest.raises(MatcherError):
         matcher()
@@ -52,10 +52,8 @@ def test_allowed_types(actual):
     matcher.mock.assert_not_called()
 
 def test_name(matcher):
-    allowed = AllowedTypesMatcher(True)
-
     assert matcher.name() == "always_true"
-    assert allowed.name() == "allowed_types"
+    assert AllowedTypesMatcher.safe(True).name() == "allowed_types"
 
 def test_message(matcher):
     assert isinstance(matcher.message(), Message)
