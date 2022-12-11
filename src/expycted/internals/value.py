@@ -3,7 +3,7 @@ from typing import Any, Collection, Tuple
 
 from expycted.internals.utils import assertion
 from expycted.internals.base import BaseExpectation
-from expycted.matchers.values import EqualMatcher
+from expycted.matchers.values import EqualMatcher, BeEmptyMatcher
 
 
 class Value(BaseExpectation):
@@ -11,7 +11,6 @@ class Value(BaseExpectation):
         "be": "Expected {expected} to be {actual}",
         "contain": "Expected {expected} to contain {actual}",
         "be_contained_in": "Expected {expected} to be contained in {actual}",
-        "be_empty": "Expected {expected} to be empty",
         "be_true": "Expected {expected} to be true",
         "be_false": "Expected {expected} to be false",
         "be_truthy": "Expected {expected} to be truthy",
@@ -59,15 +58,6 @@ class Value(BaseExpectation):
         except Exception:
             raise AssertionError(
                 f'Type "{type(actual)} cannot contain {self.expected}"'
-            )
-
-    def _internal_be_empty(self):
-        try:
-            iter(self.expected)
-            return not self.expected, self._message("be_empty")
-        except TypeError:
-            raise AssertionError(
-                f"Emptiness of '{type(self.expected)}' object doesn't make sense"
             )
 
     def _internal_be_true(self) -> Tuple[bool, str]:
@@ -167,13 +157,11 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
-    def be_empty(self) -> None:
-        """Checks whether the value is empty
+    @property
+    def be_empty(self) -> BeEmptyMatcher:
+        """Asserts that the value is empty."""
 
-        Returns:
-            bool: Result
-        """
+        return BeEmptyMatcher(actual=self.expected, negated=self.negate)
 
     @assertion
     def be_true(self) -> None:

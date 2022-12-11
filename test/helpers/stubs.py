@@ -112,12 +112,20 @@ EMPTY = (
     tuple(),
 )
 
+def EMPTY_GENERATORS():
+    return (
+        range(0),
+        (i for i in range(0))
+    )
+
 NOT_EMPTY = (
     " ",
     {"a": 1},
     [1],
     {1},
     (1,),
+    range(100),
+    (i for i in range(10))
 )
 
 NOT_EMPTY_TYPE_ERROR = (
