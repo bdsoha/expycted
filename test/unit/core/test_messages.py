@@ -40,22 +40,23 @@ class TestDetails:
         assert message.details(actual="4", expected=4) == "Expected\t: 4\nActual\t: \"4\""
 
     def test_with_detail_message(self):
-        message = Message("be_empty", negated=True)
-
-        details = message.details(
-            actual=[4, 1],
+        message = Message(
+            "be_empty",
+            negated=True,
             message=DetailMessage(expected="Expected {to} be empty")
         )
+
+        details = message.details(actual=[4, 1])
 
         assert details == "Expected to not be empty\nActual\t: [4, 1]"
 
     def test_with_detail_message_as_string(self):
-        message = Message("be_empty", negated=True)
-
-        details = message.details(
-            actual=[4, 1],
+        message = Message(
+            "be_empty",
+            negated=True,
             message="Expected {to} {method_split}, but was actually {actual}"
         )
 
+        details = message.details(actual=[4, 1])
+
         assert details == "Expected to not be empty, but was actually [4, 1]"
-    
