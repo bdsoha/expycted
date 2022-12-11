@@ -68,3 +68,9 @@ class Message:
             message.expected.format(**placeholders),
             message.actual.format(**placeholders),
         ])
+
+    def render(self, actual: Any, expected: Any = SENTINEL) -> str:
+        return "\n\n".join([
+            self.signature(actual=actual, expected=expected),
+            self.details(actual=actual, expected=expected)
+        ])
