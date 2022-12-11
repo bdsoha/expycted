@@ -1,33 +1,61 @@
-import pytest
-from enum import Enum
-from expycted.core.messages import Message
-from helpers.stubs import PERSON, Day
-
-def test_full_lead_line():
-    message = Message("equal", operation='==')
-
-    assert message.lead(actual=4, expected=5) == "expect(4).to.equal(5) # Using `==`"
+from expycted.core.messages import Message, DetailMessage
 
 
-def test_full_lead_line_negated():
-    message = Message("equal", operation='==', negated=True)
+class TestSignature:
+    def test_full(self):
+        message = Message("equal", operation='==')
 
-    assert message.lead(actual=4, expected=5) == "expect(4).to_not.equal(5) # Using `==`"
+        assert message.signature(actual=4, expected=5) == "expect(4).to.equal(5) # Using `==`"
+
+    def test_full_and_negated(self):
+        message = Message("equal", operation='==', negated=True)
+
+        assert message.signature(actual=4, expected=5) == "expect(4).to_not.equal(5) # Using `==`"
+
+    def test_without_operation(self):
+        message = Message("equal")
+
+        assert message.signature(actual=4, expected=5) == "expect(4).to.equal(5)"
+
+    def test_with_none_as_expected(self):
+        message = Message("equal")
+
+        assert message.signature(actual=4, expected=None) == "expect(4).to.equal(None)"
+
+    def test_without_expected(self):
+        message = Message("be_empty")
+
+        assert message.signature(actual=[4, 1]) == "expect([4, 1]).to.be_empty()"
 
 
-def test_lead_line_without_operation():
-    message = Message("equal")
+class TestDetails:
+    def test_default(self):
+        message = Message("equal")
 
-    assert message.lead(actual=4, expected=5) == "expect(4).to.equal(5)"
+        assert message.details(actual="4", expected=4) == "Expected\t: 4\nActual\t: \"4\""
 
+    def test_negated(self):
+        message = Message("equal", operation='==', negated=True)
 
-def test_lead_line_with_none_as_expected():
-    message = Message("equal")
+        assert message.details(actual="4", expected=4) == "Expected\t: 4\nActual\t: \"4\""
 
-    assert message.lead(actual=4, expected=None) == "expect(4).to.equal(None)"
+    def test_with_detail_message(self):
+        message = Message("be_empty", negated=True)
 
+        details = message.details(
+            actual=[4, 1],
+            message=DetailMessage(expected="Expected {to} be empty")
+        )
 
-def test_lead_line_without_expected():
-    message = Message("be_empty")
+        assert details == "Expected to not be empty\nActual\t: [4, 1]"
 
-    assert message.lead(actual=[4,1]) == "expect([4, 1]).to.be_empty()"
+    def test_with_detail_message_as_string(self):
+        message = Message("be_empty", negated=True)
+
+        details = message.details(
+            actual=[4, 1],
+            message="Expected {to} {method_split}, but was actually {actual}"
+        )
+
+        assert details == "Expected to not be empty, but was actually [4, 1]"
+    

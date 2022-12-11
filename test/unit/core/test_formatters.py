@@ -1,7 +1,8 @@
-import pytest
 from enum import Enum
-from expycted.core.messages import ValueFormatter
+from expycted.core.formatters import StringOutputFormatter
 from helpers.stubs import PERSON, Day
+
+import pytest
 
 
 @pytest.mark.parametrize("actual,formatted", [
@@ -19,7 +20,7 @@ from helpers.stubs import PERSON, Day
     (Day.SUNDAY, "helpers.stubs.Day.SUNDAY"),
 ])
 def test_builtin_types(actual, formatted):
-    assert ValueFormatter.format(actual) == formatted
+    assert StringOutputFormatter.format(actual) == formatted
 
 def test_instance_type():
-    assert ValueFormatter.format(PERSON).startswith("helpers.stubs.Person@0x")
+    assert StringOutputFormatter.format(PERSON).startswith("helpers.stubs.Person@0x")

@@ -1,78 +1,11 @@
-from enum import Enum
-from typing import Any, Optional
-from . import SENTINEL
+from typing import Any, NamedTuple, Optional, Tuple, Union
+from .utilities import SENTINEL
+from .formatters import StringOutputFormatter
 
 
-class ValueFormatter:
-    """Format values to indicate their type when output to the console."""
-
-    _LOOKUP = [
-        "str",
-        "byte",
-        "enum",
-        "builtin",
-        "callable"
-    ]
-
-    @classmethod
-    def _fqn(cls, source):
-        return f"{source.__module__}.{source.__name__}"
-
-    def __init__(self, value):
-        self._value = value
-
-    @classmethod
-    def _to_byte(cls, value):
-        if isinstance(value, bytes):
-            return f"b\"{value.decode()}\""
-
-        return None
-
-    @classmethod
-    def _to_str(cls, value):
-        if isinstance(value, str):
-            return f"\"{value}\""
-
-        return None
-
-    @classmethod
-    def _to_enum(cls, value):
-        if isinstance(value, Enum):
-            return f"{cls._fqn(value.__class__)}.{value.name}"
-
-        return None
-
-    @classmethod
-    def _to_builtin(cls, value):
-        if value.__class__.__module__ not in ('builtins', 'enum'):
-            return f"{cls._fqn(value.__class__)}@{hex(id(value))}"
-
-        return None
-
-    @classmethod
-    def _to_callable(cls, value):
-        if callable(value):
-            return cls._fqn(value)
-
-        return None
-
-    @classmethod
-    def _to(cls, name, value):
-        return getattr(cls, f"_to_{name}")(value)
-
-    @classmethod
-    def format(cls, value) -> str:
-        """Facade to guess the correct formatter based on the value type."""
-
-        if value is SENTINEL:
-            return ""
-
-        instance = cls(value)
-
-        return next(
-            filter(None, (instance._to(name, value) for name in cls._LOOKUP)),
-            str(value)
-        )
+class DetailMessage(NamedTuple):
+    actual: str = "Actual\t: {actual}"
+    expected: str = "Expected\t: {expected}"
 
 
 class Message:
@@ -89,15 +22,54 @@ class Message:
         self._operation = operation
         self._negated = negated
 
-    def _format_value(self, value: Any) -> str:
-        return ValueFormatter.format(value)
+    @staticmethod
+    def _format_values(*values: str) -> Tuple[str, str]:
+        return tuple(map(StringOutputFormatter.format, values))
 
-    def lead(self, *, actual: Any, expected: Any = SENTINEL) -> str:
-        """The expectation *as code* that was executed."""
+    @property
+    def _to(self) -> str:
+        return "to_not" if self._negated else "to"
+
+    def signature(self, *, actual: Any, expected: Any = SENTINEL) -> str:
+        """Expectation method signature *(as code)* that was executed."""
+
+        actual, expected = self._format_values(actual, expected)
 
         return "".join([
-            f"expect({self._format_value(actual)})",
-            ".to_not" if self._negated else ".to",
-            f".{self._method}({self._format_value(expected)})",
+            f"expect({actual})",
+            ".",
+            self._to,
+            ".",
+            f"{self._method}({expected})",
             f" # Using `{self._operation}`" if self._operation else ""
+        ])
+
+    def details(
+        self,
+        *,
+        actual: Any,
+        expected: Any = SENTINEL,
+        message: Optional[Union[DetailMessage, str]] = None
+    ) -> str:
+        """Detail difference between the ``actual`` and ``expected`` values."""
+
+        actual, expected = self._format_values(actual, expected)
+
+        placeholders = dict(
+            to=self._to.replace("_", " "),
+            expected=expected,
+            actual=actual,
+            method=self._method,
+            method_split=self._method.replace("_", " ")
+        )
+
+        if not message:
+            message = DetailMessage()
+
+        if isinstance(message, str):
+            return message.format(**placeholders)
+
+        return "\n".join([
+            message.expected.format(**placeholders),
+            message.actual.format(**placeholders),
         ])
