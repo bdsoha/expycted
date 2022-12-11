@@ -29,8 +29,8 @@ class BaseMatcher(ABC):
         alias: str = None,
         safe=False
     ):
-        self.alias = alias
         self._actual = actual
+        self.alias = alias
         self._negated = negated
         self._safe = safe
 
@@ -51,7 +51,7 @@ class BaseMatcher(ABC):
             return
 
         if not isinstance(self._actual, allowed_types):
-            raise MatcherError(*allowed_types)
+            raise MatcherError(type(self._actual), *allowed_types)
 
     def allowed_types(self, **kwargs) -> TAllowedTypes:
         """Types that are allowed to be compared."""

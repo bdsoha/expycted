@@ -56,20 +56,6 @@ def test_to_contained_in_type_error(expected, actual, context):
         expect(actual).to.be_contained_in(expected)
 
 
-@expected_params(stubs.EMPTY, extract_ids=False)
-def test_to_be_empty(expected, context):
-    expect(expected).to.be_empty()
-
-    with context.raises:
-        expect(expected).to_not.be_empty()
-
-
-@expected_params(stubs.NOT_EMPTY_TYPE_ERROR, extract_ids=False)
-def test_to_be_empty_type_error(expected, context):
-    with context.raises:
-        expect(expected).to.be_empty()
-
-
 @expected_params(stubs.TRUE, extract_ids=False)
 def test_to_be_true(expected, context):
     expect(expected).to.be_true()
