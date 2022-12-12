@@ -33,6 +33,10 @@ class BaseMatcher(ABC):
         self._alias = alias
         self._negated = negated
 
+    @property
+    def _normalized_actual(self):
+        return self._actual
+
     @abstractmethod
     def _matches(self, *, expected: Any, **kwargs) -> bool:
         ...
@@ -42,6 +46,9 @@ class BaseMatcher(ABC):
 
     def _get_message(self, **kwargs):
         return self.MESSAGE
+
+    def _get_opertation(self, **kwargs):
+        return self.OPERATION
 
     def _validate_allowed_types(self, **kwargs):
         allowed_types = self.allowed_types(**kwargs)
@@ -75,7 +82,7 @@ class BaseMatcher(ABC):
         return Message(
             method=self.name(**kwargs),
             negated=self._negated,
-            operation=self.OPERATION,
+            operation=self._get_opertation(**kwargs),
             message=self._get_message(**kwargs),
             **kwargs
         )

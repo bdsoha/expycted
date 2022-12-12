@@ -4,7 +4,8 @@ from typing import Any, Collection, Tuple
 from expycted.internals.utils import assertion
 from expycted.internals.base import BaseExpectation
 from expycted.matchers import EqualMatcher, BeEmptyMatcher, IsMatcher, BoolMatcher
-from expycted.core.matchers import assert_property
+from expycted.core.matchers import assert_property, assert_alias_property
+from expycted.matchers.type_matcher import TypeMatcher
 
 
 class Value(BaseExpectation):
@@ -12,7 +13,6 @@ class Value(BaseExpectation):
         "be": "Expected {expected} to be {actual}",
         "contain": "Expected {expected} to contain {actual}",
         "be_contained_in": "Expected {expected} to be contained in {actual}",
-        "be_of_type": "Expected {expected} to be of type {actual}",
         "inherit": "Expected {expected} to inherit {actual}",
         "be_greater_than": "Expected {expected} to be greater than {actual}",
         "be_lesser_than": "Expected {expected} to be less than {actual}",
@@ -53,9 +53,6 @@ class Value(BaseExpectation):
                 f'Type "{type(actual)} cannot contain {self.expected}"'
             )
 
-    def _internal_be_of_type(self, actual: type) -> Tuple[bool, str]:
-        return type(self.expected) is actual, self._message("be_of_type", actual)
-
     def _internal_inherit(self, actual: type) -> Tuple[bool, str]:
         try:
             return issubclass(type(self.expected), actual), self._message("inherit", actual)
@@ -93,7 +90,7 @@ class Value(BaseExpectation):
     def equal(self) -> EqualMatcher:
         """Asserts that two variables have the same value."""
 
-    @assert_property(EqualMatcher)
+    @assert_alias_property("equal")
     def be_equal_to(self) -> EqualMatcher:
         """Alias for ``equal``."""
 
@@ -146,11 +143,11 @@ class Value(BaseExpectation):
     def be_truthy(self) -> BoolMatcher:
         """Asserts that the actual value is truthy."""
 
-    @assert_property(BoolMatcher, to_match=True)
+    @assert_alias_property("be_truthy")
     def be_trueish(self) -> BoolMatcher:
         """Alias for ``be_truthy``."""
 
-    @assert_property(BoolMatcher, to_match=True)
+    @assert_alias_property("be_truthy")
     def be_truey(self) -> BoolMatcher:
         """Alias for ``be_truthy``."""
 
@@ -158,24 +155,25 @@ class Value(BaseExpectation):
     def be_falsey(self) -> BoolMatcher:
         """Asserts that the actual value is falsey."""
 
-    @assert_property(BoolMatcher, to_match=False)
+    @assert_alias_property("be_falsey")
     def be_falsish(self) -> BoolMatcher:
         """Alias for ``be_falsey``."""
 
-    @assert_property(BoolMatcher, to_match=False)
+    @assert_alias_property("be_falsey")
     def be_falsy(self) -> BoolMatcher:
         """Alias for ``be_falsey``."""
 
-    @assertion
-    def be_of_type(self, actual: type) -> None:
-        """Checks whether the value is of provided type
+    @assert_property(TypeMatcher)
+    def be_of_type(self) -> TypeMatcher:
+        """Assert that the actual type is equivelent to the expected type."""
 
-        Args:
-            actual (type): Type to be checked against
+    @assert_alias_property("be_of_type")
+    def be_type(self) -> TypeMatcher:
+        """Alias for ``be_of_type``."""
 
-        Returns:
-            bool: Result
-        """
+    @assert_alias_property("be_of_type")
+    def have_type(self) -> TypeMatcher:
+        """Alias for ``be_of_type``."""
 
     @assertion
     def inherit(self, actual: type) -> None:
@@ -255,5 +253,4 @@ class Value(BaseExpectation):
     be_in = be_included_in = be_contained_in
     have = include = contain
 
-    be_type = have_type = be_of_type
     be_subclass_of = have_parent = inherit
