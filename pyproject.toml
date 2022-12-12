@@ -35,13 +35,15 @@ dynamic = ["version", "readme"]
 [project.urls]
 "Homepage" = "https://github.com/bdsoha/expycted"
 "Bug Tracker" = "https://github.com/bdsoha/expycted/issues"
+"Source Code" = "https://github.com/bdsoha/expycted"
 
 
 [project.optional-dependencies]
 dev = [
+    "isort",
+    "pre-commit",
     "pytest",
     "pytest-cov",
-    "pytest-pspec",
     "pytest-clarity",
     "coverage[toml]"
 ]
@@ -62,17 +64,19 @@ readme = { file = ["README.md"] }
 
 [tool.pytest.ini_options]
 python_files = ["*test*.py"]
-python_functions = ["test"]
-minversion = "6.0"
 addopts = [
-    "--pspec",
     "--cov=expycted",
     "--cov-report=term-missing"
 ]
-testpaths = ["test"]
 
 
 [tool.coverage.report]
 exclude_lines  = [
     "@(abc\\.)?abstractmethod"
 ]
+
+
+[tool.isort]
+multi_line_output = 3
+src_paths = ["src", "test"]
+from_first = true

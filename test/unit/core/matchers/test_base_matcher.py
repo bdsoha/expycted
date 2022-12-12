@@ -1,9 +1,10 @@
 from unittest.mock import Mock
-from expycted.core.matchers import BaseMatcher
-from expycted.core.messages import Message
-from expycted.core.exceptions import MatcherError
 
 import pytest
+
+from expycted.core.exceptions import MatcherError
+from expycted.core.matchers import BaseMatcher
+from expycted.core.messages import Message
 
 
 class AlwaysTrueMatcher(BaseMatcher):

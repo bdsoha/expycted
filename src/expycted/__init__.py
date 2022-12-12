@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Callable, Any, Union
+from typing import Any, Callable, Union
 
 from expycted.internals.filesystem import Directory
 from expycted.internals.function import Function

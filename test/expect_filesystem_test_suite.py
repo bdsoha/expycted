@@ -1,8 +1,8 @@
-import pytest
 from pathlib import Path
 
-from expycted import expect
+import pytest
 
+from expycted import expect
 from helpers.utils import expected_params
 
 

@@ -1,5 +1,6 @@
-from expycted import expect
 import pytest
+
+from expycted import expect
 
 
 def raise_exception(exc_class: Exception):

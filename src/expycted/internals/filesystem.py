@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Tuple, Type, Union
 
-from expycted.internals.utils import assertion, hidetraceback
 from expycted.internals.base import BaseExpectation
+from expycted.internals.utils import assertion, hidetraceback
 
 
 class File:

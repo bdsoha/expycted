@@ -1,7 +1,8 @@
+from functools import wraps
 from typing import Callable, Type
+
 from .base_matcher import BaseMatcher
 from .matcher_proxy import factory
-from functools import wraps
 
 
 class Assertion:

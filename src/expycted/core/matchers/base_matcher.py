@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from copy import copy
 from typing import Any, Optional, Tuple, Type, Union
-from expycted.core.messages import DetailMessage, Message
+import re
+
 from expycted.core.exceptions import MatcherError
 from expycted.core.formatters import SnakeCase
-
-import re
+from expycted.core.messages import DetailMessage, Message
 
 try:
     from typing import Literal
@@ -69,9 +69,7 @@ class BaseMatcher(ABC):
         if self._alias:
             return self._alias
 
-        name = self.__class__.__name__
-
-        name = re.sub("Matcher$", "", name)
+        name = re.sub("Matcher$", "", self.__class__.__name__)
 
         return SnakeCase.format(name)
 

@@ -1,4 +1,5 @@
 from typing import Type
+
 from expycted.core.formatters import AnPrefix
 
 
