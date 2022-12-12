@@ -38,7 +38,7 @@ class BaseExpectation:
         assert result, message
 
         self.negate = False
-        
+
         return self
 
     @hidetraceback

@@ -2,7 +2,7 @@ from expycted.core.matchers import BaseMatcher
 
 
 class TypeMatcher(BaseMatcher):
-    """Assert that the actual type is equivelent to the expected type."""
+    """Assert that the actual type is equivalent to the expected type."""
 
     OPERATION = "type"
 

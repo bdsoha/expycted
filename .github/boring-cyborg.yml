@@ -1,16 +1,16 @@
 labelPRBasedOnFilePath:
   🧠 area:core:
     - test/unit/core/**/*
-    - src/core/**/*  
+    - src/core/**/*
 
   💻 area:dev:
     - .github/**/*
     - pyproject.toml
-  
+
   📚 documentation:
     - docs/**/*
     - README.md
-    
+
   🧪 area:matchers:
     - src/matchers/**/*
 

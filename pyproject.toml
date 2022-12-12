@@ -22,8 +22,14 @@ keywords = [
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3",
     "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Natural Language :: English",
     "Topic :: Software Development :: Testing",
     "Topic :: Software Development :: Libraries",
@@ -40,12 +46,13 @@ dynamic = ["version", "readme"]
 
 [project.optional-dependencies]
 dev = [
+    "coverage[toml]",
     "isort",
     "pre-commit",
     "pytest",
     "pytest-cov",
     "pytest-clarity",
-    "coverage[toml]"
+    "tomli"
 ]
 ci = [
     "build",

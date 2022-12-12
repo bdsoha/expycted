@@ -64,7 +64,7 @@ class BaseMatcher(ABC):
         return copy(self.ALLOWED_TYPES)
 
     def name(self, **kwargs) -> str:
-        """Simplifed name for the matcher based on the class name."""
+        """Simplified name for the matcher based on the class name."""
 
         if self._alias:
             return self._alias

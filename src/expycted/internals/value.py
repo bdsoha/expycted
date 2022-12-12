@@ -170,7 +170,7 @@ class Value(BaseExpectation):
 
     @assert_property(TypeMatcher)
     def be_of_type(self) -> TypeMatcher:
-        """Assert that the actual type is equivelent to the expected type."""
+        """Assert that the actual type is equivalent to the expected type."""
 
     @assert_alias_property("be_of_type")
     def be_type(self) -> TypeMatcher:

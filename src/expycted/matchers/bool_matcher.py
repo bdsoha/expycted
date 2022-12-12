@@ -2,7 +2,7 @@ from .is_matcher import IsMatcher
 
 
 class BoolMatcher(IsMatcher):
-    """Asserts that the actual value is boolean equivelent to the expected value."""
+    """Asserts that the actual value is boolean equivalent to the expected value."""
 
     OPERATION = "bool"
 
