@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from copy import copy
 from typing import Any, Optional, Tuple, Type, Union
 from expycted.core.messages import DetailMessage, Message
-from expycted.core.utilities import SENTINEL
 from expycted.core.exceptions import MatcherError
 from expycted.core.formatters import SnakeCase
 
@@ -87,7 +86,7 @@ class BaseMatcher(ABC):
             **kwargs
         )
 
-    def __call__(self, expected: Any = SENTINEL, **kwargs) -> bool:
+    def __call__(self, expected: Any = ..., **kwargs) -> bool:
         self._validate_allowed_types(**kwargs)
 
         method_name = "_negate" if self._negated else "_matches"

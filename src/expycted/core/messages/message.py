@@ -1,6 +1,5 @@
 from typing import Any, Optional, Tuple, Union
 from expycted.core.formatters import ValueToString
-from expycted.core.utilities import SENTINEL
 from .detail_message import DetailMessage
 
 
@@ -28,7 +27,7 @@ class Message:
     def _to(self) -> str:
         return "to_not" if self._negated else "to"
 
-    def signature(self, *, actual: Any, expected: Any = SENTINEL) -> str:
+    def signature(self, *, actual: Any, expected: Any = ...) -> str:
         """Expectation method signature *(as code)* that was executed."""
 
         actual, expected = self._format_values(actual, expected)
@@ -42,7 +41,7 @@ class Message:
             f" # Using `{self._operation}`" if self._operation else ""
         ])
 
-    def details(self, *, actual: Any, expected: Any = SENTINEL) -> str:
+    def details(self, *, actual: Any, expected: Any = ...) -> str:
         """Detail difference between the ``actual`` and ``expected`` values."""
 
         actual, expected = self._format_values(actual, expected)
@@ -65,7 +64,7 @@ class Message:
             message.actual.format(**placeholders),
         ])
 
-    def render(self, actual: Any, expected: Any = SENTINEL) -> str:
+    def render(self, actual: Any, expected: Any = ...) -> str:
         return "\n\n".join([
             self.signature(actual=actual, expected=expected),
             self.details(actual=actual, expected=expected)

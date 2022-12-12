@@ -1,6 +1,7 @@
 from typing import Callable, Type
 from .base_matcher import BaseMatcher
 from .matcher_proxy import factory
+from functools import wraps
 
 
 class Assertion:
@@ -11,6 +12,7 @@ class Assertion:
         self._kwargs = kwargs
 
     def __call__(self, callback: Callable) -> Callable:
+        @wraps(callback)
         def _wrapper(proxy):
             callback(proxy)
 
@@ -31,6 +33,7 @@ class AssertionAlias:
         self._alias = alias
 
     def __call__(self, callback: Callable) -> Callable:
+        @wraps(callback)
         def _wrapper(proxy):
             callback(proxy)
 
