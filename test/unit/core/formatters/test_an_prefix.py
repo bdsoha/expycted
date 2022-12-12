@@ -23,4 +23,3 @@ def test_get_first_letter_in_sequence():
 
 def test_non_str_values():
     assert AnPrefix.format(list) == "a"
-    

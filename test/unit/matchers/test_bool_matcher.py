@@ -1,8 +1,7 @@
 from expycted import expect
 from expycted.matchers import IsMatcher
-
+from helpers.stubs import NOT_FALSE, NOT_TRUE
 from helpers.utils import expected_params
-from helpers.stubs import NOT_TRUE, NOT_FALSE
 
 
 def test_via_expect(context):

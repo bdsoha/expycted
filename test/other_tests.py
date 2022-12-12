@@ -1,5 +1,6 @@
-from expycted import expect
 import pytest
+
+from expycted import expect
 
 
 @pytest.mark.parametrize('v1,true', [

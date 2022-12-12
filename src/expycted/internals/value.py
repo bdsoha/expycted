@@ -1,10 +1,15 @@
-import pickle
 from typing import Any, Collection, Tuple
+import pickle
 
-from expycted.internals.utils import assertion
+from expycted.core.matchers import assert_alias_property, assert_property
 from expycted.internals.base import BaseExpectation
-from expycted.matchers import EqualMatcher, BeEmptyMatcher, IsMatcher, BoolMatcher
-from expycted.core.matchers import assert_property, assert_alias_property
+from expycted.internals.utils import assertion
+from expycted.matchers import (
+    BeEmptyMatcher,
+    BoolMatcher,
+    EqualMatcher,
+    IsMatcher
+)
 from expycted.matchers.type_matcher import TypeMatcher
 
 
@@ -165,7 +170,7 @@ class Value(BaseExpectation):
 
     @assert_property(TypeMatcher)
     def be_of_type(self) -> TypeMatcher:
-        """Assert that the actual type is equivelent to the expected type."""
+        """Assert that the actual type is equivalent to the expected type."""
 
     @assert_alias_property("be_of_type")
     def be_type(self) -> TypeMatcher:

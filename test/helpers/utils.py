@@ -1,6 +1,7 @@
-from typing import NamedTuple
-import pytest
 from contextlib import nullcontext
+from typing import NamedTuple
+
+import pytest
 
 
 class Context(NamedTuple):

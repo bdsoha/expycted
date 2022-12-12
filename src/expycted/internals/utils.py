@@ -1,6 +1,6 @@
-import os
 from functools import wraps
 from typing import Callable
+import os
 
 
 def hidetraceback(fn: Callable) -> Callable:

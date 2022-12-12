@@ -1,6 +1,6 @@
-from typing import Type
+from typing import Any, Type
+
 from .base_matcher import BaseMatcher
-from typing import Any
 
 
 def factory(base: Type[BaseMatcher]):

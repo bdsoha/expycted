@@ -68,14 +68,14 @@ expect.value(10).to.be_greater_than(1)
 expect(10).to.be_greater_than(1)
 ```
 
-Currently available matchers are: 
+Currently available matchers are:
 
 ### Equality and Similarity
 
 #### equal()
 Assert that the *expected* value is equivalent to the *actual* value using the `==` operator.
 - __Definition:__ `equal(self, value)`
-- __Alias:__ `be_equal_to(self, value)` 
+- __Alias:__ `be_equal_to(self, value)`
 
 #### be()
 Assert that the *expected* value is the same as the *actual* value.
@@ -84,7 +84,7 @@ Assert that the *expected* value is the same as the *actual* value.
     - Assert the *expected* value's string representation is the same as the *actual* value's string representation.
     - When provided two objects, assert that have the same attributes.
     - Assert the *expected* value equals the *actual* value.
-    
+
 ### Numeric
 
 #### be_greater_than()
@@ -95,7 +95,7 @@ Assert that the *expected* value is greater than the *actual* value using the `>
 #### be_lesser_than()
 Assert that the *expected* value is less than the *actual* value using the `<` operator.
 - __Definition:__ `be_lesser_than(self, value)`
-- __Alias:__ 
+- __Alias:__
     - `be_lesser(self, value)`
     - `be_less(self, value)`
     - `be_less_than(self, value)`
@@ -103,14 +103,14 @@ Assert that the *expected* value is less than the *actual* value using the `<` o
 #### be_greater_or_equal_to()
 Assert that the *expected* value is greater than the *actual* value using the `>=` operator.
 - __Definition:__ `be_greater_or_equal_to(self, value)`
-- __Alias:__ 
+- __Alias:__
     - `be_greater_or_equal(self, value)`
     - `be_greater_than_or_equal_to(self, value)`
 
 #### be_lesser_or_equal_to()
 Assert that the *expected* value is less than the *actual* value using the `<=` operator.
 - __Definition:__ `be_lesser_or_equal_to(self, value)`
-- __Alias:__ 
+- __Alias:__
     - `be_lesser_or_equal(self, value)`
     - `be_less_or_equal(self, value)`
     - `be_less_than_or_equal_to(self, value)`
@@ -121,20 +121,20 @@ Assert that the *expected* value is a number or can be parsed as a number from a
 - __Definition:__ `be_numeric(self)`
 - __Alias:__ `be_a_number(self)`
 
-    
+
 ### Containment and Emptiness
 
 #### contain()
 Assert the *expected* value contains a value using the `in` keyword.
 - __Definition:__ `contain(self, value)`
-- __Alias:__ 
+- __Alias:__
     - `have(self, value)`
     - `include(self, value)`
 
 #### be_contained_in()
 Assert the *expected* value is contained in a value using the `in` keyword.
 - __Definition:__ `be_contained_in(self, value)`
-- __Alias:__ 
+- __Alias:__
     - `be_in(self, value)`
     - `be_included_in(self, value)`
 
@@ -155,32 +155,32 @@ Assert that the *expected* value is strictly `False`.
 #### be_truthy()
 Assert that the *expected* value is equivalent to `True`.
 - __Definition:__ `be_truthy(self)`
-- __Alias:__ 
+- __Alias:__
     - `be_truey(self)`
     - `be_trueish(self)`
 
 #### be_falsey()
 Assert that the *expected* value is equivalent to `False`.
 - __Definition:__ `be_falsey(self)`
-- __Alias:__ 
+- __Alias:__
     - `be_falsy(self)`
-    - `be_falsish(self)` 
+    - `be_falsish(self)`
 
 ### Typing
 
 #### be_of_type()
 Assert that the *expected* value has a given type.
 - __Definition:__ `be_of_type(self, value)`
-- __Alias:__ 
+- __Alias:__
     - `be_type(self, value)`
-    - `have_type(self, value)` 
+    - `have_type(self, value)`
 
 #### inherit()
 Assert that the *expected* value inherits or is a subclass of a given type.
 - __Definition:__ `inherit(self, value)`
-- __Alias:__ 
+- __Alias:__
     - `be_subclass_of(self, value)`
-    - `have_parent(self, value)` 
+    - `have_parent(self, value)`
 
 ## Function Matchers
 

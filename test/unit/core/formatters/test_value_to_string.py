@@ -1,8 +1,9 @@
 from enum import Enum
-from expycted.core.formatters import ValueToString
-from helpers.stubs import PERSON, Day
 
 import pytest
+
+from expycted.core.formatters import ValueToString
+from helpers.stubs import PERSON, Day
 
 
 @pytest.mark.parametrize("actual,formatted", [

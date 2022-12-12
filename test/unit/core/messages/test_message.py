@@ -1,4 +1,4 @@
-from expycted.core.messages import Message, DetailMessage
+from expycted.core.messages import DetailMessage, Message
 
 
 class TestSignature:

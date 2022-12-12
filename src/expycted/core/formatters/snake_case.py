@@ -1,6 +1,7 @@
+import re
+
 from .base_formatter import BaseFormatter
 
-import re
 
 class SnakeCase(BaseFormatter):
     PATTERN = re.compile(r"(?<!^)(?=[A-Z])")
