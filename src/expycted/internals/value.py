@@ -3,7 +3,8 @@ from typing import Any, Collection, Tuple
 
 from expycted.internals.utils import assertion
 from expycted.internals.base import BaseExpectation
-from expycted.matchers.values import EqualMatcher, BeEmptyMatcher
+from expycted.matchers import EqualMatcher, BeEmptyMatcher
+from expycted.core.matchers import assert_property
 
 
 class Value(BaseExpectation):
@@ -22,10 +23,6 @@ class Value(BaseExpectation):
         "be_greater_or_equal_to": "Expected {expected} to be greater than or equal to {actual}",
         "be_lesser_or_equal_to": "Expected {expected} to be less than or equal to {actual}",
         "be_numeric": "Expected {expected} to be numeric",
-    }
-
-    _ALIAS = {
-        "be_equal_to": "equal"
     }
 
     def _internal_has_len(self: Any) -> bool:
@@ -108,21 +105,13 @@ class Value(BaseExpectation):
 
         return False, assertion_text
 
-    @property
+    @assert_property(EqualMatcher)
     def equal(self) -> EqualMatcher:
         """Asserts that two variables have the same value."""
 
-        return EqualMatcher(actual=self.expected, negated=self.negate)
-
-    def __getattr__(self, key: str) -> Any:
-        if key in self._ALIAS:
-            matcher = getattr(self, self._ALIAS.get(key))
-
-            matcher.alias = key
-
-            return matcher
-
-        return super().__getattribute__(key)
+    @assert_property(EqualMatcher, alias="be_equal_to")
+    def be_equal_to(self) -> EqualMatcher:
+        """Alias for ``equal``."""
 
     @assertion
     def be(self, actual: Any) -> None:
@@ -157,11 +146,9 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @property
+    @assert_property(BeEmptyMatcher)
     def be_empty(self) -> BeEmptyMatcher:
         """Asserts that the value is empty."""
-
-        return BeEmptyMatcher(actual=self.expected, negated=self.negate)
 
     @assertion
     def be_true(self) -> None:

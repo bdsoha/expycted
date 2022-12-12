@@ -1,4 +1,5 @@
 from typing import Type
+from expycted.core.formatters import AnPrefix
 
 
 class MatcherError(TypeError):
@@ -8,10 +9,6 @@ class MatcherError(TypeError):
         super().__init__()
         self._actual = actual
         self._allowed = allowed
-
-    @staticmethod
-    def _a_or_an(value) -> str:
-        return "an" if value in ["a", "e", "i", "o", "u"] else "a"
 
     def __str__(self) -> str:
         allowed = sorted(map(lambda t: f"`{t.__name__}`", self._allowed))
@@ -31,6 +28,6 @@ class MatcherError(TypeError):
 
         return "\n".join([
             "Matcher Error:",
-            f"Received value must be {self._a_or_an(allowed[1])} {allowed}.",
-            f"But, {self._a_or_an(self._actual)} `{self._actual.__name__}` was provided."
+            f"Received value must be {AnPrefix(allowed)} {allowed}.",
+            f"But, {AnPrefix(self._actual)} `{self._actual.__name__}` was provided."
         ])

@@ -43,6 +43,7 @@ dev = [
     "pytest-cov",
     "pytest-pspec",
     "pytest-clarity",
+    "coverage[toml]"
 ]
 ci = [
     "build",
@@ -69,3 +70,9 @@ addopts = [
     "--cov-report=term-missing"
 ]
 testpaths = ["test"]
+
+
+[tool.coverage.report]
+exclude_lines  = [
+    "@(abc\\.)?abstractmethod"
+]
