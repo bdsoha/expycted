@@ -6,9 +6,9 @@ from .matcher_proxy import factory
 class Assertion:
     """Decorate assertion method with a matcher."""
 
-    def __init__(self, matcher: Type[BaseMatcher], alias: Optional[str] = None):
+    def __init__(self, matcher: Type[BaseMatcher], **kwargs):
         self._matcher = matcher
-        self._alias = alias
+        self._kwargs = kwargs
 
     def __call__(self, callback: Callable) -> Callable:
         def _wrapper(proxy):
@@ -17,7 +17,8 @@ class Assertion:
             return factory(self._matcher)(
                 actual=proxy.expected,
                 negated=proxy.negate,
-                alias=self._alias
+                alias=self._kwargs.pop("alias", callable.__name__),
+                **self._kwargs
             )
 
         return property(_wrapper)
