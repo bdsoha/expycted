@@ -56,22 +56,6 @@ def test_to_contained_in_type_error(expected, actual, context):
         expect(actual).to.be_contained_in(expected)
 
 
-@expected_params(stubs.TRUE, extract_ids=False)
-def test_to_be_true(expected, context):
-    expect(expected).to.be_true()
-
-    with context.raises:
-        expect(expected).to_not.be_true()
-
-
-@expected_params(stubs.FALSE, extract_ids=False)
-def test_to_be_false(expected, context):
-    expect(expected).to.be_false()
-
-    with context.raises:
-        expect(expected).to_not.be_false()
-
-
 @expected_params(stubs.TRUETHY, extract_ids=False)
 def test_to_be_truthy(expected, context):
     expect(expected).to.be_truthy()

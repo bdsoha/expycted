@@ -3,7 +3,7 @@ from typing import Any, Collection, Tuple
 
 from expycted.internals.utils import assertion
 from expycted.internals.base import BaseExpectation
-from expycted.matchers import EqualMatcher, BeEmptyMatcher
+from expycted.matchers import EqualMatcher, BeEmptyMatcher, IsMatcher, BoolMatcher
 from expycted.core.matchers import assert_property
 
 
@@ -12,10 +12,6 @@ class Value(BaseExpectation):
         "be": "Expected {expected} to be {actual}",
         "contain": "Expected {expected} to contain {actual}",
         "be_contained_in": "Expected {expected} to be contained in {actual}",
-        "be_true": "Expected {expected} to be true",
-        "be_false": "Expected {expected} to be false",
-        "be_truthy": "Expected {expected} to be truthy",
-        "be_falsey": "Expected {expected} to be falsey",
         "be_of_type": "Expected {expected} to be of type {actual}",
         "inherit": "Expected {expected} to inherit {actual}",
         "be_greater_than": "Expected {expected} to be greater than {actual}",
@@ -57,18 +53,6 @@ class Value(BaseExpectation):
                 f'Type "{type(actual)} cannot contain {self.expected}"'
             )
 
-    def _internal_be_true(self) -> Tuple[bool, str]:
-        return self.expected is True, self._message("be_true")
-
-    def _internal_be_false(self) -> Tuple[bool, str]:
-        return self.expected is False, self._message("be_false")
-
-    def _internal_be_truthy(self) -> Tuple[bool, str]:
-        return True if self.expected else False, self._message("be_truthy")
-
-    def _internal_be_falsey(self) -> Tuple[bool, str]:
-        return True if not self.expected else False, self._message("be_falsey")
-
     def _internal_be_of_type(self, actual: type) -> Tuple[bool, str]:
         return type(self.expected) is actual, self._message("be_of_type", actual)
 
@@ -109,7 +93,7 @@ class Value(BaseExpectation):
     def equal(self) -> EqualMatcher:
         """Asserts that two variables have the same value."""
 
-    @assert_property(EqualMatcher, alias="be_equal_to")
+    @assert_property(EqualMatcher)
     def be_equal_to(self) -> EqualMatcher:
         """Alias for ``equal``."""
 
@@ -148,39 +132,39 @@ class Value(BaseExpectation):
 
     @assert_property(BeEmptyMatcher)
     def be_empty(self) -> BeEmptyMatcher:
-        """Asserts that the value is empty."""
+        """Asserts that the actual value is empty."""
 
-    @assertion
-    def be_true(self) -> None:
-        """Checks whether the value is true
+    @assert_property(IsMatcher, to_match=True)
+    def be_true(self) -> IsMatcher:
+        """Asserts that the actual value is ``True``."""
 
-        Returns:
-            bool: Result
-        """
+    @assert_property(IsMatcher, to_match=False)
+    def be_false(self) -> IsMatcher:
+        """Asserts that the actual value is ``False``."""
 
-    @assertion
-    def be_false(self) -> None:
-        """Checks whether the value is false
+    @assert_property(BoolMatcher, to_match=True)
+    def be_truthy(self) -> BoolMatcher:
+        """Asserts that the actual value is truthy."""
 
-        Returns:
-            bool: Result
-        """
+    @assert_property(BoolMatcher, to_match=True)
+    def be_trueish(self) -> BoolMatcher:
+        """Alias for ``be_truthy``."""
 
-    @assertion
-    def be_truthy(self) -> None:
-        """Checks whether the value is truthy
+    @assert_property(BoolMatcher, to_match=True)
+    def be_truey(self) -> BoolMatcher:
+        """Alias for ``be_truthy``."""
 
-        Returns:
-            bool: Result
-        """
+    @assert_property(BoolMatcher, to_match=False)
+    def be_falsey(self) -> BoolMatcher:
+        """Asserts that the actual value is falsey."""
 
-    @assertion
-    def be_falsey(self) -> None:
-        """Checks whether the value is falsey
+    @assert_property(BoolMatcher, to_match=False)
+    def be_falsish(self) -> BoolMatcher:
+        """Alias for ``be_falsey``."""
 
-        Returns:
-            bool: Result
-        """
+    @assert_property(BoolMatcher, to_match=False)
+    def be_falsy(self) -> BoolMatcher:
+        """Alias for ``be_falsey``."""
 
     @assertion
     def be_of_type(self, actual: type) -> None:
@@ -267,9 +251,6 @@ class Value(BaseExpectation):
 
     be_greater_or_equal = be_greater_than_or_equal_to = be_greater_or_equal_to
     be_greater = be_greater_than
-
-    be_falsy = be_falsish = be_falsey
-    be_truey = be_trueish = be_truthy
 
     be_in = be_included_in = be_contained_in
     have = include = contain
