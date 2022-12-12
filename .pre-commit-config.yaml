@@ -8,19 +8,19 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-    -   id: check-yaml
-    -   id: check-toml
-    -   id: end-of-file-fixer
-    -   id: mixed-line-ending
-    -   id: trailing-whitespace
-        args: [--markdown-linebreak-ext=md]
+      - id: check-yaml
+      - id: check-toml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        args: [ --markdown-linebreak-ext=md ]
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.2
     hooks:
       - id: codespell
-        args: [--write-changes]
- - repo: https://github.com/psf/black
+        args: [ --write-changes ]
+  - repo: https://github.com/psf/black
     rev: 22.3.0
     hooks:
       - id: black

@@ -3,6 +3,7 @@ from enum import Enum
 import pytest
 
 from expycted.core.formatters import ValueToString
+
 from helpers.stubs import PERSON, Day
 
 
@@ -24,7 +25,7 @@ from helpers.stubs import PERSON, Day
     ],
 )
 def test_builtin_types(actual, formatted):
-    assert ValueToString.format(actual) == formatted
+    assert str(ValueToString(actual)) == formatted
 
 
 def test_instance_type():

@@ -1,3 +1,4 @@
+from traceback import StackSummary
 from unittest.mock import Mock
 
 import pytest
@@ -46,7 +47,7 @@ def test_with_expected(matcher):
 
 
 @pytest.mark.parametrize("actual", [(1, 2), b"hello"])
-def test_allowed_types(actual):
+def test_not_allowed_types(actual):
     matcher = AllowedTypesMatcher(actual)
 
     with pytest.raises(MatcherError):
@@ -55,9 +56,19 @@ def test_allowed_types(actual):
     matcher.mock.assert_not_called()
 
 
+def test_allowed_inherited_types():
+    matcher = AllowedTypesMatcher(StackSummary())
+
+    matcher()
+
+    matcher.mock.assert_called_once()
+
+
 def test_name(matcher):
     assert matcher.name() == "always_true"
+
     assert AllowedTypesMatcher(True).name() == "allowed_types"
+
     assert AllowedTypesMatcher(True, alias="other").name() == "other"
 
 

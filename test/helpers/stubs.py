@@ -119,6 +119,7 @@ def EMPTY_GENERATORS():
         (i for i in range(0)),
     )
 
+
 NOT_EMPTY = (
     " ",
     {"a": 1},
@@ -156,8 +157,7 @@ TRUETHY = (
     *TRUE,
     *NOT_EMPTY,
     1,
-    "True"
-    "False",
+    "True" "False",
     PERSON,
 )
 

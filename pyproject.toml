@@ -79,13 +79,22 @@ addopts = [
 
 
 [tool.coverage.report]
-exclude_lines  = [
+exclude_lines = [
     "@(abc\\.)?abstractmethod"
 ]
 
 
 [tool.isort]
 profile = "black"
+from_first = true
 multi_line_output = 3
 src_paths = ["src", "test"]
-from_first = true
+known_helpers = "helpers"
+sections = [
+    "FUTURE",
+    "STDLIB",
+    "THIRDPARTY",
+    "FIRSTPARTY",
+    "HELPERS",
+    "LOCALFOLDER"
+]

@@ -12,14 +12,13 @@ try:
 except ImportError:
     from typing_extensions import Literal
 
-
 TAllowedTypes = Union[Literal["*"], Tuple[Type, ...]]
 
 
 class BaseMatcher(ABC):
     OPERATION: Optional[str] = None
     MESSAGE: Optional[Union[str, DetailMessage]] = None
-    ALLOWED_TYPES = TAllowedTypes = "*"
+    ALLOWED_TYPES: TAllowedTypes = "*"
 
     def __init__(
         self,
@@ -46,7 +45,7 @@ class BaseMatcher(ABC):
     def _get_message(self, **kwargs):
         return self.MESSAGE
 
-    def _get_opertation(self, **kwargs):
+    def _get_operation(self, **kwargs):
         return self.OPERATION
 
     def _validate_allowed_types(self, **kwargs):
@@ -56,7 +55,7 @@ class BaseMatcher(ABC):
             return
 
         if not isinstance(self._actual, allowed_types):
-            raise MatcherError(type(self._actual), *allowed_types)
+            raise MatcherError(*allowed_types, actual=type(self._actual))
 
     def allowed_types(self, **kwargs) -> TAllowedTypes:
         """Types that are allowed to be compared."""
@@ -79,7 +78,7 @@ class BaseMatcher(ABC):
         return Message(
             method=self.name(**kwargs),
             negated=self._negated,
-            operation=self._get_opertation(**kwargs),
+            operation=self._get_operation(**kwargs),
             message=self._get_message(**kwargs),
             **kwargs,
         )

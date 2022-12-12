@@ -1,5 +1,6 @@
 from expycted import expect
 from expycted.matchers import EqualMatcher
+
 from helpers.stubs import EQUAL, NOT_EQUAL
 from helpers.utils import expected_actual_params
 

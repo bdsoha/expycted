@@ -1,12 +1,13 @@
-from contextlib import nullcontext
 from typing import NamedTuple
 
 import pytest
 
+from expycted.core.exceptions import MatcherError
+
 
 class Context(NamedTuple):
-    not_raises = nullcontext()
     raises = pytest.raises(AssertionError)
+    type_error = pytest.raises(MatcherError)
 
 
 CONTEXT = Context()

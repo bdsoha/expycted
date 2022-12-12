@@ -6,7 +6,7 @@ from expycted.core.formatters import AnPrefix
 class MatcherError(TypeError):
     """Matcher cannot handle the provided type."""
 
-    def __init__(self, actual: Type, *allowed: Type):
+    def __init__(self, *allowed: Type, actual: Type):
         super().__init__()
         self._actual = actual
         self._allowed = allowed
