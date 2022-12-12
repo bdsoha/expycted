@@ -1,4 +1,3 @@
-from traceback import StackSummary
 from unittest.mock import Mock
 from expycted.core.matchers import BaseMatcher
 from expycted.core.messages import Message
@@ -24,7 +23,7 @@ class AllowedTypesMatcher(AlwaysTrueMatcher):
 
 @pytest.fixture
 def matcher():
-    return AlwaysTrueMatcher.safe(True)
+    return AlwaysTrueMatcher(True)
 
 def test_matches(matcher):
     assert matcher() is True
@@ -32,7 +31,7 @@ def test_matches(matcher):
     matcher.mock.assert_called_once_with(SENTINEL)
 
 def test_negated():
-    matcher = AlwaysTrueMatcher.safe(True, negated=True)
+    matcher = AlwaysTrueMatcher(True, negated=True)
 
     assert matcher() is False
     matcher.mock.assert_called_once_with(SENTINEL)
@@ -44,7 +43,7 @@ def test_with_expected(matcher):
 
 @pytest.mark.parametrize("actual", [(1, 2), b"hello"])
 def test_allowed_types(actual):
-    matcher = AllowedTypesMatcher.safe(actual)
+    matcher = AllowedTypesMatcher(actual)
 
     with pytest.raises(MatcherError):
         matcher()
@@ -53,7 +52,8 @@ def test_allowed_types(actual):
 
 def test_name(matcher):
     assert matcher.name() == "always_true"
-    assert AllowedTypesMatcher.safe(True).name() == "allowed_types"
+    assert AllowedTypesMatcher(True).name() == "allowed_types"
+    assert AllowedTypesMatcher(True, alias="other").name() == "other"
 
 def test_message(matcher):
     assert isinstance(matcher.message(), Message)

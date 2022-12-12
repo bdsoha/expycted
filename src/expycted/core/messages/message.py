@@ -1,11 +1,7 @@
-from typing import Any, NamedTuple, Optional, Tuple, Union
-from .utilities import SENTINEL
-from .formatters import StringOutputFormatter
-
-
-class DetailMessage(NamedTuple):
-    actual: str = "Actual\t: {actual}"
-    expected: str = "Expected\t: {expected}"
+from typing import Any, Optional, Tuple, Union
+from expycted.core.formatters import ValueToString
+from expycted.core.utilities import SENTINEL
+from .detail_message import DetailMessage
 
 
 class Message:
@@ -26,7 +22,7 @@ class Message:
 
     @staticmethod
     def _format_values(*values: str) -> Tuple[str, str]:
-        return tuple(map(StringOutputFormatter.format, values))
+        return tuple(map(ValueToString, values))
 
     @property
     def _to(self) -> str:
