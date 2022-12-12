@@ -1,6 +1,5 @@
 from enum import Enum
 
-from expycted.core.utilities import SENTINEL
 from .base_formatter import BaseFormatter
 
 
@@ -55,7 +54,7 @@ class ValueToString(BaseFormatter):
     def __str__(self) -> str:
         """Convert to the correct formatting based on the value type."""
 
-        if self._value is SENTINEL:
+        if self._value is ...:
             return ""
 
         return next(

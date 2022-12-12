@@ -1,7 +1,6 @@
 from unittest.mock import Mock
 from expycted.core.matchers import BaseMatcher
 from expycted.core.messages import Message
-from expycted.core.utilities import SENTINEL
 from expycted.core.exceptions import MatcherError
 
 import pytest
@@ -28,13 +27,13 @@ def matcher():
 def test_matches(matcher):
     assert matcher() is True
 
-    matcher.mock.assert_called_once_with(SENTINEL)
+    matcher.mock.assert_called_once_with(...)
 
 def test_negated():
     matcher = AlwaysTrueMatcher(True, negated=True)
 
     assert matcher() is False
-    matcher.mock.assert_called_once_with(SENTINEL)
+    matcher.mock.assert_called_once_with(...)
 
 def test_with_expected(matcher):
     assert matcher("any expected value") is True

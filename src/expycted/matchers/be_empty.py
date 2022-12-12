@@ -1,6 +1,5 @@
 from typing import Iterable
 from expycted.core.matchers import BaseMatcher
-from expycted.core.utilities import SENTINEL
 
 
 class BeEmptyMatcher(BaseMatcher):
@@ -10,6 +9,6 @@ class BeEmptyMatcher(BaseMatcher):
     MESSAGE = "Expected {actual} {to} be empty, but it was not."
 
     def _matches(self, **kwargs) -> bool:
-        result = next(iter(self._actual), SENTINEL)
+        result = next(iter(self._actual), ...)
 
-        return result is SENTINEL
+        return result is ...
