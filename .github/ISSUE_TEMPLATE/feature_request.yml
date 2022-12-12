@@ -1,0 +1,34 @@
+name: 🚀 Feature Request
+description: Suggest an idea to help us improve **Expycted**
+labels: 
+  - ✨ enhancement
+  - 🚀 feature request
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thanks :heart: for taking the time to fill out this feature request report!**
+  - type: textarea
+    attributes:
+      label: Description
+      description: |
+        A clear and concise description of the feature you're interested in.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Suggested Solution
+      description: |
+        Describe the solution you'd like. A clear and concise description of what you want to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Alternatives
+      description: |
+        Describe alternatives you've considered.
+        A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: false
