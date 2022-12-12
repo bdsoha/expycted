@@ -1,0 +1,99 @@
+name: Bug report
+description: Report a bug or ask a question
+labels: [❓ question]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for your interest in Expycted!
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: First Check
+      description: Please confirm and check all the following options.
+      options:
+        - label: I added a very descriptive title to this issue.
+          required: true
+        - label: I used the GitHub search to find a similar issue and didn't find it.
+          required: true
+        - label: I already read and followed all the tutorial in the docs and didn't find an answer.
+          required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Code
+      description: |
+        Please add a self-contained, [minimal, reproducible, example](https://stackoverflow.com/help/minimal-reproducible-example) with your use case.
+      placeholder: |
+        from expycted import expect
+        
+        actual = ...
+        expected = ...
+        
+        expectation = expect(actual)
+        
+        expectation.to.be_of_type(expected)
+      render: python
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is the problem, question, or error?
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you on?
+      multiple: true
+      options:
+        - Linux
+        - Windows
+        - macOS
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: os-details
+    attributes:
+      label: Operating System Details
+      description: You can add more details about your operating system here, in particular if you chose "Other".
+  - type: input
+    id: version
+    attributes:
+      label: Expycted Version
+      description: |
+        What Expycted version are you using?
+
+        You can find the Expycted version by running:
+
+        ```bash
+        python -c "import expycted; print(expycted.__version__)"
+        ```
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: Python Version
+      description: |
+        What Python version are you using?
+
+        You can find the Python version by running:
+
+        ```bash
+        python --version
+        ```
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Are you willing to submit PR?
+      description: >
+        This is absolutely not required, but we are happy to guide you in the contribution process
+        especially if you already have a good understanding of how to implement the fix.
+        Expycted is a community-managed project and we love to bring new contributors in.
+      options:
+        - label: Yes I am willing to submit a PR!
