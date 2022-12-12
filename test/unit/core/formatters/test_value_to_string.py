@@ -1,5 +1,5 @@
 from enum import Enum
-from expycted.core.formatters import StringOutputFormatter
+from expycted.core.formatters import ValueToString
 from helpers.stubs import PERSON, Day
 
 import pytest
@@ -20,7 +20,7 @@ import pytest
     (Day.SUNDAY, "helpers.stubs.Day.SUNDAY"),
 ])
 def test_builtin_types(actual, formatted):
-    assert StringOutputFormatter.format(actual) == formatted
+    assert ValueToString.format(actual) == formatted
 
 def test_instance_type():
-    assert StringOutputFormatter.format(PERSON).startswith("helpers.stubs.Person@0x")
+    assert ValueToString.format(PERSON).startswith("helpers.stubs.Person@0x")

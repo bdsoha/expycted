@@ -1,15 +1,6 @@
-from typing import Any, Iterable
+from typing import Iterable
 from expycted.core.matchers import BaseMatcher
 from expycted.core.utilities import SENTINEL
-
-
-class EqualMatcher(BaseMatcher):
-    """Asserts that two variables have the same value."""
-
-    OPERATION = "=="
-
-    def _matches(self, *, expected: Any, **kwargs) -> bool:
-        return self._actual == expected
 
 
 class BeEmptyMatcher(BaseMatcher):
