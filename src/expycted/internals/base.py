@@ -13,15 +13,15 @@ class BaseExpectation:
         self.negate = negate
 
     def _message(
-            self,
-            method: str,
-            actual: Any = _SENTINEL,
-            expected: Any = None,
-            **kwargs
+        self,
+        method: str,
+        actual: Any = _SENTINEL,
+        expected: Any = None,
+        **kwargs,
     ) -> str:
         placeholders = dict(
             expected=self.expected if expected is None else expected,
-            **kwargs
+            **kwargs,
         )
 
         if actual is not _SENTINEL:
@@ -45,9 +45,7 @@ class BaseExpectation:
     def _execute_internal_assertion(self, method: str, *args, **kwargs):
         internal_assert = getattr(self, f"_internal_{method}")
 
-        return self._assert(
-            *internal_assert(*args, **kwargs)
-        )
+        return self._assert(*internal_assert(*args, **kwargs))
 
     @property
     def to(self):

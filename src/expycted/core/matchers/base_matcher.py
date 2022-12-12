@@ -81,7 +81,7 @@ class BaseMatcher(ABC):
             negated=self._negated,
             operation=self._get_opertation(**kwargs),
             message=self._get_message(**kwargs),
-            **kwargs
+            **kwargs,
         )
 
     def __call__(self, expected: Any = ..., **kwargs) -> bool:

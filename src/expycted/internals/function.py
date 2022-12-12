@@ -52,9 +52,7 @@ def format_args_kwargs(args: Any, kwargs: Any) -> str:
         str: Formatted arguments and keyword arguments
     """
     args_str = ", ".join(map(str, args))
-    kwargs_str = ", ".join(
-        map(lambda x: f"{x[0]}={x[1]}", kwargs.items())
-    )
+    kwargs_str = ", ".join(map(lambda x: f"{x[0]}={x[1]}", kwargs.items()))
 
     return f"\n\t- arguments: {args_str} \n\t- keyword arguments: {kwargs_str}"
 
@@ -84,8 +82,8 @@ class ToRaise(BaseExpectation):
                     "to_raise",
                     self.exception,
                     expected=self.expected.__name__,
-                    arguments=format_args_kwargs(args, kwargs)
-                )
+                    arguments=format_args_kwargs(args, kwargs),
+                ),
             )
         else:
             raise AssertionError(
@@ -118,19 +116,16 @@ class ToReturn(BaseExpectation):
         substitutions = dict(
             actual=self.value,
             expected=self.expected.__name__,
-            arguments=format_args_kwargs(args, kwargs)
+            arguments=format_args_kwargs(args, kwargs),
         )
 
         if self.value is not None:
-            self._assert(
-                ret == self.value,
-                self._message("to_return", **substitutions)
-            )
+            self._assert(ret == self.value, self._message("to_return", **substitutions))
 
         if self.type_of_value is not None:
             self._assert(
                 type(ret) == self.type_of_value,
-                self._message("to_return", type=self.type_of_value, **substitutions)
+                self._message("to_return", type=self.type_of_value, **substitutions),
             )
 
     when_called_with_args = when_called_with_arguments = when_called_with

@@ -54,6 +54,7 @@ def test_fn_expect_return(fn, arguments, ret_value, ret_type, true):
             value=ret_value, type_of_value=ret_type
         ).when_called_with(*arguments)
 
+
 def test_fn_raises_value_error_when_called_without_return():
     with pytest.raises(ValueError):
         expect.function(str).to_return().when_called_with([10])

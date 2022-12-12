@@ -2,7 +2,7 @@ from .base_formatter import BaseFormatter
 
 
 class AnPrefix(BaseFormatter):
-    VOWELS = ('a', 'e', 'i', 'o', 'u')
+    VOWELS = ("a", "e", "i", "o", "u")
 
     def __str__(self) -> str:
         """Return ``"a"`` or ``"an"`` based on subsequent vowel."""

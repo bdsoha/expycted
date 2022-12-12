@@ -14,7 +14,7 @@ class Message:
         *,
         operation: Optional[str] = None,
         negated: bool = False,
-        message: Optional[Union[DetailMessage, str]] = None
+        message: Optional[Union[DetailMessage, str]] = None,
     ):
         self._method = method
         self._operation = operation
@@ -34,14 +34,16 @@ class Message:
 
         actual, expected = self._format_values(actual, expected)
 
-        return "".join([
-            f"expect({actual})",
-            ".",
-            self._to,
-            ".",
-            f"{self._method}({expected})",
-            f" # Using `{self._operation}`" if self._operation else ""
-        ])
+        return "".join(
+            [
+                f"expect({actual})",
+                ".",
+                self._to,
+                ".",
+                f"{self._method}({expected})",
+                f" # Using `{self._operation}`" if self._operation else "",
+            ]
+        )
 
     def details(self, *, actual: Any, expected: Any = ...) -> str:
         """Detail difference between the ``actual`` and ``expected`` values."""
@@ -53,7 +55,7 @@ class Message:
             expected=expected,
             actual=actual,
             method=self._method,
-            method_split=self._method.replace("_", " ")
+            method_split=self._method.replace("_", " "),
         )
 
         message = DetailMessage() if not self._message else self._message
@@ -61,13 +63,17 @@ class Message:
         if isinstance(message, str):
             return message.format(**placeholders)
 
-        return "\n".join([
-            message.expected.format(**placeholders),
-            message.actual.format(**placeholders),
-        ])
+        return "\n".join(
+            [
+                message.expected.format(**placeholders),
+                message.actual.format(**placeholders),
+            ]
+        )
 
     def render(self, actual: Any, expected: Any = ...) -> str:
-        return "\n\n".join([
-            self.signature(actual=actual, expected=expected),
-            self.details(actual=actual, expected=expected)
-        ])
+        return "\n\n".join(
+            [
+                self.signature(actual=actual, expected=expected),
+                self.details(actual=actual, expected=expected),
+            ]
+        )

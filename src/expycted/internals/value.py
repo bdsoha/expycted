@@ -8,9 +8,9 @@ from expycted.matchers import (
     BeEmptyMatcher,
     BoolMatcher,
     EqualMatcher,
-    IsMatcher
+    IsMatcher,
+    TypeMatcher,
 )
-from expycted.matchers.type_matcher import TypeMatcher
 
 
 class Value(BaseExpectation):
@@ -60,7 +60,9 @@ class Value(BaseExpectation):
 
     def _internal_inherit(self, actual: type) -> Tuple[bool, str]:
         try:
-            return issubclass(type(self.expected), actual), self._message("inherit", actual)
+            return issubclass(type(self.expected), actual), self._message(
+                "inherit", actual
+            )
         except Exception:
             raise AssertionError("Second argument must be a class, not an instance")
 

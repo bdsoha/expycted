@@ -11,7 +11,7 @@ class ValueToString(BaseFormatter):
         "byte",
         "enum",
         "builtin",
-        "callable"
+        "callable",
     ]
 
     @classmethod
@@ -20,13 +20,13 @@ class ValueToString(BaseFormatter):
 
     def _to_byte(self):
         if isinstance(self._value, bytes):
-            return f"b\"{self._value.decode()}\""
+            return f'b"{self._value.decode()}"'
 
         return None
 
     def _to_str(self):
         if isinstance(self._value, str):
-            return f"\"{self._value}\""
+            return f'"{self._value}"'
 
         return None
 
@@ -37,7 +37,7 @@ class ValueToString(BaseFormatter):
         return None
 
     def _to_builtin(self):
-        if self._value.__class__.__module__ not in ('builtins', 'enum'):
+        if self._value.__class__.__module__ not in ("builtins", "enum"):
             return f"{self._fqn(self._value.__class__)}@{hex(id(self._value))}"
 
         return None
@@ -59,5 +59,5 @@ class ValueToString(BaseFormatter):
 
         return next(
             filter(None, map(self._to, self._LOOKUP)),
-            str(self._value)
+            str(self._value),
         )

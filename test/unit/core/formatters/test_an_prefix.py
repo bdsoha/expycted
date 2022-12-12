@@ -21,5 +21,6 @@ def test_get_first_letter_in_sequence():
     assert AnPrefix.format("1234a") == "an"
     assert AnPrefix.format("1234b") == "a"
 
+
 def test_non_str_values():
     assert AnPrefix.format(list) == "a"

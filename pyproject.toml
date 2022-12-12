@@ -46,6 +46,7 @@ dynamic = ["version", "readme"]
 
 [project.optional-dependencies]
 dev = [
+    "black",
     "coverage[toml]",
     "isort",
     "pre-commit",
@@ -84,6 +85,7 @@ exclude_lines  = [
 
 
 [tool.isort]
+profile = "black"
 multi_line_output = 3
 src_paths = ["src", "test"]
 from_first = true

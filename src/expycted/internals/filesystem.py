@@ -33,9 +33,9 @@ class Directory(BaseExpectation):
         return Path(value)
 
     def _internal_contain(
-            self,
-            actual: str,
-            type_: Union[Type[File], Type[Folder], None, str] = None
+        self,
+        actual: str,
+        type_: Union[Type[File], Type[Folder], None, str] = None,
     ) -> Tuple[bool, str]:
         name = self.expected.joinpath(self._normalize(actual))
 
@@ -55,9 +55,9 @@ class Directory(BaseExpectation):
 
     @assertion
     def contain(
-            self,
-            actual: str,
-            type_: Union[Type[File], Type[Folder], None, str] = None
+        self,
+        actual: str,
+        type_: Union[Type[File], Type[Folder], None, str] = None,
     ) -> None:
         """
         Check if folder contains something with given name

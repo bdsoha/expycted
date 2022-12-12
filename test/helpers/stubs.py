@@ -33,8 +33,8 @@ FALSE_STR_EQUIVALENT = (False, "False", "bool (False) str equivalent")
 INT_STR_EQUIVALENT = (1, "1", "int str equivalent")
 INT_FLOAT_EQUIVALENT = (1, 1.0, "int float equivalent")
 
-RSTR_STR_EQUIVALENT = (r"hello","hello", "r-str str equivalent")
-BYTE_STR_EQUIVALENT = (b"hello","hello", "byte-str str equivalent")
+RSTR_STR_EQUIVALENT = (r"hello", "hello", "r-str str equivalent")
+BYTE_STR_EQUIVALENT = (b"hello", "hello", "byte-str str equivalent")
 
 LIST_TUPLE_EQUIVALENT = ([True, 1.1], (True, 1.1), "list tuple equivalent")
 
@@ -72,7 +72,7 @@ BE = (
     TRUE_STR_EQUIVALENT,
     FALSE_STR_EQUIVALENT,
     INT_STR_EQUIVALENT,
-    COPY_OBJECT
+    COPY_OBJECT,
 )
 
 NOT_BE = (
@@ -101,7 +101,7 @@ CONTAIN_TYPE_ERROR = (
     ("hello2", 2, "int in str"),
     TRUE_STR_EQUIVALENT,
     COPY_OBJECT,
-    SAME_OBJECT
+    SAME_OBJECT,
 )
 
 EMPTY = (
@@ -112,10 +112,11 @@ EMPTY = (
     tuple(),
 )
 
+
 def EMPTY_GENERATORS():
     return (
         range(0),
-        (i for i in range(0))
+        (i for i in range(0)),
     )
 
 NOT_EMPTY = (
@@ -125,7 +126,7 @@ NOT_EMPTY = (
     {1},
     (1,),
     range(100),
-    (i for i in range(10))
+    (i for i in range(10)),
 )
 
 NOT_EMPTY_TYPE_ERROR = (
@@ -140,7 +141,7 @@ TRUE = (True,)
 NOT_TRUE = (
     False,
     1,
-    "True"
+    "True",
 )
 
 FALSE = (False,)
@@ -148,7 +149,7 @@ FALSE = (False,)
 NOT_FALSE = (
     True,
     0,
-    "False"
+    "False",
 )
 
 TRUETHY = (
@@ -157,13 +158,10 @@ TRUETHY = (
     1,
     "True"
     "False",
-    PERSON
+    PERSON,
 )
 
-NOT_TRUETHY = (
-    *FALSE,
-    *EMPTY
-)
+NOT_TRUETHY = (*FALSE, *EMPTY)
 
 FALSEY = (
     *FALSE,
@@ -174,7 +172,7 @@ FALSEY = (
 NOT_FALSEY = (
     *TRUE,
     *NOT_EMPTY,
-    PERSON
+    PERSON,
 )
 
 TYPE = (
@@ -216,9 +214,7 @@ NOT_INHERIT = (
     (1.0, int),
 )
 
-INHERIT_TYPE_ERROR = (
-    ("string", "str"),
-)
+INHERIT_TYPE_ERROR = (("string", "str"),)
 
 GREATER_THAN = (
     (3, 2),
@@ -237,13 +233,13 @@ LESS_THAN = (
 GREATER_THAN_OR_EQUAL = (
     *GREATER_THAN,
     (1, 1.0),
-    ([1], [1])
+    ([1], [1]),
 )
 
 LESS_THAN_OR_EQUAL = (
     *LESS_THAN,
     (1, 1.0),
-    ([1], [1])
+    ([1], [1]),
 )
 
 NUMERIC = (
@@ -255,7 +251,7 @@ NUMERIC = (
     1e1,
     "1e1",
     1_001_123,
-    "1_001_123"
+    "1_001_123",
 )
 
 NOT_NUMERIC = (
@@ -266,5 +262,5 @@ NOT_NUMERIC = (
     set(),
     tuple(),
     lambda x: x,
-    PERSON
+    PERSON,
 )

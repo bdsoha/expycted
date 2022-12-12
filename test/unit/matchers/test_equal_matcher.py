@@ -15,11 +15,13 @@ def test_via_expect(context):
     with context.raises:
         expectation.to.equal(False)
 
+
 @expected_actual_params(EQUAL)
 def test_matches(expected, actual):
     matcher = EqualMatcher(expected)
 
     assert matcher(actual) is True
+
 
 @expected_actual_params(NOT_EQUAL)
 def test_not_matches(expected, actual):

@@ -59,7 +59,6 @@ def test_to_not_inherit(expected, actual, context):
         expect(expected).to.inherit(actual)
 
 
-
 @expected_actual_params(stubs.LESS_THAN, extract_ids=False)
 def test_to_not_be_greater_than(expected, actual, context):
     expect(expected).to_not.be_greater_than(actual)

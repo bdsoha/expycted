@@ -27,8 +27,10 @@ class MatcherError(TypeError):
             allowed = ", ".join(allowed)
             allowed += f", or {last}"
 
-        return "\n".join([
-            "Matcher Error:",
-            f"Received value must be {AnPrefix(allowed)} {allowed}.",
-            f"But, {AnPrefix(self._actual)} `{self._actual.__name__}` was provided."
-        ])
+        return "\n".join(
+            [
+                "Matcher Error:",
+                f"Received value must be {AnPrefix(allowed)} {allowed}.",
+                f"But, {AnPrefix(self._actual)} `{self._actual.__name__}` was provided.",
+            ]
+        )
