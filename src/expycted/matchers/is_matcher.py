@@ -11,4 +11,4 @@ class IsMatcher(BaseMatcher):
         self._to_match = to_match
 
     def _matches(self, **kwargs) -> bool:
-        return self._actual is self._to_match
+        return self._normalized_actual is self._to_match
