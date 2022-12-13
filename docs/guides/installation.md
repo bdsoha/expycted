@@ -2,12 +2,15 @@
 
 > Requirements: [Python 3.7+](https://www.python.org/downloads/).
 
-**Expycted** has no additional dependencies and can be installed from [PyPi](https://pypi.org/project/expycted/) using `pip` by running:
+**Expycted** can be installed from [PyPi](https://pypi.org/project/expycted/) using `pip` by running:
 
 ```sh
 pip install expycted
-
 ```
+
+::: info
+Expycted won't clutter your environment, it is very small *(`8.9kB`)* and has no additional dependencies.
+:::
 
 ## Development
 
