@@ -9,4 +9,4 @@ class AnPrefix(BaseFormatter):
 
         found = next(filter(str.isalpha, str(self._value)))
 
-        return "an" if found in self.VOWELS else "a"
+        return "an" if found.lower() in self.VOWELS else "a"

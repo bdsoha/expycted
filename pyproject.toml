@@ -53,6 +53,7 @@ dev = [
     "pytest",
     "pytest-cov",
     "pytest-clarity",
+    "pytest-lazy-fixture",
     "tomli"
 ]
 ci = [

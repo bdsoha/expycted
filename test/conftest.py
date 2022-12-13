@@ -1,8 +1,8 @@
 import pytest
 
-from helpers.utils import CONTEXT
+from helpers.utils import Context
 
 
 @pytest.fixture(scope="session")
 def context():
-    return CONTEXT
+    return Context()

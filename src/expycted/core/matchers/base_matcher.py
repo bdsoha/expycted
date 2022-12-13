@@ -26,14 +26,12 @@ class BaseMatcher(ABC):
         *,
         negated: bool = False,
         alias: str = None,
+        to_match: Any = None
     ):
         self._actual = actual
         self._alias = alias
         self._negated = negated
-
-    @property
-    def _normalized_actual(self):
-        return self._actual
+        self._to_match = to_match
 
     @abstractmethod
     def _matches(self, *, expected: Any, **kwargs) -> bool:

@@ -1,11 +1,8 @@
-import pytest
-
 from expycted import expect
-from expycted.core.exceptions import MatcherError
 from expycted.matchers import BeEmptyMatcher
 
-from helpers.stubs import EMPTY, EMPTY_GENERATORS, NOT_EMPTY, NOT_EMPTY_TYPE_ERROR
-from helpers.utils import expected_params
+from helpers import stubs
+from helpers.utils import parametrize_expectation
 
 
 def test_via_expect(context):
@@ -19,23 +16,58 @@ def test_via_expect(context):
         expectation.to_not.be_empty()
 
 
-@expected_params((*EMPTY, *EMPTY_GENERATORS()), extract_ids=False)
-def test_matches(expected):
-    matcher = BeEmptyMatcher(expected)
+@parametrize_expectation(
+    [
+        stubs.EMPTY_LIST(),
+        stubs.EMPTY_DICT(),
+        stubs.EMPTY_SET(),
+        stubs.EMPTY_TUPLE(),
+        stubs.EMPTY_STRING(),
+        stubs.EMPTY_BSTRING(),
+        stubs.EMPTY_RANGE(),
+        stubs.EMPTY_GENERATOR(),
+    ],
+    matcher=BeEmptyMatcher,
+)
+def test_matches(expectation):
+    matcher = expectation.matcher()
 
     assert matcher() is True
 
 
-@expected_params(NOT_EMPTY, extract_ids=False)
-def test_not_matches(expected):
-    matcher = BeEmptyMatcher(expected)
+@parametrize_expectation(
+    [
+        stubs.NOT_EMPTY_LIST(),
+        stubs.NOT_EMPTY_DICT(),
+        stubs.NOT_EMPTY_SET(),
+        stubs.NOT_EMPTY_TUPLE(),
+        stubs.NOT_EMPTY_STRING(),
+        stubs.NOT_EMPTY_BSTRING(),
+        stubs.NOT_EMPTY_RANGE(),
+        stubs.NOT_EMPTY_GENERATOR(),
+    ],
+    matcher=BeEmptyMatcher,
+)
+def test_not_matches(expectation):
+    matcher = expectation.matcher()
 
     assert matcher() is False
 
 
-@expected_params(NOT_EMPTY_TYPE_ERROR, extract_ids=False)
-def test_type_error(expected):
-    matcher = BeEmptyMatcher(expected)
+@parametrize_expectation(
+    [
+        stubs.ZERO(),
+        stubs.INT(),
+        stubs.FLOAT(),
+        stubs.FUNCTION_BUILT(),
+        stubs.SINGLETON_OBJECT(),
+        True,  # @TODO: use stub
+    ],
+    matcher=BeEmptyMatcher,
+    wrap=True,
+)
+def test_type_error(expectation, context):
+    matcher = expectation.matcher()
 
-    with pytest.raises(MatcherError):
+    with context.type_error:
         matcher()

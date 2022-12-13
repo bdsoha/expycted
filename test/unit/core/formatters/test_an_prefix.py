@@ -24,3 +24,7 @@ def test_get_first_letter_in_sequence():
 
 def test_non_str_values():
     assert AnPrefix.format(list) == "a"
+
+
+def test_capital_letters():
+    assert AnPrefix.format("`Iterable`") == "an"

@@ -1,11 +1,10 @@
-from .is_matcher import IsMatcher
+from expycted.core.matchers import BaseMatcher
 
 
-class BoolMatcher(IsMatcher):
+class BoolMatcher(BaseMatcher):
     """Asserts that the actual value is boolean equivalent to the expected value."""
 
     OPERATION = "bool"
 
-    @property
-    def _normalized_actual(self):
-        return bool(self._actual)
+    def _matches(self, **kwargs) -> bool:
+        return bool(self._actual) is self._to_match

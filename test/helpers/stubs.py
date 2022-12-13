@@ -1,4 +1,7 @@
+# pylint: skip-file
+
 from enum import Enum
+from helpers.utils import DescribedParam
 
 
 class Parent:
@@ -21,19 +24,53 @@ class Day(Enum):
     SATURDAY = 7
 
 
+EMPTY_LIST = DescribedParam([], description="Empty list")
+EMPTY_SET = DescribedParam(set(), description="Empty set")
+EMPTY_STRING = DescribedParam("", description="Empty string")
+EMPTY_BSTRING = DescribedParam(b"", description="Empty byte string")
+EMPTY_TUPLE = DescribedParam(tuple(), description="Empty tuple")
+EMPTY_DICT = DescribedParam({}, description="Empty dict")
+EMPTY_RANGE = lambda: DescribedParam(range(0), description="Empty range")
+EMPTY_GENERATOR = lambda: DescribedParam(
+    (i for i in range(0)),
+    description="Empty generator",
+)
+
+NOT_EMPTY_LIST = DescribedParam([1], description="Not empty list")
+NOT_EMPTY_SET = DescribedParam({1}, description="Not empty set")
+NOT_EMPTY_STRING = DescribedParam("1", description="Not empty string")
+NOT_EMPTY_BSTRING = DescribedParam(b"1", description="Not empty byte string")
+NOT_EMPTY_TUPLE = DescribedParam((1,), description="Not empty tuple")
+NOT_EMPTY_DICT = DescribedParam({1: 1}, description="Not empty dict")
+NOT_EMPTY_RANGE = lambda: DescribedParam(range(1), description="Not empty range")
+NOT_EMPTY_GENERATOR = lambda: DescribedParam(
+    (i for i in range(1)),
+    description="Not empty generator",
+)
+
+
+ZERO = DescribedParam(0, description="Literal 0")
+INT = DescribedParam(1, description="Integer value")
+INT_STR = DescribedParam("1", description="Integer value as string")
+FLOAT = DescribedParam(1.1, description="Float value")
+FLOAT_STR = DescribedParam("1.1", description="Float value as string")
+FUNCTION_BUILT = DescribedParam(print, description="Built-in function")
+SINGLETON_OBJECT = DescribedParam(Person(), description="Singleton object")
+NOT_SINGLETON_OBJECT = lambda: DescribedParam(
+    Person(), description="Not singleton object"
+)
+
+#### OLD
+
 PERSON = Person()
 
-TRUE_INT_EQUIVALENT = (True, 1, "True int equivalent")
-FALSE_INT_EQUIVALENT = (False, 0, "False int equivalent")
 FALSE_NONE_EQUIVALENT = (False, None, "False None equivalent")
 
 TRUE_STR_EQUIVALENT = (True, "True", "bool (True) str equivalent")
 FALSE_STR_EQUIVALENT = (False, "False", "bool (False) str equivalent")
 
 INT_STR_EQUIVALENT = (1, "1", "int str equivalent")
-INT_FLOAT_EQUIVALENT = (1, 1.0, "int float equivalent")
 
-RSTR_STR_EQUIVALENT = (r"hello", "hello", "r-str str equivalent")
 BYTE_STR_EQUIVALENT = (b"hello", "hello", "byte-str str equivalent")
 
 LIST_TUPLE_EQUIVALENT = ([True, 1.1], (True, 1.1), "list tuple equivalent")
@@ -41,21 +78,6 @@ LIST_TUPLE_EQUIVALENT = ([True, 1.1], (True, 1.1), "list tuple equivalent")
 SAME_OBJECT = (PERSON, PERSON, "same object in memory")
 COPY_OBJECT = (Person(), Person(), "copied object")
 
-
-EQUAL = (
-    TRUE_INT_EQUIVALENT,
-    FALSE_INT_EQUIVALENT,
-    INT_FLOAT_EQUIVALENT,
-    RSTR_STR_EQUIVALENT,
-    SAME_OBJECT,
-    (True, True, "bool"),
-    (1, 1, "int"),
-    (1.1, 1.1, "float"),
-    ("hello", "hello", "str"),
-    ([True, 1.1], [True, 1.1], "list"),
-    ({True, 1.1}, {1.1, True}, "set ignore order"),
-    ({"a": [True, 1.1]}, {"a": [True, 1.1]}, "dict"),
-)
 
 NOT_EQUAL = (
     TRUE_STR_EQUIVALENT,
@@ -68,7 +90,17 @@ NOT_EQUAL = (
 )
 
 BE = (
-    *EQUAL,
+    (True, 1, "True int equivalent"),
+    (False, 0, "False int equivalent"),
+    (1, 1.0, "int float equivalent"),
+    SAME_OBJECT,
+    (True, True, "bool"),
+    (1, 1, "int"),
+    (1.1, 1.1, "float"),
+    ("hello", "hello", "str"),
+    ([True, 1.1], [True, 1.1], "list"),
+    ({True, 1.1}, {1.1, True}, "set ignore order"),
+    ({"a": [True, 1.1]}, {"a": [True, 1.1]}, "dict"),
     TRUE_STR_EQUIVALENT,
     FALSE_STR_EQUIVALENT,
     INT_STR_EQUIVALENT,
@@ -113,13 +145,6 @@ EMPTY = (
 )
 
 
-def EMPTY_GENERATORS():
-    return (
-        range(0),
-        (i for i in range(0)),
-    )
-
-
 NOT_EMPTY = (
     " ",
     {"a": 1},
@@ -128,13 +153,6 @@ NOT_EMPTY = (
     (1,),
     range(100),
     (i for i in range(10)),
-)
-
-NOT_EMPTY_TYPE_ERROR = (
-    0,
-    True,
-    100,
-    PERSON,
 )
 
 TRUE = (True,)

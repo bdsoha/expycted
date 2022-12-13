@@ -6,9 +6,5 @@ class IsMatcher(BaseMatcher):
 
     OPERATION = "is"
 
-    def __init__(self, *args, to_match, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._to_match = to_match
-
     def _matches(self, **kwargs) -> bool:
-        return self._normalized_actual is self._to_match
+        return self._actual is self._to_match
