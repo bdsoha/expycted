@@ -5,7 +5,8 @@
 **Expycted** has no additional dependencies and can be installed from [PyPi](https://pypi.org/project/expycted/) using `pip` by running:
 
 ```sh
-$ pip install expycted
+pip install expycted
+
 ```
 
 ## Development
@@ -14,19 +15,19 @@ Alternatively, you can clone the repository and build your own distribution usin
 
 ```sh
 # Clone the repository
-$ git clone https://github.com/bdsoha/expycted.git
+git clone https://github.com/bdsoha/expycted.git
 
 # (Optional) Create a virtual environment
-$ python -m venv venv
-$ source ./venv/bin/activate
+python -m venv venv
+source ./venv/bin/activate
 
 # Install dependencies
-$ pip install build
-$ pip install -e .[dev]
+pip install build
+pip install -e .[dev]
 
 # Run tests
-$ pytest
+pytest
 
 # Build the package
-$ python -m build
+python -m build
 ```
