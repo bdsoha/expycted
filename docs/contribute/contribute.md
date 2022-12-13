@@ -3,7 +3,7 @@ title: Contribute
 description: Contribute
 ---
 
-# Contribute
+# Development - Contributing
 
 > Your help is welcome to make Expycted even more stable and feature rich.
 

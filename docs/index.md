@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Expycted
   text: Expect pattern for Python
-  tagline: Because tests should be easy to read.
+  tagline: Because tests should be easy to read!
   image:
     src: /logo.png
     alt: Expycted

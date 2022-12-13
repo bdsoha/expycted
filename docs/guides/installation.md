@@ -2,7 +2,7 @@
 
 > Requirements: [Python 3.7+](https://www.python.org/downloads/).
 
-**Expycted** can be installed from [PyPi](https://pypi.org/project/expycted/) via `pip` by running:
+**Expycted** has no additional dependencies and can be installed from [PyPi](https://pypi.org/project/expycted/) using `pip` by running:
 
 ```sh
 $ pip install expycted
@@ -10,22 +10,23 @@ $ pip install expycted
 
 ## Development
 
-Alternatively, you can clone the repository and build your own distribution using [Poetry](https://python-poetry.org):
+Alternatively, you can clone the repository and build your own distribution using [Setuptools](https://setuptools.pypa.io/en/latest/):
+
 ```sh
 # Clone the repository
-$ git clone https://github.com/petereon/expycted.git
+$ git clone https://github.com/bdsoha/expycted.git
+
+# (Optional) Create a virtual environment
+$ python -m venv venv
+$ source ./venv/bin/activate
 
 # Install dependencies
-$ pipenv install
+$ pip install build
+$ pip install -e .[dev]
 
 # Run tests
-$ pipenv run test
+$ pytest
 
 # Build the package
-$ pipenv run build
-```
-
-Then you can install it using:
-```sh
-$ pip install ./dist/expycted-<version>-py3-none-any.whl
+$ python -m build
 ```
