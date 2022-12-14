@@ -81,8 +81,7 @@ addopts = [
 
 [tool.coverage.report]
 exclude_lines = [
-    "@(abc\\.)?abstractmethod",
-    "@(abc\\.)?abstractproperty",
+    "@(abc\\.)?abstractmethod"
 ]
 
 

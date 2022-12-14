@@ -11,6 +11,5 @@ class IsFalseMatcher(BoolMatcher):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, to_match=False, **kwargs)
 
-    @property
     def _str_equivalent(self):
         return ("false", "0")

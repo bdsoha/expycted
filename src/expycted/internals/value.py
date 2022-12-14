@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Collection, Tuple
 import pickle
 
-from expycted.core.matchers import assert_alias_property, assertion
+from expycted.core.matchers import assertion
 from expycted.internals.base import BaseExpectation
 from expycted.internals.utils import assertion as assertion_old
 from expycted.matchers import (
@@ -99,11 +99,14 @@ class Value(BaseExpectation):
     @assertion
     def equal(self) -> EqualMatcher:
         """Asserts that two variables have the same value."""
+
         return EqualMatcher
 
-    @assert_alias_property("equal")
+    @property
     def be_equal_to(self) -> EqualMatcher:
         """Alias for ``equal``."""
+
+        return self.equal
 
     @assertion_old
     def be(self, actual: Any) -> None:
@@ -173,9 +176,11 @@ class Value(BaseExpectation):
 
         return self.be_truthy
 
-    @assert_alias_property("be_truthy")
+    @property
     def be_truey(self) -> IsTrueMatcher:
         """Alias for ``be_truthy``."""
+
+        return self.be_truthy
 
     @property
     @assertion
@@ -184,27 +189,36 @@ class Value(BaseExpectation):
 
         return self.be_false.weak
 
-    @assert_alias_property("be_falsey")
+    @property
     def be_falsish(self) -> IsFalseMatcher:
         """Alias for ``be_falsey``."""
 
-    @assert_alias_property("be_falsey")
+        return self.be_falsey
+
+    @property
     def be_falsy(self) -> IsFalseMatcher:
         """Alias for ``be_falsey``."""
+
+        return self.be_falsey
 
     @property
     @assertion
     def be_of_type(self) -> TypeMatcher:
         """Assert that the actual type is equivalent to the expected type."""
+
         return TypeMatcher
 
-    @assert_alias_property("be_of_type")
+    @property
     def be_type(self) -> TypeMatcher:
         """Alias for ``be_of_type``."""
 
-    @assert_alias_property("be_of_type")
+        return self.be_of_type
+
+    @property
     def have_type(self) -> TypeMatcher:
         """Alias for ``be_of_type``."""
+
+        return self.be_of_type
 
     @assertion_old
     def inherit(self, actual: type) -> None:

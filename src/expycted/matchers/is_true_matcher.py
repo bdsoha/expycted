@@ -11,6 +11,5 @@ class IsTrueMatcher(BoolMatcher):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, to_match=True, **kwargs)
 
-    @property
     def _str_equivalent(self):
         return ("true", "1")

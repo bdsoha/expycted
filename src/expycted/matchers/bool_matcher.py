@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC, abstractproperty
+from abc import ABC, abstractmethod
 from typing import Tuple
 
 from expycted.core.decorators import chain
@@ -21,14 +21,13 @@ class BoolMatcher(IsMatcher, ABC):
     def weak(self):
         self._qualifiers.weak = True
 
-    @property
-    @abstractproperty
+    @abstractmethod
     def _str_equivalent(self) -> Tuple[str, ...]:
         ...
 
     def _matches(self, expected) -> bool:
         if self._qualifiers.from_str:
-            return str(self._actual).lower() in self._str_equivalent
+            return str(self._actual).lower() in self._str_equivalent()
 
         if self._qualifiers.weak:
             return bool(self._actual) is self._to_match
