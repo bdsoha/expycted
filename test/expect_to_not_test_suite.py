@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from expycted import expect
 
 from helpers import stubs

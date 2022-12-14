@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .bool_matcher import BoolMatcher
 
 

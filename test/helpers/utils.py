@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Callable, NamedTuple
 
 from pytest_lazyfixture import lazy_fixture

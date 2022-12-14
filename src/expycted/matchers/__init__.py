@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .be_empty import BeEmptyMatcher
 from .bool_matcher import BoolMatcher
 from .equal_matcher import EqualMatcher

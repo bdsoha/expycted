@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from expycted import expect
 from expycted.matchers import TypeMatcher
 
@@ -20,16 +22,16 @@ def test_via_expect(context):
 
 @parametrize_expectation(
     [
-    ([1], list),
-    (2, int),
-    ("a", str),
-    ({"a", "b"}, set),
-    ({"a": 1, "b": 2}, dict),
-    (True, bool),
-    (stubs.SINGLETON_OBJECT(), stubs.Person),
-    (1, int),
-    (1.0, float),
-    (type(stubs.SINGLETON_OBJECT()), type),
+        ([1], list),
+        (2, int),
+        ("a", str),
+        ({"a", "b"}, set),
+        ({"a": 1, "b": 2}, dict),
+        (True, bool),
+        (stubs.SINGLETON_OBJECT(), stubs.Person),
+        (1, int),
+        (1.0, float),
+        (type(stubs.SINGLETON_OBJECT()), type),
     ],
     matcher=TypeMatcher,
     wrap=False,

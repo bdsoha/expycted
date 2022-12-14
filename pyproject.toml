@@ -87,6 +87,7 @@ exclude_lines = [
 
 
 [tool.isort]
+add_imports = ["from __future__ import annotations"]
 profile = "black"
 from_first = true
 multi_line_output = 3

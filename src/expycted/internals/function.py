@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Callable, Type
 
 from expycted.internals.base import BaseExpectation

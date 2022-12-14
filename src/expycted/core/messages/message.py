@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Optional, Tuple, Union
 
 from expycted.core.formatters import ValueToString

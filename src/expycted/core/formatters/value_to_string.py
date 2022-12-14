@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum
 
 from .base_formatter import BaseFormatter

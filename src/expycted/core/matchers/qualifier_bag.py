@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 class QualifierBag(dict):
     """Dictionary with dot notation."""
 
