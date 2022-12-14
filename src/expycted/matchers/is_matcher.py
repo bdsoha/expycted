@@ -6,5 +6,5 @@ class IsMatcher(BaseMatcher):
 
     OPERATION = "is"
 
-    def _matches(self, **kwargs) -> bool:
+    def _matches(self, expected) -> bool:
         return self._actual is self._to_match

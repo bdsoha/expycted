@@ -28,30 +28,6 @@ def test_to_not_be_contained_in(expected, actual, context):
         expect(actual).to.be_contained_in(expected)
 
 
-@expected_params(stubs.NOT_TRUETHY, extract_ids=False)
-def test_to_not_be_truthy(expected, context):
-    expect(expected).to_not.be_truthy()
-
-    with context.raises:
-        expect(expected).to.be_truthy()
-
-
-@expected_params(stubs.NOT_FALSEY, extract_ids=False)
-def test_to_not_be_falsey(expected, context):
-    expect(expected).to_not.be_falsey()
-
-    with context.raises:
-        expect(expected).to.be_falsey()
-
-
-@expected_actual_params(stubs.NOT_TYPE, extract_ids=False)
-def test_to_not_be_of_type(expected, actual, context):
-    expect(expected).to_not.be_of_type(actual)
-
-    with context.raises:
-        expect(expected).to.be_of_type(actual)
-
-
 @expected_actual_params(stubs.NOT_INHERIT, extract_ids=False)
 def test_to_not_inherit(expected, actual, context):
     expect(expected).to_not.inherit(actual)

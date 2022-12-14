@@ -74,3 +74,10 @@ def test_name(matcher):
 
 def test_message(matcher):
     assert isinstance(matcher.message(), Message)
+
+
+def test_equality(matcher):
+    assert matcher == AlwaysTrueMatcher(True)
+    assert matcher != AlwaysTrueMatcher(True, negated=True)
+    assert matcher != AlwaysTrueMatcher(True, to_match=True)
+    assert matcher != AlwaysTrueMatcher(False)

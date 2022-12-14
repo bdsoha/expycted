@@ -37,14 +37,14 @@ def test_matches(expectation):
 
 @parametrize_expectation(
     [
-        stubs.NOT_EMPTY_LIST(),
-        stubs.NOT_EMPTY_DICT(),
-        stubs.NOT_EMPTY_SET(),
-        stubs.NOT_EMPTY_TUPLE(),
-        stubs.NOT_EMPTY_STRING(),
-        stubs.NOT_EMPTY_BSTRING(),
-        stubs.NOT_EMPTY_RANGE(),
-        stubs.NOT_EMPTY_GENERATOR(),
+        stubs.LIST(),
+        stubs.DICT(),
+        stubs.SET(),
+        stubs.TUPLE(),
+        stubs.STRING(),
+        stubs.BSTRING(),
+        stubs.RANGE(),
+        stubs.GENERATOR(),
     ],
     matcher=BeEmptyMatcher,
 )
@@ -61,7 +61,8 @@ def test_not_matches(expectation):
         stubs.FLOAT(),
         stubs.FUNCTION_BUILT(),
         stubs.SINGLETON_OBJECT(),
-        True,  # @TODO: use stub
+        stubs.FUNCTION_BUILT(),
+        True,
     ],
     matcher=BeEmptyMatcher,
     wrap=True,

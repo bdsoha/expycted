@@ -1,30 +1,26 @@
 from functools import wraps
-from typing import Callable, Type
+from typing import Callable
 
 from .base_matcher import BaseMatcher
-from .matcher_proxy import factory
+from .matcher_proxy import MatcherProxy
 
 
-class Assertion:
+def assertion(callback: Callable) -> Callable:
     """Decorate assertion method with a matcher."""
 
-    def __init__(self, matcher: Type[BaseMatcher], **kwargs):
-        self._matcher = matcher
-        self._kwargs = kwargs
+    # @wraps(callback)
+    def _wrapper(proxy):
+        instance = callback(proxy)
 
-    def __call__(self, callback: Callable) -> Callable:
-        @wraps(callback)
-        def _wrapper(proxy):
-            callback(proxy)
-
-            return factory(self._matcher)(
+        if not isinstance(instance, BaseMatcher):
+            instance = instance(
                 actual=proxy.expected,
                 negated=proxy.negate,
-                alias=self._kwargs.pop("alias", callable.__name__),
-                **self._kwargs
             )
 
-        return property(_wrapper)
+        return MatcherProxy(instance)
+
+    return _wrapper
 
 
 class AssertionAlias:

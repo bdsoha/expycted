@@ -56,54 +56,6 @@ def test_to_contained_in_type_error(expected, actual, context):
         expect(actual).to.be_contained_in(expected)
 
 
-@expected_params(stubs.TRUETHY, extract_ids=False)
-def test_to_be_truthy(expected, context):
-    expect(expected).to.be_truthy()
-    expect(expected).to.be_trueish()
-    expect(expected).to.be_truey()
-
-    with context.raises:
-        expect(expected).to_not.be_truthy()
-
-    with context.raises:
-        expect(expected).to_not.be_trueish()
-
-    with context.raises:
-        expect(expected).to_not.be_truey()
-
-
-@expected_params(stubs.FALSEY, extract_ids=False)
-def test_to_be_falsey(expected, context):
-    expect(expected).to.be_falsey()
-    expect(expected).to.be_falsish()
-    expect(expected).to.be_falsy()
-
-    with context.raises:
-        expect(expected).to_not.be_falsey()
-
-    with context.raises:
-        expect(expected).to_not.be_falsish()
-
-    with context.raises:
-        expect(expected).to_not.be_falsy()
-
-
-@expected_actual_params(stubs.TYPE, extract_ids=False)
-def test_to_be_of_type(expected, actual, context):
-    expect(expected).to.be_of_type(actual)
-    expect(expected).to.have_type(actual)
-    expect(expected).to.be_type(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_of_type(actual)
-
-    with context.raises:
-        expect(expected).to_not.have_type(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_type(actual)
-
-
 @expected_actual_params(stubs.INHERIT, extract_ids=False)
 def test_to_inherit(expected, actual, context):
     expect(expected).to.inherit(actual)

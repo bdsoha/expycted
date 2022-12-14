@@ -8,5 +8,5 @@ class EqualMatcher(BaseMatcher):
 
     OPERATION = "=="
 
-    def _matches(self, *, expected: Any, **kwargs) -> bool:
+    def _matches(self, *, expected: Any) -> bool:
         return self._actual == expected

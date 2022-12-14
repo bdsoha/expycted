@@ -6,5 +6,5 @@ class TypeMatcher(BaseMatcher):
 
     OPERATION = "type"
 
-    def _matches(self, expected, **kwargs) -> bool:
+    def _matches(self, expected) -> bool:
         return type(self._actual) is expected

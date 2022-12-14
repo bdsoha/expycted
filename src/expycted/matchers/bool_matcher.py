@@ -1,10 +1,34 @@
-from expycted.core.matchers import BaseMatcher
+from abc import ABC, abstractproperty
+from typing import Tuple
+
+from expycted.core.decorators import chain
+
+from .is_matcher import IsMatcher
 
 
-class BoolMatcher(BaseMatcher):
-    """Asserts that the actual value is boolean equivalent to the expected value."""
+class BoolMatcher(IsMatcher, ABC):
+    """Base class for boolean assertions"""
 
-    OPERATION = "bool"
+    @property
+    @chain
+    def from_str(self):
+        self._qualifiers.from_str = True
 
-    def _matches(self, **kwargs) -> bool:
-        return bool(self._actual) is self._to_match
+    @property
+    @chain
+    def weak(self):
+        self._qualifiers.weak = True
+
+    @property
+    @abstractproperty
+    def _str_equivalent(self) -> Tuple[str, ...]:
+        ...
+
+    def _matches(self, expected) -> bool:
+        if self._qualifiers.from_str:
+            return str(self._actual).lower() in self._str_equivalent
+
+        if self._qualifiers.weak:
+            return bool(self._actual) is self._to_match
+
+        return super()._matches(expected)

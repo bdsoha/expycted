@@ -1,13 +1,12 @@
-from typing import Any, Type
+from typing import Any
 
-from .base_matcher import BaseMatcher
+from wrapt import ObjectProxy
 
 
-def factory(base: Type[BaseMatcher]):
-    class _(base):
-        def __call__(self, expected: Any = ..., **kwargs):
-            results = super().__call__(expected=expected, **kwargs)
+class MatcherProxy(ObjectProxy):
+    """Override a matcher instance's ``__call__`` method."""
 
-            assert results, self.message().render(self._actual, expected=expected)
+    def __call__(self, expected: Any = ...):
+        results = self.__wrapped__.__call__(expected=expected)
 
-    return _
+        assert results, self.message().render(self._actual, expected=expected)

@@ -53,8 +53,8 @@ dev = [
     "pytest",
     "pytest-cov",
     "pytest-clarity",
-    "pytest-lazy-fixture",
-    "tomli"
+    "tomli",
+    "wrapt",
 ]
 ci = [
     "build",
@@ -81,7 +81,8 @@ addopts = [
 
 [tool.coverage.report]
 exclude_lines = [
-    "@(abc\\.)?abstractmethod"
+    "@(abc\\.)?abstractmethod",
+    "@(abc\\.)?abstractproperty",
 ]
 
 

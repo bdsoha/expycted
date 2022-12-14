@@ -1,8 +1,7 @@
 from typing import Any
 
+from expycted.core.decorators import chain
 from expycted.internals.utils import hidetraceback
-
-_SENTINEL = object()
 
 
 class BaseExpectation:
@@ -15,7 +14,7 @@ class BaseExpectation:
     def _message(
         self,
         method: str,
-        actual: Any = _SENTINEL,
+        actual: Any = ...,
         expected: Any = None,
         **kwargs,
     ) -> str:
@@ -24,7 +23,7 @@ class BaseExpectation:
             **kwargs,
         )
 
-        if actual is not _SENTINEL:
+        if actual is not ...:
             placeholders["actual"] = actual
 
         return self._ASSERTION_MESSAGES[method].format(**placeholders)
@@ -48,20 +47,18 @@ class BaseExpectation:
         return self._assert(*internal_assert(*args, **kwargs))
 
     @property
+    @chain
     def to(self):
         self.negate = False
-
-        return self
 
     @property
     def and_to(self):
         return self.to
 
     @property
+    @chain
     def to_not(self):
         self.negate = True
-
-        return self
 
     @property
     def and_to_not(self):

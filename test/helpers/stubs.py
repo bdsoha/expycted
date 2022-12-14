@@ -1,6 +1,7 @@
 # pylint: skip-file
 
 from enum import Enum
+
 from helpers.utils import DescribedParam
 
 
@@ -36,28 +37,26 @@ EMPTY_GENERATOR = lambda: DescribedParam(
     description="Empty generator",
 )
 
-NOT_EMPTY_LIST = DescribedParam([1], description="Not empty list")
-NOT_EMPTY_SET = DescribedParam({1}, description="Not empty set")
-NOT_EMPTY_STRING = DescribedParam("1", description="Not empty string")
-NOT_EMPTY_BSTRING = DescribedParam(b"1", description="Not empty byte string")
-NOT_EMPTY_TUPLE = DescribedParam((1,), description="Not empty tuple")
-NOT_EMPTY_DICT = DescribedParam({1: 1}, description="Not empty dict")
-NOT_EMPTY_RANGE = lambda: DescribedParam(range(1), description="Not empty range")
-NOT_EMPTY_GENERATOR = lambda: DescribedParam(
-    (i for i in range(1)),
-    description="Not empty generator",
-)
-
-
+INT = DescribedParam(1, description="Example int")
 ZERO = DescribedParam(0, description="Literal 0")
-INT = DescribedParam(1, description="Integer value")
 INT_STR = DescribedParam("1", description="Integer value as string")
-FLOAT = DescribedParam(1.1, description="Float value")
+FLOAT = DescribedParam(1.1, description="Example float")
 FLOAT_STR = DescribedParam("1.1", description="Float value as string")
 FUNCTION_BUILT = DescribedParam(print, description="Built-in function")
+LIST = DescribedParam([1, "hello", "world"], description="Example list")
+SET = DescribedParam({1, "hello", "world"}, description="Example set")
+STRING = DescribedParam("hello world", description="Example string")
+BSTRING = DescribedParam(b"hello world", description="Example byte string")
+TUPLE = DescribedParam((1, "hello", "world"), description="Example tuple")
+DICT = DescribedParam({1: "hello world"}, description="Example dict")
+RANGE = lambda: DescribedParam(range(1), description="Example range")
+GENERATOR = lambda: DescribedParam(
+    (i for i in range(1)), description="Example generator"
+)
 SINGLETON_OBJECT = DescribedParam(Person(), description="Singleton object")
 NOT_SINGLETON_OBJECT = lambda: DescribedParam(
-    Person(), description="Not singleton object"
+    Person(),
+    description="Not singleton object",
 )
 
 #### OLD
@@ -136,64 +135,8 @@ CONTAIN_TYPE_ERROR = (
     SAME_OBJECT,
 )
 
-EMPTY = (
-    [],
-    {},
-    set(),
-    "",
-    tuple(),
-)
 
-
-NOT_EMPTY = (
-    " ",
-    {"a": 1},
-    [1],
-    {1},
-    (1,),
-    range(100),
-    (i for i in range(10)),
-)
-
-TRUE = (True,)
-
-NOT_TRUE = (
-    False,
-    1,
-    "True",
-)
-
-FALSE = (False,)
-
-NOT_FALSE = (
-    True,
-    0,
-    "False",
-)
-
-TRUETHY = (
-    *TRUE,
-    *NOT_EMPTY,
-    1,
-    "True" "False",
-    PERSON,
-)
-
-NOT_TRUETHY = (*FALSE, *EMPTY)
-
-FALSEY = (
-    *FALSE,
-    *EMPTY,
-    0,
-)
-
-NOT_FALSEY = (
-    *TRUE,
-    *NOT_EMPTY,
-    PERSON,
-)
-
-TYPE = (
+INHERIT = (
     ([1], list),
     (2, int),
     ("a", str),
@@ -204,20 +147,6 @@ TYPE = (
     (1, int),
     (1.0, float),
     (type(PERSON), type),
-)
-
-NOT_TYPE = (
-    (PERSON, Parent),
-    (PERSON, object),
-    ("string", "ings"),
-    ("string", int),
-    (1, str),
-    (1, float),
-    (1.0, int),
-)
-
-INHERIT = (
-    *TYPE,
     (1, object),
     (1, object),
     (1.0, object),

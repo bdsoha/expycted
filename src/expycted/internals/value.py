@@ -1,14 +1,14 @@
 from typing import Any, Collection, Tuple
 import pickle
 
-from expycted.core.matchers import assert_alias_property, assert_property
+from expycted.core.matchers import assert_alias_property, assertion
 from expycted.internals.base import BaseExpectation
-from expycted.internals.utils import assertion
+from expycted.internals.utils import assertion as assertion_old
 from expycted.matchers import (
     BeEmptyMatcher,
-    BoolMatcher,
     EqualMatcher,
-    IsMatcher,
+    IsFalseMatcher,
+    IsTrueMatcher,
     TypeMatcher,
 )
 
@@ -93,15 +93,17 @@ class Value(BaseExpectation):
 
         return False, assertion_text
 
-    @assert_property(EqualMatcher)
+    @property
+    @assertion
     def equal(self) -> EqualMatcher:
         """Asserts that two variables have the same value."""
+        return EqualMatcher
 
     @assert_alias_property("equal")
     def be_equal_to(self) -> EqualMatcher:
         """Alias for ``equal``."""
 
-    @assertion
+    @assertion_old
     def be(self, actual: Any) -> None:
         """Checks whether the value is 'softly' equal to something
 
@@ -112,7 +114,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
+    @assertion_old
     def contain(self, actual: Any) -> None:
         """Checks whether the value contains something
 
@@ -123,7 +125,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
+    @assertion_old
     def be_contained_in(self, actual: Collection) -> None:
         """Checks whether the value is contained in something
 
@@ -134,45 +136,65 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assert_property(BeEmptyMatcher)
+    @property
+    @assertion
     def be_empty(self) -> BeEmptyMatcher:
         """Asserts that the actual value is empty."""
 
-    @assert_property(IsMatcher, to_match=True)
-    def be_true(self) -> IsMatcher:
+        return BeEmptyMatcher
+
+    @property
+    @assertion
+    def be_true(self) -> IsTrueMatcher:
         """Asserts that the actual value is ``True``."""
 
-    @assert_property(IsMatcher, to_match=False)
-    def be_false(self) -> IsMatcher:
+        return IsTrueMatcher
+
+    @property
+    @assertion
+    def be_false(self) -> IsFalseMatcher:
         """Asserts that the actual value is ``False``."""
 
-    @assert_property(BoolMatcher, to_match=True)
-    def be_truthy(self) -> BoolMatcher:
+        return IsFalseMatcher
+
+    @property
+    @assertion
+    def be_truthy(self) -> IsTrueMatcher:
         """Asserts that the actual value is truthy."""
 
-    @assert_alias_property("be_truthy")
-    def be_trueish(self) -> BoolMatcher:
+        return self.be_true.weak
+
+    @property
+    @assertion
+    def be_trueish(self) -> IsTrueMatcher:
         """Alias for ``be_truthy``."""
 
+        return self.be_truthy
+
     @assert_alias_property("be_truthy")
-    def be_truey(self) -> BoolMatcher:
+    def be_truey(self) -> IsTrueMatcher:
         """Alias for ``be_truthy``."""
 
-    @assert_property(BoolMatcher, to_match=False)
-    def be_falsey(self) -> BoolMatcher:
+    @property
+    @assertion
+    def be_falsey(self) -> IsFalseMatcher:
         """Asserts that the actual value is falsey."""
 
+        return self.be_false.weak
+
     @assert_alias_property("be_falsey")
-    def be_falsish(self) -> BoolMatcher:
+    def be_falsish(self) -> IsFalseMatcher:
         """Alias for ``be_falsey``."""
 
     @assert_alias_property("be_falsey")
-    def be_falsy(self) -> BoolMatcher:
+    def be_falsy(self) -> IsFalseMatcher:
         """Alias for ``be_falsey``."""
 
-    @assert_property(TypeMatcher)
+    @property
+    @assertion
     def be_of_type(self) -> TypeMatcher:
         """Assert that the actual type is equivalent to the expected type."""
+        return TypeMatcher
 
     @assert_alias_property("be_of_type")
     def be_type(self) -> TypeMatcher:
@@ -182,7 +204,7 @@ class Value(BaseExpectation):
     def have_type(self) -> TypeMatcher:
         """Alias for ``be_of_type``."""
 
-    @assertion
+    @assertion_old
     def inherit(self, actual: type) -> None:
         """Checks whether the value inherits from provided type
 
@@ -193,7 +215,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
+    @assertion_old
     def be_greater_than(self, actual: Any) -> None:
         """Check whether the value is greater than something
 
@@ -204,7 +226,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
+    @assertion_old
     def be_lesser_than(self, actual: Any) -> None:
         """Check whether the value is lesser than something
 
@@ -215,7 +237,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
+    @assertion_old
     def be_greater_or_equal_to(self, actual: Any) -> None:
         """Check whether the value is greater than or equal to something
 
@@ -226,7 +248,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
+    @assertion_old
     def be_lesser_or_equal_to(self, actual: Any) -> None:
         """Check whether the value is lesser than or equal to something
 
@@ -237,7 +259,7 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion
+    @assertion_old
     def be_numeric(self) -> None:
         """Check whether the value is numeric
 

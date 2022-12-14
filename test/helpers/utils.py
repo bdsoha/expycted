@@ -1,6 +1,6 @@
-from pytest_lazyfixture import lazy_fixture
 from typing import Any, Callable, NamedTuple
 
+from pytest_lazyfixture import lazy_fixture
 import pytest
 
 from expycted import expect
