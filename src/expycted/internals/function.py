@@ -7,8 +7,8 @@ from expycted.internals.utils import hidetraceback
 
 
 class Function:
-    def __init__(self, expected: Callable):
-        self.expected = expected
+    def __init__(self, actual: Callable):
+        self.actual = actual
 
     def to_raise(self, exception: Type[Exception] = None):
         """Check if the function raises the exception
@@ -17,7 +17,7 @@ class Function:
             exception (Exception): Exception to expect
         """
         return ToRaise(
-            expected=self.expected,
+            actual=self.actual,
             exception=exception if exception else Exception,
         )
 
@@ -37,7 +37,7 @@ class Function:
             )
 
         return ToReturn(
-            expected=self.expected,
+            self.actual,
             value=value,
             type_of_value=type_of_value,
         )
@@ -64,8 +64,8 @@ class ToRaise(BaseExpectation):
         "to_raise": "Expected function `{expected}` to raise {actual} when called with: {arguments}",
     }
 
-    def __init__(self, expected: Callable, exception: Type[Exception]):
-        super().__init__(expected)
+    def __init__(self, actual: Callable, *, exception: Type[Exception], **kwargs):
+        super().__init__(actual, **kwargs)
         self.exception = exception
 
     @hidetraceback
@@ -101,8 +101,8 @@ class ToReturn(BaseExpectation):
         "to_return_type": "Expected value ({actual}) returned by function {expected} to be of type {type} when called with: {arguments}",
     }
 
-    def __init__(self, expected: Callable, value, type_of_value):
-        super().__init__(expected)
+    def __init__(self, actual: Callable, value, type_of_value, **kwargs):
+        super().__init__(actual, **kwargs)
         self.value = value
         self.type_of_value = type_of_value
 

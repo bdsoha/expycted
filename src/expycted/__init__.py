@@ -10,7 +10,7 @@ from expycted.internals.value import Value
 __version__ = "0.8.2"
 
 
-class expect(Value):
+class _Expect(Value):
     @classmethod
     def function(cls, function: Callable):
         """Expect a function to do something
@@ -39,3 +39,6 @@ class expect(Value):
         return Directory(path)
 
     directory = folder
+
+
+expect = _Expect

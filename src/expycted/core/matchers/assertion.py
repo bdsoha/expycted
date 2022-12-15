@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from functools import wraps
-from typing import Callable
+from typing import Callable, Type, Union
 
 from .base_matcher import BaseMatcher
 from .matcher_proxy import MatcherProxy
@@ -12,13 +12,10 @@ def assertion(callback: Callable) -> Callable:
 
     @wraps(callback)
     def _wrapper(proxy):
-        instance = callback(proxy)
+        instance: Union[Type[BaseMatcher], BaseMatcher] = callback(proxy)
 
         if not isinstance(instance, BaseMatcher):
-            instance = instance(
-                proxy.expected,
-                negated=proxy.negate,
-            )
+            instance = instance(proxy)
 
         return MatcherProxy(instance)
 

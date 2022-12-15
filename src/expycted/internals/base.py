@@ -1,16 +1,19 @@
 from __future__ import annotations
 
 from typing import Any
+from warnings import warn
 
+from expycted.core.expectations import Expectation
 from expycted.internals.utils import hidetraceback
 
 
-class BaseExpectation:
+class BaseExpectation(Expectation):
     _ASSERTION_MESSAGES = {}
 
-    def __init__(self, expected: Any, negate=False):
-        self.expected = expected
-        self.negate = negate
+    @property
+    def expected(self):
+        warn("Swap `expected` with `actual`", DeprecationWarning, stacklevel=2)
+        return self.actual
 
     def _message(
         self,
@@ -31,40 +34,16 @@ class BaseExpectation:
 
     @hidetraceback
     def _assert(self, result: bool, message: str):
-        if self.negate:
+        if self.qualifiers.negated:
             result = not result
             message = message.replace(" to ", " to not ")
 
         assert result, message
 
-        self.negate = False
-
-        return self
+        return self  # .clear()
 
     @hidetraceback
     def _execute_internal_assertion(self, method: str, *args, **kwargs):
         internal_assert = getattr(self, f"_internal_{method}")
 
         return self._assert(*internal_assert(*args, **kwargs))
-
-    @property
-    def to(self):
-        self.negate = False
-        return self
-
-    @property
-    def and_to(self):
-        return self.to
-
-    @property
-    def to_not(self):
-        self.negate = True
-        return self
-
-    @property
-    def and_to_not(self):
-        return self.to_not
-
-    @property
-    def and_not(self):
-        return self.to_not

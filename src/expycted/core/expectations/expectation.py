@@ -1,15 +1,36 @@
 from __future__ import annotations
 
-from typing import Any, Dict, NamedTuple, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 from .qualifier_bag import QualifierBag
 
 
-class Expectation(NamedTuple):
+class Expectation:
     """Immutable container for expecation specifications."""
 
-    actual: Any
-    qualifiers: QualifierBag
+    __slots__ = ("_actual", "_qualifiers")
+
+    def __init__(
+        self,
+        actual: Any,
+        *,
+        qualifiers: Optional[Union[Dict, QualifierBag]] = None,
+        **kwargs,
+    ):
+        self._actual = actual
+        self._qualifiers = (
+            QualifierBag(qualifiers) if qualifiers else QualifierBag(**kwargs)
+        )
+
+    @property
+    def actual(self) -> Any:
+        """Property accessor for ``_actual``."""
+        return self._actual
+
+    @property
+    def qualifiers(self) -> QualifierBag:
+        """Property accessor for ``_qualifiers``."""
+        return self._qualifiers
 
     @property
     def is_strict(self) -> bool:
@@ -145,12 +166,10 @@ class Expectation(NamedTuple):
         actual: Any,
         *,
         qualifiers: Optional[Union[Dict, QualifierBag]] = None,
+        **kwargs,
     ):
-        """Factory method to create ``Expectations`` with some defaults."""
+        """Factory method to create ``Expectations`` or return an existing."""
         if isinstance(actual, cls):
             return actual
 
-        return cls(
-            actual=actual,
-            qualifiers=QualifierBag(qualifiers) if qualifiers else QualifierBag(),
-        )
+        return cls(actual=actual, qualifiers=qualifiers, **kwargs)

@@ -31,57 +31,61 @@ class Value(BaseExpectation):
     def _internal_be(self, actual: Any) -> Tuple[bool, str]:
         return any(
             [
-                str(self.expected) == str(actual),
-                pickle.dumps(self.expected) == pickle.dumps(actual),
-                self.expected == actual,
+                str(self._actual) == str(actual),
+                pickle.dumps(self._actual) == pickle.dumps(actual),
+                self._actual == actual,
             ]
         ), self._message("be", actual)
 
-    def _internal_contain(self, actual: Any) -> Tuple[bool, str]:
+    def _internal_contain(self, expected: Any) -> Tuple[bool, str]:
         try:
-            return actual in self.expected, self._message("contain", actual)
+            return expected in self._actual, self._message("contain", expected)
         except Exception:
             raise AssertionError(
-                f'Type "{type(self.expected)} cannot contain {actual}"'
+                f'Type "{type(self._actual)} cannot contain {expected}"'
             )
 
-    def _internal_be_contained_in(self, actual: Collection) -> Tuple[bool, str]:
+    def _internal_be_contained_in(self, expected: Collection) -> Tuple[bool, str]:
         try:
-            return self.expected in actual, self._message("be_contained_in", actual)
+            return self._actual in expected, self._message("be_contained_in", expected)
         except Exception:
             raise AssertionError(
-                f'Type "{type(actual)} cannot contain {self.expected}"'
+                f'Type "{type(expected)} cannot contain {self._actual}"'
             )
 
-    def _internal_inherit(self, actual: type) -> Tuple[bool, str]:
+    def _internal_inherit(self, expected: type) -> Tuple[bool, str]:
         try:
-            return issubclass(type(self.expected), actual), self._message(
-                "inherit", actual
+            return issubclass(type(self._actual), expected), self._message(
+                "inherit", expected
             )
         except Exception:
             raise AssertionError("Second argument must be a class, not an instance")
 
-    def _internal_be_greater_than(self, actual: Any) -> Tuple[bool, str]:
-        return self.expected > actual, self._message("be_greater_than", actual)
+    def _internal_be_greater_than(self, expected: Any) -> Tuple[bool, str]:
+        return self._actual > expected, self._message("be_greater_than", expected)
 
-    def _internal_be_lesser_than(self, actual: Any) -> Tuple[bool, str]:
-        return self.expected < actual, self._message("be_lesser_than", actual)
+    def _internal_be_lesser_than(self, expected: Any) -> Tuple[bool, str]:
+        return self._actual < expected, self._message("be_lesser_than", expected)
 
-    def _internal_be_greater_or_equal_to(self, actual: Any) -> Tuple[bool, str]:
-        return self.expected >= actual, self._message("be_greater_or_equal_to", actual)
+    def _internal_be_greater_or_equal_to(self, expected: Any) -> Tuple[bool, str]:
+        return self._actual >= expected, self._message(
+            "be_greater_or_equal_to", expected
+        )
 
-    def _internal_be_lesser_or_equal_to(self, actual: Any) -> Tuple[bool, str]:
-        return self.expected <= actual, self._message("be_lesser_or_equal_to", actual)
+    def _internal_be_lesser_or_equal_to(self, expected: Any) -> Tuple[bool, str]:
+        return self._actual <= expected, self._message(
+            "be_lesser_or_equal_to", expected
+        )
 
     def _internal_be_numeric(self: Any) -> Tuple[bool, str]:
         assertion_text = self._message("be_numeric")
 
-        if type(self.expected) in [int, float, complex]:
+        if type(self._actual) in [int, float, complex]:
             return True, assertion_text
 
-        if type(self.expected) is str:
+        if type(self._actual) is str:
             try:
-                float(self.expected)
+                float(self._actual)
                 return True, assertion_text
             except Exception:
                 pass
@@ -160,9 +164,7 @@ class Value(BaseExpectation):
     def be_truthy(self) -> IsTrueMatcher:
         """Asserts that the actual value is truthy."""
 
-        return IsTrueMatcher(
-            expectation=self.expected, negated=self.negate, strict=False
-        )
+        return IsTrueMatcher(expectation=self, strict=False)
 
     @property
     @assertion
@@ -182,9 +184,7 @@ class Value(BaseExpectation):
     def be_falsey(self) -> IsFalseMatcher:
         """Asserts that the actual value is falsey."""
 
-        return IsFalseMatcher(
-            expectation=self.expected, negated=self.negate, strict=False
-        )
+        return IsFalseMatcher(expectation=self, strict=False)
 
     @property
     def be_falsish(self) -> IsFalseMatcher:
