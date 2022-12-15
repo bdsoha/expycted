@@ -172,21 +172,9 @@ GREATER_THAN = (
     ([1, 0], [1]),
 )
 
-LESS_THAN = (
-    (2, 3),
-    (3, 3.2),
-    ([1], [2]),
-    ([1], [1, 0]),
-)
 
 GREATER_THAN_OR_EQUAL = (
     *GREATER_THAN,
-    (1, 1.0),
-    ([1], [1]),
-)
-
-LESS_THAN_OR_EQUAL = (
-    *LESS_THAN,
     (1, 1.0),
     ([1], [1]),
 )

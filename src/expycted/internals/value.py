@@ -262,32 +262,29 @@ class Value(BaseExpectation):
 
         return self.be_lesser_than
 
-
-
     @property
     def be_lesser_or_equal_to(self) -> LessThanMatcher:
         """Alias for ``be_lesser_than_or_equal_to``."""
 
         return self.be_lesser_than_or_equal_to
+
     @property
     def be_less_than_or_equal_to(self) -> LessThanMatcher:
         """Alias for ``be_lesser_than_or_equal_to``."""
 
         return self.be_lesser_than_or_equal_to
+
     @property
     def be_less_or_equal(self) -> LessThanMatcher:
         """Alias for ``be_lesser_than_or_equal_to``."""
 
         return self.be_lesser_than_or_equal_to
+
     @property
     def be_lesser_or_equal(self) -> LessThanMatcher:
         """Alias for ``be_lesser_than_or_equal_to``."""
 
         return self.be_lesser_than_or_equal_to
-
-
-
-
 
     @assertion_old
     def be_greater_or_equal_to(self, actual: Any) -> None:

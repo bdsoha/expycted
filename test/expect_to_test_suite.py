@@ -92,26 +92,6 @@ def test_to_be_greater_than(expected, actual, context):
         expect(expected).to_not.be_greater(actual)
 
 
-@expected_actual_params(stubs.LESS_THAN, extract_ids=False)
-def test_to_be_lesser_than(expected, actual, context):
-    expect(expected).to.be_lesser_than(actual)
-    expect(expected).to.be_less_than(actual)
-    expect(expected).to.be_less(actual)
-    expect(expected).to.be_lesser(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_lesser_than(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_less_than(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_less(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_lesser(actual)
-
-
 @expected_actual_params(stubs.GREATER_THAN_OR_EQUAL, extract_ids=False)
 def test_to_be_greater_than_or_equal_to(expected, actual, context):
     expect(expected).to.be_greater_than_or_equal_to(actual)
@@ -126,30 +106,6 @@ def test_to_be_greater_than_or_equal_to(expected, actual, context):
 
     with context.raises:
         expect(expected).to_not.be_greater_or_equal(actual)
-
-
-@expected_actual_params(stubs.LESS_THAN_OR_EQUAL, extract_ids=False)
-def test_to_be_lesser_or_equal_to(expected, actual, context):
-    expect(expected).to.be_lesser_or_equal_to(actual)
-    expect(expected).to.be_lesser_than_or_equal_to(actual)
-    expect(expected).to.be_less_than_or_equal_to(actual)
-    expect(expected).to.be_less_or_equal(actual)
-    expect(expected).to.be_lesser_or_equal(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_lesser_or_equal_to(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_lesser_than_or_equal_to(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_less_than_or_equal_to(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_less_or_equal(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_lesser_or_equal(actual)
 
 
 @expected_params(stubs.NUMERIC, extract_ids=False)

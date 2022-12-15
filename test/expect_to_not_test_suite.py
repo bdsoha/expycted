@@ -38,22 +38,6 @@ def test_to_not_inherit(expected, actual, context):
         expect(expected).to.inherit(actual)
 
 
-@expected_actual_params(stubs.LESS_THAN, extract_ids=False)
-def test_to_not_be_greater_than(expected, actual, context):
-    expect(expected).to_not.be_greater_than(actual)
-
-    with context.raises:
-        expect(expected).to.be_greater_than(actual)
-
-
-@expected_actual_params(stubs.GREATER_THAN, extract_ids=False)
-def test_to_not_be_lesser_than(expected, actual, context):
-    expect(expected).to_not.be_lesser_than(actual)
-
-    with context.raises:
-        expect(expected).to.be_lesser_than(actual)
-
-
 @expected_params(stubs.NOT_NUMERIC, extract_ids=False)
 def test_to_not_be_numeric(expected, context):
     expect(expected).to_not.be_numeric()
