@@ -12,6 +12,6 @@ class BeEmptyMatcher(BaseMatcher):
     MESSAGE = "Expected {actual} {to} be empty, but it was not."
 
     def _matches(self, expected) -> bool:
-        result = next(iter(self._actual), ...)
+        result = next(iter(self._expectation.actual), ...)
 
         return result is ...

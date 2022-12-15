@@ -28,13 +28,6 @@ class Value(BaseExpectation):
         "be_numeric": "Expected {expected} to be numeric",
     }
 
-    def _internal_has_len(self: Any) -> bool:
-        try:
-            len(self.expected)
-            return True
-        except TypeError:
-            return False
-
     def _internal_be(self, actual: Any) -> Tuple[bool, str]:
         return any(
             [
@@ -167,7 +160,9 @@ class Value(BaseExpectation):
     def be_truthy(self) -> IsTrueMatcher:
         """Asserts that the actual value is truthy."""
 
-        return self.be_true.weak
+        return IsTrueMatcher(
+            expectation=self.expected, negated=self.negate, strict=False
+        )
 
     @property
     @assertion
@@ -187,7 +182,9 @@ class Value(BaseExpectation):
     def be_falsey(self) -> IsFalseMatcher:
         """Asserts that the actual value is falsey."""
 
-        return self.be_false.weak
+        return IsFalseMatcher(
+            expectation=self.expected, negated=self.negate, strict=False
+        )
 
     @property
     def be_falsish(self) -> IsFalseMatcher:

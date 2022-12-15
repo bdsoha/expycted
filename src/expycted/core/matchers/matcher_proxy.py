@@ -11,4 +11,6 @@ class MatcherProxy(ObjectProxy):
     def __call__(self, expected: Any = ...):
         results = self.__wrapped__.__call__(expected=expected)
 
-        assert results, self.message().render(self._actual, expected=expected)
+        assert results, self.message().render(
+            self._expectation.actual, expected=expected
+        )

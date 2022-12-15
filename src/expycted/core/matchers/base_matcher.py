@@ -6,10 +6,9 @@ from typing import Any, Optional, Tuple, Type, Union
 import re
 
 from expycted.core.exceptions import MatcherError
+from expycted.core.expectations.expectation import Expectation
 from expycted.core.formatters import SnakeCase
 from expycted.core.messages import DetailMessage, Message
-
-from .qualifier_bag import QualifierBag
 
 try:
     from typing import Literal
@@ -26,18 +25,15 @@ class BaseMatcher(ABC):
 
     def __init__(
         self,
-        actual: Any,
+        expectation: Any,
         *,
-        negated: bool = False,
         alias: str = None,
         to_match: Any = None,
-        qualifiers: Optional[QualifierBag] = None,
+        **kwargs,
     ):
-        self._actual = actual
+        self._expectation = Expectation.get_or_create(expectation, qualifiers=kwargs)
         self._alias = alias
-        self._negated = negated
         self._to_match = to_match
-        self._qualifiers = qualifiers if qualifiers else QualifierBag()
 
     @abstractmethod
     def _matches(self, *, expected: Any) -> bool:
@@ -58,8 +54,10 @@ class BaseMatcher(ABC):
         if allowed_types == "*":
             return
 
-        if not isinstance(self._actual, allowed_types):
-            raise MatcherError(*allowed_types, actual=type(self._actual))
+        if isinstance(self._expectation.actual, allowed_types):
+            return
+
+        raise MatcherError(*allowed_types, actual=type(self._expectation.actual))
 
     def allowed_types(self) -> TAllowedTypes:
         """Types that are allowed to be compared."""
@@ -81,7 +79,7 @@ class BaseMatcher(ABC):
 
         return Message(
             method=self.name(),
-            negated=self._negated,
+            negated=self._expectation.is_negated,
             operation=self._get_operation(),
             message=self._get_message(),
         )
@@ -89,13 +87,11 @@ class BaseMatcher(ABC):
     def __call__(self, expected: Any = ...) -> bool:
         self._validate_allowed_types()
 
-        method_name = "_negate" if self._negated else "_matches"
+        method_name = "_negate" if self._expectation.is_negated else "_matches"
 
         method = getattr(self, method_name)
 
         results = method(expected=expected)
-
-        self._qualifiers.clear()
 
         return results
 
@@ -107,9 +103,10 @@ class BaseMatcher(ABC):
 
         return all(
             [
+                # @TODO: check qualifiers
                 type(self) is type(other),
-                self._negated is other._negated,
-                self._actual == other._actual,
+                self._expectation.is_negated is other._expectation.is_negated,
+                self._expectation.actual == other._expectation.actual,
                 self._to_match == other._to_match,
             ]
         )

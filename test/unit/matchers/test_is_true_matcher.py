@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from expycted import expect
 from expycted.matchers import IsTrueMatcher
 
@@ -23,13 +25,14 @@ def test_via_expect(context):
 
 
 def test_matches():
-    matcher = IsTrueMatcher(True)
+    strict = IsTrueMatcher(True)
+    loose = IsTrueMatcher(True, strict=False)
 
-    assert matcher() is True
-    assert matcher.weak() is True
-    assert matcher.from_str() is True
+    assert strict() is True
+    assert loose() is True
 
 
+@pytest.mark.skip(reason="Implement when allowing multiple qualifiers")
 @parametrize_expectation(
     [
         1,
@@ -42,9 +45,10 @@ def test_matches():
 )
 def test_not_matches_and_weak(expectation):
     matcher = expectation.matcher()
+    from_str = expectation.matcher(from_str=True)
 
     assert matcher() is False
-    assert matcher.from_str() is True
+    assert from_str() is True
 
 
 @parametrize_expectation(
@@ -59,9 +63,9 @@ def test_not_matches_and_weak(expectation):
     matcher=IsTrueMatcher,
 )
 def test_be_truthy_matches(expectation):
-    matcher = expectation.matcher()
+    matcher = expectation.matcher(strict=False)
 
-    assert matcher.weak() is True
+    assert matcher() is True
 
 
 @parametrize_expectation(
@@ -75,6 +79,6 @@ def test_be_truthy_matches(expectation):
     matcher=IsTrueMatcher,
 )
 def test_be_truthy_not_matches(expectation):
-    matcher = expectation.matcher()
+    matcher = expectation.matcher(strict=False)
 
-    assert matcher.weak() is False
+    assert matcher() is False

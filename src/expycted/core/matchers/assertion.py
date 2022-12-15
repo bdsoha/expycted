@@ -16,7 +16,7 @@ def assertion(callback: Callable) -> Callable:
 
         if not isinstance(instance, BaseMatcher):
             instance = instance(
-                actual=proxy.expected,
+                proxy.expected,
                 negated=proxy.negate,
             )
 

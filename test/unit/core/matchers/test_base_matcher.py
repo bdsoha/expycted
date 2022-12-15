@@ -16,7 +16,7 @@ class AlwaysTrueMatcher(BaseMatcher):
         self.mock = Mock()
         self.mock.return_value = True
 
-    def _matches(self, *, expected, **kwargs) -> bool:
+    def _matches(self, expected, **kwargs) -> bool:
         return self.mock(expected, **kwargs)
 
 
@@ -24,8 +24,8 @@ class AllowedTypesMatcher(AlwaysTrueMatcher):
     ALLOWED_TYPES = (list, str)
 
 
-@pytest.fixture
-def matcher():
+@pytest.fixture(name="matcher")
+def _matcher():
     return AlwaysTrueMatcher(True)
 
 

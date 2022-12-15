@@ -11,4 +11,4 @@ class EqualMatcher(BaseMatcher):
     OPERATION = "=="
 
     def _matches(self, *, expected: Any) -> bool:
-        return self._actual == expected
+        return self._expectation.actual == expected
