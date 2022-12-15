@@ -31,7 +31,7 @@ class BaseMatcher(ABC):
         to_match: Any = None,
         **kwargs,
     ):
-        self._expectation = Expectation.get_or_create(expectation, qualifiers=kwargs)
+        self._expectation = Expectation.get_or_create(expectation, **kwargs)
         self._alias = alias
         self._to_match = to_match
 

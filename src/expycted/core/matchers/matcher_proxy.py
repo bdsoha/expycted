@@ -15,3 +15,5 @@ class MatcherProxy(ObjectProxy):
             self._expectation.actual,
             expected=expected,
         )
+
+        self._expectation.qualifiers.clear()

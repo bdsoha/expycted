@@ -11,6 +11,7 @@ from expycted.matchers import (
     EqualMatcher,
     IsFalseMatcher,
     IsTrueMatcher,
+    LessThanMatcher,
     TypeMatcher,
 )
 
@@ -22,9 +23,7 @@ class Value(BaseExpectation):
         "be_contained_in": "Expected {expected} to be contained in {actual}",
         "inherit": "Expected {expected} to inherit {actual}",
         "be_greater_than": "Expected {expected} to be greater than {actual}",
-        "be_lesser_than": "Expected {expected} to be less than {actual}",
         "be_greater_or_equal_to": "Expected {expected} to be greater than or equal to {actual}",
-        "be_lesser_or_equal_to": "Expected {expected} to be less than or equal to {actual}",
         "be_numeric": "Expected {expected} to be numeric",
     }
 
@@ -64,17 +63,9 @@ class Value(BaseExpectation):
     def _internal_be_greater_than(self, expected: Any) -> Tuple[bool, str]:
         return self._actual > expected, self._message("be_greater_than", expected)
 
-    def _internal_be_lesser_than(self, expected: Any) -> Tuple[bool, str]:
-        return self._actual < expected, self._message("be_lesser_than", expected)
-
     def _internal_be_greater_or_equal_to(self, expected: Any) -> Tuple[bool, str]:
         return self._actual >= expected, self._message(
             "be_greater_or_equal_to", expected
-        )
-
-    def _internal_be_lesser_or_equal_to(self, expected: Any) -> Tuple[bool, str]:
-        return self._actual <= expected, self._message(
-            "be_lesser_or_equal_to", expected
         )
 
     def _internal_be_numeric(self: Any) -> Tuple[bool, str]:
@@ -164,7 +155,7 @@ class Value(BaseExpectation):
     def be_truthy(self) -> IsTrueMatcher:
         """Asserts that the actual value is truthy."""
 
-        return IsTrueMatcher(expectation=self, strict=False)
+        return IsTrueMatcher(self, strict=False)
 
     @property
     @assertion
@@ -184,7 +175,7 @@ class Value(BaseExpectation):
     def be_falsey(self) -> IsFalseMatcher:
         """Asserts that the actual value is falsey."""
 
-        return IsFalseMatcher(expectation=self, strict=False)
+        return IsFalseMatcher(self, strict=False)
 
     @property
     def be_falsish(self) -> IsFalseMatcher:
@@ -239,31 +230,68 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion_old
-    def be_lesser_than(self, actual: Any) -> None:
-        """Check whether the value is lesser than something
+    @property
+    @assertion
+    def be_lesser_than(self) -> LessThanMatcher:
+        """Asserts that the actual value is lesser than the expected value."""
 
-        Args:
-            actual (Any): Value to compare to
+        return LessThanMatcher
 
-        Returns:
-            bool: Result
-        """
+    @property
+    @assertion
+    def be_lesser_than_or_equal_to(self) -> LessThanMatcher:
+        """Asserts that the actual value is lesser than or equal to the expected value."""
+
+        return LessThanMatcher(self, or_equal=True)
+
+    @property
+    def be_less_than(self) -> LessThanMatcher:
+        """Alias for ``be_lesser_than``."""
+
+        return self.be_lesser_than
+
+    @property
+    def be_less(self) -> LessThanMatcher:
+        """Alias for ``be_lesser_than``."""
+
+        return self.be_lesser_than
+
+    @property
+    def be_lesser(self) -> LessThanMatcher:
+        """Alias for ``be_lesser_than``."""
+
+        return self.be_lesser_than
+
+
+
+    @property
+    def be_lesser_or_equal_to(self) -> LessThanMatcher:
+        """Alias for ``be_lesser_than_or_equal_to``."""
+
+        return self.be_lesser_than_or_equal_to
+    @property
+    def be_less_than_or_equal_to(self) -> LessThanMatcher:
+        """Alias for ``be_lesser_than_or_equal_to``."""
+
+        return self.be_lesser_than_or_equal_to
+    @property
+    def be_less_or_equal(self) -> LessThanMatcher:
+        """Alias for ``be_lesser_than_or_equal_to``."""
+
+        return self.be_lesser_than_or_equal_to
+    @property
+    def be_lesser_or_equal(self) -> LessThanMatcher:
+        """Alias for ``be_lesser_than_or_equal_to``."""
+
+        return self.be_lesser_than_or_equal_to
+
+
+
+
 
     @assertion_old
     def be_greater_or_equal_to(self, actual: Any) -> None:
         """Check whether the value is greater than or equal to something
-
-        Args:
-            actual (Any): Value to compare to
-
-        Returns:
-            bool: Result
-        """
-
-    @assertion_old
-    def be_lesser_or_equal_to(self, actual: Any) -> None:
-        """Check whether the value is lesser than or equal to something
 
         Args:
             actual (Any): Value to compare to
@@ -283,11 +311,6 @@ class Value(BaseExpectation):
     # Aliases
 
     be_a_number = be_numeric
-
-    be_lesser = be_less = be_less_than = be_lesser_than
-    be_lesser_or_equal = (
-        be_less_or_equal
-    ) = be_less_than_or_equal_to = be_lesser_than_or_equal_to = be_lesser_or_equal_to
 
     be_greater_or_equal = be_greater_than_or_equal_to = be_greater_or_equal_to
     be_greater = be_greater_than

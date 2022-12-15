@@ -35,17 +35,17 @@ class Expectation:
     @property
     def is_strict(self) -> bool:
         """Whether or not the current evaluation will be strict."""
-        return bool(self.qualifiers.strict)
+        return bool(self._qualifiers.strict)
 
     @property
     def is_negated(self) -> bool:
         """Whether or not the current evaluation will be negated."""
-        return bool(self.qualifiers.negated)
+        return bool(self._qualifiers.negated)
 
     @property
     def strict(self):
         """Evaluate expectation in *strict* mode."""
-        self.qualifiers.strict = True
+        self._qualifiers.strict = True
         return self
 
     @property
@@ -56,7 +56,7 @@ class Expectation:
     @property
     def loose(self):
         """Evaluate expectation in *loose* mode, the opposite of *strict*."""
-        self.qualifiers.strict = False
+        self._qualifiers.strict = False
         return self
 
     @property
@@ -67,13 +67,13 @@ class Expectation:
     @property
     def to(self):
         """Evaluate expectation without negating subsequent assertions in the chain."""
-        self.qualifiers.negated = False
+        self._qualifiers.negated = False
         return self
 
     @property
     def to_not(self):
         """Evaluate expectation while negating subsequent assertions in the chain."""
-        self.qualifiers.negated = True
+        self._qualifiers.negated = True
         return self
 
     @property
@@ -158,7 +158,7 @@ class Expectation:
 
     def clear(self):
         """Return an immutable ``Expectation`` with all ``qualifiers`` reset."""
-        return self.get_or_create(actual=self.actual)
+        return self._qualifiers.clear()
 
     @classmethod
     def get_or_create(
@@ -170,6 +170,7 @@ class Expectation:
     ):
         """Factory method to create ``Expectations`` or return an existing."""
         if isinstance(actual, cls):
+            actual.qualifiers.update(**kwargs)
             return actual
 
         return cls(actual=actual, qualifiers=qualifiers, **kwargs)
