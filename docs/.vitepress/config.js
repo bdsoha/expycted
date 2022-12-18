@@ -2,7 +2,7 @@ const git_url = 'https://github.com/bdsoha/expycted'
 
 export default {
   title: 'Expycted',
-  description: 'Because tests should be easy to read.',
+  description: 'Because tests should be easy to read!',
 
   themeConfig: {
 
