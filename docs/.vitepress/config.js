@@ -17,16 +17,38 @@ export default {
 
     sidebar: [
       {
-        text: 'Guides',
+        text: 'Introduction',
         items: [
-          { text: 'Installation', link: '/guides/installation' },
-          { text: 'Getting Started', link: '/guides/getting-started' },
+          { text: 'What is Expycted?', link: '/introduction/what-is-expycted' },
+          { text: 'Installation', link: '/introduction/installation' },
+          { text: 'Getting Started', link: '/introduction/getting-started' },
         ]
       },
       {
-        text: 'Contribute',
+        text: 'Expectations',
         items: [
-          { text: 'Contribute', link: '/contribute/contribute' },
+          { text: 'Overview', link: '/expectations/overview'},
+          { text: 'Strict Mode', link: '/expectations/strict-mode'},
+          { text: 'Higher Order Expectations', link: '/expectations/higher-order-expectations'}
+        ]
+      },
+      {
+        text: 'Interface',
+        collapsible: true,
+        collapsed: true,
+        items: [
+          { text: 'Expectations', link: '/expectations/interface/expectations'},
+          { text: 'Filesystem', link: '/expectations/interface/filesystem'},
+          { text: 'Function', link: '/expectations/interface/function'},
+        ]
+      },
+      {
+        text: 'Get Involved',
+        items: [
+          { text: 'Introduction', link: '/contribute/introduction' },
+          { text: 'Development Install', link: '/contribute/development-install' },
+          { text: 'Contribution Workflow', link: '/contribute/contribution-workflow' },
+          { text: 'Pull Request Guidelines', link: '/contribute/pull-request-guidelines' },
         ]
       }
     ]

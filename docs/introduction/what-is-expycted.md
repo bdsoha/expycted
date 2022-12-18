@@ -1,4 +1,4 @@
-# Expectations
+# What is Expycted
 
 Expectations allow you to write your tests like you would a human-readable sentence:
 
