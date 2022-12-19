@@ -49,6 +49,6 @@ pre-commit run --all-files
 ```
 
 #### 6. Build the package
-```sh`
+```sh
 python -m build
 ```
