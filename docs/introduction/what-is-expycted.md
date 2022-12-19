@@ -5,6 +5,8 @@
 Expectations is a simple and human-readable expectation *(assertion)* library. It allows you to write your tests like you would a sentence.
 Expycted's API gained much inspiration from [Jest](https://jestjs.io/docs/expect) and [Pest](https://pestphp.com/docs/expectations).
 
+![Code Comparison](/code-comparison.png)
+
 <hr /> 
 
 ## Frequently asked questions
