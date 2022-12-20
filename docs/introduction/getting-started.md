@@ -7,7 +7,7 @@ Expectations also allow you to write your tests like you would a humar-readable 
 
 ## Expectations
 
-This document will provide a brief introduction the concept of Expectations. For the full list of expectations, see the [`expect` documnetaion](/expectations/interface/main).
+This document will provide a brief introduction the concept of Expectations. For the full list of expectations, see the [`expect` documentation →](/expectations/interface/main).
 
 Let's start with a simple example of testing that an actual value is equal to an expected value.
 
@@ -19,7 +19,6 @@ def test():
 ```
 
 The code above, `expect("hello" + " " + "world")` returns an `Expectation` object. You typically won't directly interact with the expectation objects, instead, you will *chain* calls to matchers on them. The `.to` property above, is [one of many chainable getters](/expectations/interface/chains), made to improve the readability of your assertions. The `.equal("hello world")` is the matcher and behind the scenes uses the `==` to test for equality.
-
 
 ### More Examples
 

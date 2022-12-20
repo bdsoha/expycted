@@ -1,15 +1,14 @@
 ---
-title: Contribute
-description: Contribute
+title: Development
+description: Contributing
 ---
-
-# Development - Contributing
 
 > Your help is welcome to make Expycted even more stable and feature rich.
 
 ## Expycted
 
-*Did you find a bug?*<br>
+*Did you find a bug?*
+<br />
 *Want to improve the functionality?*
 
 Either open a GitHub issue or submit a pull request.
