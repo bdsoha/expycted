@@ -12,6 +12,7 @@ from expycted.matchers import (
     IsFalseMatcher,
     IsTrueMatcher,
     LessThanMatcher,
+    GreatThanMatcher,
     TypeMatcher,
 )
 
@@ -219,16 +220,61 @@ class Value(BaseExpectation):
             bool: Result
         """
 
-    @assertion_old
-    def be_greater_than(self, actual: Any) -> None:
-        """Check whether the value is greater than something
+    @property
+    @assertion
+    def be_greater_than(self) -> GreatThanMatcher:
+        """Asserts that the actual value is greater than the expected value."""
 
-        Args:
-            actual (Any): Value to compare to
+        return GreatThanMatcher
 
-        Returns:
-            bool: Result
-        """
+    @property
+    @assertion
+    def be_greater_than_or_equal_to(self) -> GreatThanMatcher:
+        """Asserts that the actual value is greater than or equal to the expected value."""
+
+        return GreatThanMatcher(self, or_equal=True)
+
+    @property
+    def be_great_than(self) -> GreatThanMatcher:
+        """Alias for ``be_greater_than``."""
+
+        return self.be_greater_than
+
+    @property
+    def be_great(self) -> GreatThanMatcher:
+        """Alias for ``be_greater_than``."""
+
+        return self.be_greater_than
+
+    @property
+    def be_greater(self) -> GreatThanMatcher:
+        """Alias for ``be_greater_than``."""
+
+        return self.be_greater_than
+
+    @property
+    def be_greater_or_equal_to(self) -> GreatThanMatcher:
+        """Alias for ``be_greater_than_or_equal_to``."""
+
+        return self.be_greater_than_or_equal_to
+
+    @property
+    def be_great_than_or_equal_to(self) -> GreatThanMatcher:
+        """Alias for ``be_greater_than_or_equal_to``."""
+
+        return self.be_greater_than_or_equal_to
+
+    @property
+    def be_great_or_equal(self) -> GreatThanMatcher:
+        """Alias for ``be_greater_than_or_equal_to``."""
+
+        return self.be_greater_than_or_equal_to
+
+    @property
+    def be_greater_or_equal(self) -> GreatThanMatcher:
+        """Alias for ``be_greater_than_or_equal_to``."""
+
+        return self.be_greater_than_or_equal_to
 
     @property
     @assertion
@@ -287,17 +333,6 @@ class Value(BaseExpectation):
         return self.be_lesser_than_or_equal_to
 
     @assertion_old
-    def be_greater_or_equal_to(self, actual: Any) -> None:
-        """Check whether the value is greater than or equal to something
-
-        Args:
-            actual (Any): Value to compare to
-
-        Returns:
-            bool: Result
-        """
-
-    @assertion_old
     def be_numeric(self) -> None:
         """Check whether the value is numeric
 
@@ -308,9 +343,6 @@ class Value(BaseExpectation):
     # Aliases
 
     be_a_number = be_numeric
-
-    be_greater_or_equal = be_greater_than_or_equal_to = be_greater_or_equal_to
-    be_greater = be_greater_than
 
     be_in = be_included_in = be_contained_in
     have = include = contain
