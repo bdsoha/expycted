@@ -55,6 +55,11 @@ pre-commit install
 pre-commit run --all-files
 ```
 
+::: tip
+This step is automatically run on all *PR*s and *commits*.
+If you choose to skip this step, thats OK, we will run it for you during *CI*.
+:::
+
 ### 6. Build the package
 
 ```sh
