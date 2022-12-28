@@ -29,7 +29,7 @@ class Function:
             type_of_value: Type of the expected return value. Defaults to None.
 
         Raises:
-            AssertionError: When neither of type_of_value and value is not provided AssertionError is raised
+            AssertionError: When neither of type_of_value and value is not provided
         """
         if value is None and type_of_value is None:
             raise ValueError(
@@ -61,7 +61,10 @@ def format_args_kwargs(args: Any, kwargs: Any) -> str:
 
 class ToRaise(BaseExpectation):
     _ASSERTION_MESSAGES = {
-        "to_raise": "Expected function `{expected}` to raise {actual} when called with: {arguments}",
+        "to_raise": (
+            "Expected function `{expected}` to "
+            "raise {actual} when called with: {arguments}"
+        ),
     }
 
     def __init__(self, actual: Callable, *, exception: Type[Exception], **kwargs):
@@ -73,7 +76,7 @@ class ToRaise(BaseExpectation):
         """Arguments to call the function with
 
         Raises:
-            AssertionError: When function doesn't raise the expected exception AssertionError is raised
+            AssertionError: When function doesn't raise the expected exception
         """
         try:
             self.expected(*args, **kwargs)
@@ -97,8 +100,14 @@ class ToRaise(BaseExpectation):
 
 class ToReturn(BaseExpectation):
     _ASSERTION_MESSAGES = {
-        "to_return": "Expected function {expected} to return {actual} when called with: {arguments}",
-        "to_return_type": "Expected value ({actual}) returned by function {expected} to be of type {type} when called with: {arguments}",
+        "to_return": (
+            "Expected function {expected} to return {actual} "
+            "when called with: {arguments}"
+        ),
+        "to_return_type": (
+            "Expected value ({actual}) returned by "
+            "function {expected} to be of type {type} when called with: {arguments}"
+        ),
     }
 
     def __init__(self, actual: Callable, value, type_of_value, **kwargs):
@@ -111,7 +120,7 @@ class ToReturn(BaseExpectation):
         """Arguments to call the function with
 
         Raises:
-            AssertionError: When function value or type_of_value is not matched AssertionError is raised
+            AssertionError: When function value or type_of_value is not matched.
         """
         ret = self.expected(*args, **kwargs)
 

@@ -53,6 +53,7 @@ dev = [
     "pytest",
     "pytest-cov",
     "pytest-clarity",
+    "ruff",
     "tomli",
     "wrapt",
 ]
@@ -100,3 +101,7 @@ sections = [
     "HELPERS",
     "LOCALFOLDER"
 ]
+
+
+[tool.ruff.per-file-ignores]
+"test/helpers/stubs.py" = ["E731"]
