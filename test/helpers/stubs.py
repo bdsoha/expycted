@@ -165,20 +165,6 @@ NOT_INHERIT = (
 
 INHERIT_TYPE_ERROR = (("string", "str"),)
 
-GREATER_THAN = (
-    (3, 2),
-    (3.2, 3),
-    ([2], [1]),
-    ([1, 0], [1]),
-)
-
-
-GREATER_THAN_OR_EQUAL = (
-    *GREATER_THAN,
-    (1, 1.0),
-    ([1], [1]),
-)
-
 NUMERIC = (
     1,
     "1",

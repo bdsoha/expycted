@@ -80,34 +80,6 @@ def test_to_inherit_type_error(expected, actual, context):
         expect(expected).to.inherit(actual)
 
 
-@expected_actual_params(stubs.GREATER_THAN, extract_ids=False)
-def test_to_be_greater_than(expected, actual, context):
-    expect(expected).to.be_greater_than(actual)
-    expect(expected).to.be_greater(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_greater_than(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_greater(actual)
-
-
-@expected_actual_params(stubs.GREATER_THAN_OR_EQUAL, extract_ids=False)
-def test_to_be_greater_than_or_equal_to(expected, actual, context):
-    expect(expected).to.be_greater_than_or_equal_to(actual)
-    expect(expected).to.be_greater_than_or_equal_to(actual)
-    expect(expected).to.be_greater_or_equal(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_greater_than_or_equal_to(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_greater_than_or_equal_to(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_greater_or_equal(actual)
-
-
 @expected_params(stubs.NUMERIC, extract_ids=False)
 def test_to_be_numeric(expected, context):
     expect(expected).to.be_numeric()
