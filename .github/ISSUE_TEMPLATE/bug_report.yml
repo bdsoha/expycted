@@ -1,6 +1,6 @@
-name: Bug report
+name: Bug Report
 description: Report a bug or ask a question
-labels: [❓ question]
+labels: [❓ question, 🐛 bug]
 body:
   - type: markdown
     attributes:
@@ -25,12 +25,12 @@ body:
         Please add a self-contained, [minimal, reproducible, example](https://stackoverflow.com/help/minimal-reproducible-example) with your use case.
       placeholder: |
         from expycted import expect
-
+        
         actual = ...
         expected = ...
-
+        
         expectation = expect(actual)
-
+        
         expectation.to.be_of_type(expected)
       render: python
     validations:
