@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from wrapt import ObjectProxy
+import wrapt
 
 
-class MatcherProxy(ObjectProxy):
+class MatcherProxy(wrapt.ObjectProxy):
     """Override a matcher instance's ``__call__`` method."""
 
     def __call__(self, expected: Any = ...):

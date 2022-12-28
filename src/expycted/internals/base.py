@@ -8,7 +8,7 @@ from expycted.internals.utils import hidetraceback
 
 
 class BaseExpectation(Expectation):
-    _ASSERTION_MESSAGES = {}
+    _ASSERTION_MESSAGES: Any = {}
 
     @property
     def expected(self):

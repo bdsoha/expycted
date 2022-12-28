@@ -15,24 +15,26 @@ class MatcherError(TypeError):
 
     def __str__(self) -> str:
         allowed = sorted(map(lambda t: f"`{t.__name__}`", self._allowed))
+        output = ""
+        an = AnPrefix(self._actual)
 
         size = len(allowed)
 
         if size == 1:
-            allowed = allowed[0]
+            output = allowed[0]
 
         if size == 2:
-            allowed = " or ".join(allowed)
+            output = " or ".join(allowed)
 
         if size > 2:
             last = allowed.pop()
-            allowed = ", ".join(allowed)
-            allowed += f", or {last}"
+            output = ", ".join(allowed)
+            output += f", or {last}"
 
         return "\n".join(
             [
                 "Matcher Error:",
-                f"Received value must be {AnPrefix(allowed)} {allowed}.",
-                f"But, {AnPrefix(self._actual)} `{self._actual.__name__}` was provided.",
+                f"Received value must be {AnPrefix(output)} {output}.",
+                f"But, {an} `{self._actual.__name__}` was provided.",
             ]
         )

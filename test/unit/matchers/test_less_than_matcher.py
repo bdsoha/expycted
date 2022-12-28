@@ -16,8 +16,9 @@ def test_via_expect(context):
     assert isinstance(expectation.to.be_lesser_than, LessThanMatcher)
 
     assert isinstance(expectation.to.be_less_or_equal, LessThanMatcher)
-    assert isinstance(expectation.to.be_less_than_or_equal_to, LessThanMatcher)
+    assert isinstance(expectation.to.be_lesser_or_equal, LessThanMatcher)
     assert isinstance(expectation.to.be_lesser_or_equal_to, LessThanMatcher)
+    assert isinstance(expectation.to.be_less_than_or_equal_to, LessThanMatcher)
     assert isinstance(expectation.to.be_lesser_than_or_equal_to, LessThanMatcher)
 
     expectation.to.be_less_than(2)

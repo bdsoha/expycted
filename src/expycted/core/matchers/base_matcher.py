@@ -27,7 +27,7 @@ class BaseMatcher(ABC):
         self,
         expectation: Any,
         *,
-        alias: str = None,
+        alias: Optional[str] = None,
         to_match: Any = None,
         **kwargs,
     ):

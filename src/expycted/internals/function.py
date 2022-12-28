@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Type
+from typing import Any, Callable, Optional, Type
 
 from expycted.internals.base import BaseExpectation
 from expycted.internals.utils import hidetraceback
@@ -10,7 +10,7 @@ class Function:
     def __init__(self, actual: Callable):
         self.actual = actual
 
-    def to_raise(self, exception: Type[Exception] = None):
+    def to_raise(self, exception: Optional[Type[Exception]] = None):
         """Check if the function raises the exception
 
         Args:
@@ -21,12 +21,12 @@ class Function:
             exception=exception if exception else Exception,
         )
 
-    def to_return(self, value: Any = None, type_of_value: type = None):
+    def to_return(self, value: Any = None, type_of_value: Optional[Type] = None):
         """Check if the function returns provided value or type
 
         Args:
-            value (Any, optional): Value that is expected to be returned. Defaults to None.
-            type_of_value (type, optional): Type of value that is expected to be returned. Defaults to None.
+            value: Value that is expected to be returned. Defaults to None.
+            type_of_value: Type of the expected return value. Defaults to None.
 
         Raises:
             AssertionError: When neither of type_of_value and value is not provided AssertionError is raised

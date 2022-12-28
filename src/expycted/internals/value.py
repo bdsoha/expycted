@@ -9,10 +9,10 @@ from expycted.internals.utils import assertion as assertion_old
 from expycted.matchers import (
     BeEmptyMatcher,
     EqualMatcher,
+    GreatThanMatcher,
     IsFalseMatcher,
     IsTrueMatcher,
     LessThanMatcher,
-    GreatThanMatcher,
     TypeMatcher,
 )
 
@@ -23,8 +23,6 @@ class Value(BaseExpectation):
         "contain": "Expected {expected} to contain {actual}",
         "be_contained_in": "Expected {expected} to be contained in {actual}",
         "inherit": "Expected {expected} to inherit {actual}",
-        "be_greater_than": "Expected {expected} to be greater than {actual}",
-        "be_greater_or_equal_to": "Expected {expected} to be greater than or equal to {actual}",
         "be_numeric": "Expected {expected} to be numeric",
     }
 
@@ -60,14 +58,6 @@ class Value(BaseExpectation):
             )
         except Exception:
             raise AssertionError("Second argument must be a class, not an instance")
-
-    def _internal_be_greater_than(self, expected: Any) -> Tuple[bool, str]:
-        return self._actual > expected, self._message("be_greater_than", expected)
-
-    def _internal_be_greater_or_equal_to(self, expected: Any) -> Tuple[bool, str]:
-        return self._actual >= expected, self._message(
-            "be_greater_or_equal_to", expected
-        )
 
     def _internal_be_numeric(self: Any) -> Tuple[bool, str]:
         assertion_text = self._message("be_numeric")
@@ -228,44 +218,20 @@ class Value(BaseExpectation):
         return GreatThanMatcher
 
     @property
-    @assertion
-    def be_greater_than_or_equal_to(self) -> GreatThanMatcher:
-        """Asserts that the actual value is greater than or equal to the expected value."""
-
-        return GreatThanMatcher(self, or_equal=True)
-
-    @property
-    def be_great_than(self) -> GreatThanMatcher:
-        """Alias for ``be_greater_than``."""
-
-        return self.be_greater_than
-
-    @property
-    def be_great(self) -> GreatThanMatcher:
-        """Alias for ``be_greater_than``."""
-
-        return self.be_greater_than
-
-    @property
     def be_greater(self) -> GreatThanMatcher:
         """Alias for ``be_greater_than``."""
 
         return self.be_greater_than
 
     @property
+    @assertion
+    def be_greater_than_or_equal_to(self) -> GreatThanMatcher:
+        """Asserts the actual value is greater than or equal to the expected value."""
+
+        return GreatThanMatcher(self, or_equal=True)
+
+    @property
     def be_greater_or_equal_to(self) -> GreatThanMatcher:
-        """Alias for ``be_greater_than_or_equal_to``."""
-
-        return self.be_greater_than_or_equal_to
-
-    @property
-    def be_great_than_or_equal_to(self) -> GreatThanMatcher:
-        """Alias for ``be_greater_than_or_equal_to``."""
-
-        return self.be_greater_than_or_equal_to
-
-    @property
-    def be_great_or_equal(self) -> GreatThanMatcher:
         """Alias for ``be_greater_than_or_equal_to``."""
 
         return self.be_greater_than_or_equal_to
@@ -286,7 +252,7 @@ class Value(BaseExpectation):
     @property
     @assertion
     def be_lesser_than_or_equal_to(self) -> LessThanMatcher:
-        """Asserts that the actual value is lesser than or equal to the expected value."""
+        """Asserts that the actual value is less than or equal to the expected value."""
 
         return LessThanMatcher(self, or_equal=True)
 

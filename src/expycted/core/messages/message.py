@@ -24,7 +24,7 @@ class Message:
         self._message = message
 
     @staticmethod
-    def _format_values(*values: str) -> Tuple[str, str]:
+    def _format_values(*values: str) -> Tuple[ValueToString, ...]:
         return tuple(map(ValueToString, values))
 
     @property

@@ -3,28 +3,24 @@ from __future__ import annotations
 from expycted import expect
 from expycted.matchers import GreatThanMatcher
 
-from helpers import stubs
 from helpers.utils import parametrize_expectation
 
 
 def test_via_expect(context):
     expectation = expect(2)
 
-    assert isinstance(expectation.to.be_great, GreatThanMatcher)
-    assert isinstance(expectation.to.be_great_than, GreatThanMatcher)
     assert isinstance(expectation.to.be_greater, GreatThanMatcher)
     assert isinstance(expectation.to.be_greater_than, GreatThanMatcher)
 
-    assert isinstance(expectation.to.be_great_or_equal, GreatThanMatcher)
-    assert isinstance(expectation.to.be_great_than_or_equal_to, GreatThanMatcher)
+    assert isinstance(expectation.to.be_greater_or_equal, GreatThanMatcher)
     assert isinstance(expectation.to.be_greater_or_equal_to, GreatThanMatcher)
     assert isinstance(expectation.to.be_greater_than_or_equal_to, GreatThanMatcher)
 
-    expectation.to.be_great_than(1)
-    expectation.to.be_great_than_or_equal_to(2)
+    expectation.to.be_greater_than(1)
+    expectation.to.be_greater_than_or_equal_to(2)
 
     with context.raises:
-        expectation.to.be_great_than(2)
+        expectation.to.be_greater_than(2)
 
 
 @parametrize_expectation(
