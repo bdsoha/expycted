@@ -23,6 +23,7 @@ jobs:
         - "3.10"
         - "3.11"
       fail-fast: false
+    name: Test - ${{ matrix.python-version }}
 
     steps:
     - uses: actions/checkout@v3
@@ -60,7 +61,6 @@ jobs:
 
     - name: Install Dependencies
       run: python -m pip install .[ci]
-      
 
     - name: Lint
       run: pre-commit run --all-files
