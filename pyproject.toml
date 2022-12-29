@@ -113,5 +113,7 @@ sections = [
 [tool.mypy]
 mypy_path  = ["stubs", "src"]
 exclude = [
-    "^test/*"
+    "^test/*",
+    "^build/*",
+    "^dist/*"
 ]
