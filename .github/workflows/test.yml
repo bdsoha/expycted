@@ -23,7 +23,7 @@ jobs:
         - "3.10"
         - "3.11"
       fail-fast: false
-    name: Test - ${{ matrix.python-version }}
+    name: Test - Python v${{ matrix.python-version }}
 
     steps:
     - uses: actions/checkout@v3
@@ -64,6 +64,3 @@ jobs:
 
     - name: Pre-Commit
       run: pre-commit run --all-files
-
-    - name: Ruff
-      run: ruff .

@@ -49,6 +49,7 @@ dev = [
     "black",
     "coverage[toml]",
     "isort",
+    "mypy",
     "pre-commit",
     "pytest",
     "pytest-cov",
@@ -105,3 +106,10 @@ sections = [
 
 [tool.ruff.per-file-ignores]
 "test/helpers/stubs.py" = ["E731"]
+
+
+[tool.mypy]
+mypy_path  = ["stubs", "src"]
+exclude = [
+    "^test/*"
+]

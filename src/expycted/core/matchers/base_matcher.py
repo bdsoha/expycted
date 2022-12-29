@@ -4,15 +4,16 @@ from abc import ABC, abstractmethod
 from copy import copy
 from typing import Any, Optional, Tuple, Type, Union
 import re
+import sys
 
 from expycted.core.exceptions import MatcherError
 from expycted.core.expectations.expectation import Expectation
 from expycted.core.formatters import SnakeCase
 from expycted.core.messages import DetailMessage, Message
 
-try:
+if sys.version_info >= (3, 8):
     from typing import Literal
-except ImportError:
+else:
     from typing_extensions import Literal
 
 TAllowedTypes = Union[Literal["*"], Tuple[Type, ...]]
