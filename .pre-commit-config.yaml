@@ -28,7 +28,7 @@ repos:
         name: Run black (python formatter)
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.199
+    rev: v0.0.198
     hooks:
       - id: ruff
 
