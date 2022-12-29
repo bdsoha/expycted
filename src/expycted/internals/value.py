@@ -89,36 +89,15 @@ class Value(BaseExpectation):
 
     @assertion_old
     def be(self, actual: Any) -> None:
-        """Checks whether the value is 'softly' equal to something
-
-        Args:
-            actual (Any): The value to compare to
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value is 'softly' equal to something."""
 
     @assertion_old
     def contain(self, actual: Any) -> None:
-        """Checks whether the value contains something
-
-        Args:
-            actual (Any): The value to be contained
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value contains something."""
 
     @assertion_old
     def be_contained_in(self, actual: Collection) -> None:
-        """Checks whether the value is contained in something
-
-        Args:
-            actual (Any): The value to contain something
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value is contained in something."""
 
     @property
     @assertion
@@ -200,14 +179,7 @@ class Value(BaseExpectation):
 
     @assertion_old
     def inherit(self, actual: type) -> None:
-        """Checks whether the value inherits from provided type
-
-        Args:
-            actual (type): Type to inherit from
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value inherits from provided type."""
 
     @property
     @assertion
@@ -299,17 +271,13 @@ class Value(BaseExpectation):
 
     @assertion_old
     def be_numeric(self) -> None:
-        """Check whether the value is numeric
-
-        Returns:
-            bool: Result
-        """
+        """Check whether the value is numeric."""
 
     # Aliases
 
     be_a_number = be_numeric
 
     be_in = be_included_in = be_contained_in
-    have = include = contain
+    has = have = include = contain
 
     be_subclass_of = have_parent = inherit

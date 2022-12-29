@@ -61,32 +61,24 @@ class Directory(BaseExpectation):
         expected: str,
         type_: Union[Type[File], Type[Folder], None, str] = None,
     ) -> None:
-        """
-        Check if folder contains something with given name
-        """
+        """Check if folder contains something with given name."""
 
     @hidetraceback
     def contain_file(self, expected: str) -> None:
-        """
-        Check if folder contains file with given name
-        """
+        """Check if folder contains file with given name."""
+
         return self.contain(expected, type_=File)
 
     @hidetraceback
     def contain_folder(self, expected: str) -> None:
-        """
-        Check if folder contains folder with given name
-        """
+        """Check if folder contains folder with given name."""
+
         return self.contain(expected, type_=Folder)
 
     @assertion
     def exist(self) -> None:
-        """
-        Check if folder exists
-        """
+        """Check if folder exists."""
 
     @assertion
     def be_empty(self) -> None:
-        """
-        Check if folder is empty
-        """
+        """Check if folder is empty."""

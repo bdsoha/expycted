@@ -11,26 +11,16 @@ class Function:
         self.actual = actual
 
     def to_raise(self, exception: Optional[Type[Exception]] = None):
-        """Check if the function raises the exception
+        """Check if the function raises the exception."""
 
-        Args:
-            exception (Exception): Exception to expect
-        """
         return ToRaise(
             actual=self.actual,
             exception=exception if exception else Exception,
         )
 
     def to_return(self, value: Any = None, type_of_value: Optional[Type] = None):
-        """Check if the function returns provided value or type
+        """Check if the function returns provided value or type."""
 
-        Args:
-            value: Value that is expected to be returned. Defaults to None.
-            type_of_value: Type of the expected return value. Defaults to None.
-
-        Raises:
-            AssertionError: When neither of type_of_value and value is not provided
-        """
         if value is None and type_of_value is None:
             raise ValueError(
                 "You must specify either value or type_of_value in to_return function"
@@ -44,15 +34,8 @@ class Function:
 
 
 def format_args_kwargs(args: Any, kwargs: Any) -> str:
-    """Format arguments and keyword arguments to string
+    """Format arguments and keyword arguments to string."""
 
-    Args:
-        args (Any): Arguments
-        kwargs (Any): Keyword arguments
-
-    Returns:
-        str: Formatted arguments and keyword arguments
-    """
     args_str = ", ".join(map(str, args))
     kwargs_str = ", ".join(map(lambda x: f"{x[0]}={x[1]}", kwargs.items()))
 
@@ -73,11 +56,8 @@ class ToRaise(BaseExpectation):
 
     @hidetraceback
     def when_called_with(self, *args, **kwargs):
-        """Arguments to call the function with
+        """Arguments to call the function with."""
 
-        Raises:
-            AssertionError: When function doesn't raise the expected exception
-        """
         try:
             self.expected(*args, **kwargs)
         except Exception as e:
@@ -117,11 +97,8 @@ class ToReturn(BaseExpectation):
 
     @hidetraceback
     def when_called_with(self, *args, **kwargs):
-        """Arguments to call the function with
+        """Arguments to call the function with."""
 
-        Raises:
-            AssertionError: When function value or type_of_value is not matched.
-        """
         ret = self.expected(*args, **kwargs)
 
         substitutions = dict(

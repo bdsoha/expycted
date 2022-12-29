@@ -73,6 +73,8 @@ class Message:
         )
 
     def render(self, actual: Any, expected: Any = ...) -> str:
+        """Render a console output message."""
+
         return "\n\n".join(
             [
                 self.signature(actual=actual, expected=expected),

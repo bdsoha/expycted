@@ -86,6 +86,8 @@ class BaseMatcher(ABC):
         )
 
     def __call__(self, expected: Any = ...) -> bool:
+        """Handle execution of the expected value."""
+
         self._validate_allowed_types()
 
         method_name = "_negate" if self._expectation.is_negated else "_matches"

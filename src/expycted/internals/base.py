@@ -12,6 +12,7 @@ class BaseExpectation(Expectation):
 
     @property
     def expected(self):
+        """Temp prop until v1."""
         warn("Swap `expected` with `actual`", DeprecationWarning, stacklevel=2)
         return self.actual
 
