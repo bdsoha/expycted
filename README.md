@@ -22,6 +22,6 @@ It is not dependent on any testing framework and can plug into any as it is just
 
 **This package was originally written by @petereon, many thanks!**
 
-## License
+## License <img src="https://img.shields.io/github/license/bdsoha/expycted?style=for-the-badge" alt="License MIT" />
 
-<img src="https://img.shields.io/github/license/bdsoha/expycted?style=for-the-badge" alt="License MIT" /> This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the MIT license.
