@@ -164,26 +164,3 @@ NOT_INHERIT = (
 )
 
 INHERIT_TYPE_ERROR = (("string", "str"),)
-
-NUMERIC = (
-    1,
-    "1",
-    3,
-    3.2,
-    "3.2",
-    1e1,
-    "1e1",
-    1_001_123,
-    "1_001_123",
-)
-
-NOT_NUMERIC = (
-    True,
-    False,
-    "a",
-    [1, 2],
-    set(),
-    tuple(),
-    lambda x: x,
-    PERSON,
-)

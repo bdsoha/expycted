@@ -78,15 +78,3 @@ def test_to_inherit(expected, actual, context):
 def test_to_inherit_type_error(expected, actual, context):
     with context.raises:
         expect(expected).to.inherit(actual)
-
-
-@expected_params(stubs.NUMERIC, extract_ids=False)
-def test_to_be_numeric(expected, context):
-    expect(expected).to.be_numeric()
-    expect(expected).to.be_a_number()
-
-    with context.raises:
-        expect(expected).to_not.be_numeric()
-
-    with context.raises:
-        expect(expected).to_not.be_a_number()

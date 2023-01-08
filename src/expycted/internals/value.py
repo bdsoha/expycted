@@ -13,7 +13,8 @@ from expycted.matchers import (
     IsFalseMatcher,
     IsTrueMatcher,
     LessThanMatcher,
-    TypeMatcher,
+    NumericMatcher,
+    TypeMatcher
 )
 
 
@@ -298,17 +299,18 @@ class Value(BaseExpectation):
 
         return self.be_lesser_than_or_equal_to
 
-    @assertion_old
-    def be_numeric(self) -> None:
-        """Check whether the value is numeric
+    @property
+    @assertion
+    def be_numeric(self) -> NumericMatcher:
+        """Asserts that the value is numeric."""
+        return NumericMatcher
 
-        Returns:
-            bool: Result
-        """
+    @property
+    def be_a_number(self) -> NumericMatcher:
+        """Alias for ``be_numeric``."""
+        return self.be_numeric
 
     # Aliases
-
-    be_a_number = be_numeric
 
     be_in = be_included_in = be_contained_in
     have = include = contain
