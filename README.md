@@ -16,10 +16,18 @@
 
 ---
 
-Expycted is a modern, fast, easy to use *expectation pattern* for testing Python 3.7+ code bases.
+Expycted is a modern, fast, simple to use *expectation pattern* for testing Python 3.7+ code bases.
+Simply put, it is just an abstraction over the built-in `assert` keyword, with the following features:
 
-It is not dependent on any testing framework and can plug into any as it is just an abstraction over `assert`.
+- Use human-readable expectation, allowing you to write your tests like you would a sentence.
+- Testing framework independent.
+- Plugs into any project as-is.
 
+Expycted's API gained much inspiration from [Jest](https://jestjs.io/docs/expect) and [Pest](https://pestphp.com/docs/expectations).
+
+---
+
+![Code Comparison](/docs/public/code-comparison.png)
 
 **This package was originally written by @petereon, many thanks!**
 

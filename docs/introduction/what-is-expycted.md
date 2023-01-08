@@ -1,13 +1,19 @@
 # What is Expycted?
 
-> A quick introduction in to what Expycted is and why it should be used.
+> A quick introduction into what Expycted is and why it should be used.
 
-Expectations is a simple and human-readable expectation *(assertion)* library. It allows you to write your tests like you would a sentence.
+Expycted is a modern, fast, simple to use *expectation pattern* for testing Python 3.7+ code bases.
+Simply put, it is just an abstraction over the built-in `assert` keyword, with the following features:
+
+- Use human-readable expectation, allowing you to write your tests like you would a sentence.
+- Testing framework independent.
+- Plugs into any project as-is.
+
 Expycted's API gained much inspiration from [Jest](https://jestjs.io/docs/expect) and [Pest](https://pestphp.com/docs/expectations).
 
 ![Code Comparison](/code-comparison.png)
 
-<hr /> 
+---
 
 ## Frequently asked questions
 
