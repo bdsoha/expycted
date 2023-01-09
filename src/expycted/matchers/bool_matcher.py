@@ -7,7 +7,7 @@ from .is_matcher import IsMatcher
 
 
 class BoolMatcher(IsMatcher, ABC):
-    """Base class for boolean assertions"""
+    """Base class for boolean assertions."""
 
     @abstractmethod
     def _str_equivalent(self) -> Tuple[str, ...]:

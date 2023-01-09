@@ -6,14 +6,7 @@ import os
 
 
 def hidetraceback(fn: Callable) -> Callable:
-    """Decorate helper methods to ignore internal assertion traceback
-
-    Args:
-        fn (Callable): Function to decorate
-
-    Returns:
-        Callable: The decorated function
-    """
+    """Decorate helper methods to ignore internal assertion traceback."""
 
     @wraps(fn)
     def _(*args, **kwargs):
@@ -25,6 +18,8 @@ def hidetraceback(fn: Callable) -> Callable:
 
 
 def assertion(fn: Callable) -> Callable:
+    """Handle assertion."""
+
     @hidetraceback
     @wraps(fn)
     def _(self, *args, **kwargs):

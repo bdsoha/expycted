@@ -27,7 +27,6 @@ def do_nothing():
 )
 def test_fn_expect_raise(fn, arguments, exc_class, raises):
     if not raises:
-        # Confusing test, if fn called with arguments doesn't raise exc_class then AssertionError is raised
         with pytest.raises(AssertionError):
             expect.function(fn).to_raise(exc_class).when_called_with(*arguments)
     else:
@@ -46,7 +45,6 @@ def test_fn_expect_raise(fn, arguments, exc_class, raises):
 )
 def test_fn_expect_return(fn, arguments, ret_value, ret_type, true):
     if not true:
-        # Confusing test, if fn called with arguments doesn't raise exc_class then AssertionError is raised
         with pytest.raises(AssertionError):
             expect.function(fn).to_return(
                 value=ret_value, type_of_value=ret_type

@@ -112,16 +112,6 @@ class Expectation:
         return self
 
     @property
-    def have(self):
-        """Chainable property to improve the expecation readability."""
-        return self
-
-    @property
-    def has(self):
-        """Chainable property to improve the expecation readability."""
-        return self
-
-    @property
     def at(self):
         """Chainable property to improve the expecation readability."""
         return self

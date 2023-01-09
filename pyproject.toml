@@ -7,6 +7,9 @@ build-backend = "setuptools.build_meta"
 name = "expycted"
 description = "Because tests should be easy to read"
 requires-python = ">=3.7"
+dependencies = [
+    "wrapt==1.14.1"
+]
 authors = [
     { name = "Dov Benyomin Sohacheski", email = "support@expycted.com" },
     { name = "Petereon", email = "pvyboch1@gmail.com" }
@@ -46,15 +49,16 @@ dynamic = ["version", "readme"]
 
 [project.optional-dependencies]
 dev = [
-    "black",
+    "black>=22.12.0",
     "coverage[toml]",
-    "isort",
-    "pre-commit",
-    "pytest",
-    "pytest-cov",
-    "pytest-clarity",
-    "tomli",
-    "wrapt",
+    "isort>=5.10.1",
+    "mypy==0.991",
+    "pre-commit>=2.20.0",
+    "pytest>=7.2.0",
+    "pytest-cov>=4.0.0",
+    "pytest-clarity>=1.0.1",
+    "ruff==0.0.198",
+    "tomli>=2.0.1",
 ]
 ci = [
     "build",
@@ -81,7 +85,8 @@ addopts = [
 
 [tool.coverage.report]
 exclude_lines = [
-    "@(abc\\.)?abstractmethod"
+    "@(abc\\.)?abstractmethod",
+    "# pragma: no cover"
 ]
 
 
@@ -99,4 +104,29 @@ sections = [
     "FIRSTPARTY",
     "HELPERS",
     "LOCALFOLDER"
+]
+
+
+[tool.ruff]
+select = ["D"]
+ignore = [
+    "D100", # public module
+    "D101", # public class
+    "D105", # magic method
+    "D107", # init
+    "D202", # blank lines after function docstring,
+    "D203", # blank line required before class docstring
+]
+
+[tool.ruff.per-file-ignores]
+"test/helpers/stubs.py" = ["E731"]
+"test/*" = ["D"]
+
+
+[tool.mypy]
+mypy_path  = ["stubs", "src"]
+exclude = [
+    "^test/*",
+    "^build/*",
+    "^dist/*"
 ]

@@ -1,6 +1,12 @@
 # Expycted
 
-[![Build and Test Python Package](https://github.com/bdsoha/expycted/actions/workflows/python-package.yml/badge.svg)](https://github.com/petereon/expycted/actions/workflows/python-package.yml)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/bdsoha/expycted/test.yml?branch=v1.0.0-next&logo=github&style=for-the-badge)
+
+![PyPI](https://img.shields.io/pypi/v/expycted?style=for-the-badge)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/expycted?logo=python&logoColor=yellow&style=for-the-badge)
+
+![Code Style](https://img.shields.io/badge/code%20style-black-black?style=for-the-badge)
+![License](https://img.shields.io/github/license/bdsoha/expycted?style=for-the-badge)
 
 __Table of Contents__
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Collection, Tuple
+from typing import Any, Collection, Tuple, Type
 import pickle
 
 from expycted.core.matchers import assertion
@@ -61,7 +61,7 @@ class Value(BaseExpectation):
 
     @property
     @assertion
-    def equal(self) -> EqualMatcher:
+    def equal(self) -> Type[EqualMatcher]:
         """Asserts that two variables have the same value."""
 
         return EqualMatcher
@@ -74,54 +74,33 @@ class Value(BaseExpectation):
 
     @assertion_old
     def be(self, actual: Any) -> None:
-        """Checks whether the value is 'softly' equal to something
-
-        Args:
-            actual (Any): The value to compare to
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value is 'softly' equal to something."""
 
     @assertion_old
     def contain(self, actual: Any) -> None:
-        """Checks whether the value contains something
-
-        Args:
-            actual (Any): The value to be contained
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value contains something."""
 
     @assertion_old
     def be_contained_in(self, actual: Collection) -> None:
-        """Checks whether the value is contained in something
-
-        Args:
-            actual (Any): The value to contain something
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value is contained in something."""
 
     @property
     @assertion
-    def be_empty(self) -> BeEmptyMatcher:
+    def be_empty(self) -> Type[BeEmptyMatcher]:
         """Asserts that the actual value is empty."""
 
         return BeEmptyMatcher
 
     @property
     @assertion
-    def be_true(self) -> IsTrueMatcher:
+    def be_true(self) -> Type[IsTrueMatcher]:
         """Asserts that the actual value is ``True``."""
 
         return IsTrueMatcher
 
     @property
     @assertion
-    def be_false(self) -> IsFalseMatcher:
+    def be_false(self) -> Type[IsFalseMatcher]:
         """Asserts that the actual value is ``False``."""
 
         return IsFalseMatcher
@@ -134,7 +113,6 @@ class Value(BaseExpectation):
         return IsTrueMatcher(self, strict=False)
 
     @property
-    @assertion
     def be_trueish(self) -> IsTrueMatcher:
         """Alias for ``be_truthy``."""
 
@@ -167,7 +145,7 @@ class Value(BaseExpectation):
 
     @property
     @assertion
-    def be_of_type(self) -> TypeMatcher:
+    def be_of_type(self) -> Type[TypeMatcher]:
         """Assert that the actual type is equivalent to the expected type."""
 
         return TypeMatcher
@@ -186,18 +164,11 @@ class Value(BaseExpectation):
 
     @assertion_old
     def inherit(self, actual: type) -> None:
-        """Checks whether the value inherits from provided type
-
-        Args:
-            actual (type): Type to inherit from
-
-        Returns:
-            bool: Result
-        """
+        """Checks whether the value inherits from provided type."""
 
     @property
     @assertion
-    def be_greater_than(self) -> GreatThanMatcher:
+    def be_greater_than(self) -> Type[GreatThanMatcher]:
         """Asserts that the actual value is greater than the expected value."""
 
         return GreatThanMatcher
@@ -229,7 +200,7 @@ class Value(BaseExpectation):
 
     @property
     @assertion
-    def be_lesser_than(self) -> LessThanMatcher:
+    def be_lesser_than(self) -> Type[LessThanMatcher]:
         """Asserts that the actual value is lesser than the expected value."""
 
         return LessThanMatcher
@@ -297,6 +268,6 @@ class Value(BaseExpectation):
     # Aliases
 
     be_in = be_included_in = be_contained_in
-    have = include = contain
+    has = have = include = contain
 
     be_subclass_of = have_parent = inherit
