@@ -36,4 +36,3 @@ def test_to_not_inherit(expected, actual, context):
 
     with context.raises:
         expect(expected).to.inherit(actual)
-

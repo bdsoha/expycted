@@ -20,6 +20,5 @@ __all__ = (
     "IsMatcher",
     "IsTrueMatcher",
     "LessThanMatcher",
-    "NumericMatcher"
-    "TypeMatcher",
+    "NumericMatcher" "TypeMatcher",
 )

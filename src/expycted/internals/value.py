@@ -14,7 +14,7 @@ from expycted.matchers import (
     IsTrueMatcher,
     LessThanMatcher,
     NumericMatcher,
-    TypeMatcher
+    TypeMatcher,
 )
 
 
@@ -256,7 +256,7 @@ class Value(BaseExpectation):
 
     @property
     @assertion
-    def be_numeric(self) -> NumericMatcher:
+    def be_numeric(self) -> Type[NumericMatcher]:
         """Asserts that the value is numeric."""
         return NumericMatcher
 
