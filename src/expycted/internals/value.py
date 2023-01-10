@@ -8,6 +8,7 @@ from expycted.internals.base import BaseExpectation
 from expycted.internals.utils import assertion as assertion_old
 from expycted.matchers import (
     BeEmptyMatcher,
+    ContainedInMatcher,
     EqualMatcher,
     GreatThanMatcher,
     IsFalseMatcher,
@@ -22,7 +23,6 @@ class Value(BaseExpectation):
     _ASSERTION_MESSAGES = {
         "be": "Expected {expected} to be {actual}",
         "contain": "Expected {expected} to contain {actual}",
-        "be_contained_in": "Expected {expected} to be contained in {actual}",
         "inherit": "Expected {expected} to inherit {actual}",
     }
 
@@ -41,14 +41,6 @@ class Value(BaseExpectation):
         except Exception:
             raise AssertionError(
                 f'Type "{type(self._actual)} cannot contain {expected}"'
-            )
-
-    def _internal_be_contained_in(self, expected: Collection) -> Tuple[bool, str]:
-        try:
-            return self._actual in expected, self._message("be_contained_in", expected)
-        except Exception:
-            raise AssertionError(
-                f'Type "{type(expected)} cannot contain {self._actual}"'
             )
 
     def _internal_inherit(self, expected: type) -> Tuple[bool, str]:
@@ -79,10 +71,6 @@ class Value(BaseExpectation):
     @assertion_old
     def contain(self, actual: Any) -> None:
         """Checks whether the value contains something."""
-
-    @assertion_old
-    def be_contained_in(self, actual: Collection) -> None:
-        """Checks whether the value is contained in something."""
 
     @property
     @assertion
@@ -265,9 +253,24 @@ class Value(BaseExpectation):
         """Alias for ``be_numeric``."""
         return self.be_numeric
 
+    @property
+    @assertion
+    def be_contained_in(self) -> Type[ContainedInMatcher]:
+        """Assert that the actual value is contained in the expected value."""
+        return ContainedInMatcher
+
+    @property
+    def be_in(self) -> ContainedInMatcher:
+        """Alias for ``be_contained_in``."""
+        return self.be_contained_in
+
+    @property
+    def be_included_in(self) -> ContainedInMatcher:
+        """Alias for ``be_contained_in``."""
+        return self.be_contained_in
+
     # Aliases
 
-    be_in = be_included_in = be_contained_in
     has = have = include = contain
 
     be_subclass_of = have_parent = inherit
