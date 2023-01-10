@@ -36,11 +36,3 @@ def test_to_not_inherit(expected, actual, context):
 
     with context.raises:
         expect(expected).to.inherit(actual)
-
-
-@expected_params(stubs.NOT_NUMERIC, extract_ids=False)
-def test_to_not_be_numeric(expected, context):
-    expect(expected).to_not.be_numeric()
-
-    with context.raises:
-        expect(expected).to.be_numeric()

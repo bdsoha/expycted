@@ -13,6 +13,7 @@ from expycted.matchers import (
     IsFalseMatcher,
     IsTrueMatcher,
     LessThanMatcher,
+    NumericMatcher,
     TypeMatcher,
 )
 
@@ -23,7 +24,6 @@ class Value(BaseExpectation):
         "contain": "Expected {expected} to contain {actual}",
         "be_contained_in": "Expected {expected} to be contained in {actual}",
         "inherit": "Expected {expected} to inherit {actual}",
-        "be_numeric": "Expected {expected} to be numeric",
     }
 
     def _internal_be(self, actual: Any) -> Tuple[bool, str]:
@@ -58,21 +58,6 @@ class Value(BaseExpectation):
             )
         except Exception:
             raise AssertionError("Second argument must be a class, not an instance")
-
-    def _internal_be_numeric(self: Any) -> Tuple[bool, str]:
-        assertion_text = self._message("be_numeric")
-
-        if type(self._actual) in [int, float, complex]:
-            return True, assertion_text
-
-        if type(self._actual) is str:
-            try:
-                float(self._actual)
-                return True, assertion_text
-            except Exception:
-                pass
-
-        return False, assertion_text
 
     @property
     @assertion
@@ -269,13 +254,18 @@ class Value(BaseExpectation):
 
         return self.be_lesser_than_or_equal_to
 
-    @assertion_old
-    def be_numeric(self) -> None:
-        """Check whether the value is numeric."""
+    @property
+    @assertion
+    def be_numeric(self) -> Type[NumericMatcher]:
+        """Asserts that the value is numeric."""
+        return NumericMatcher
+
+    @property
+    def be_a_number(self) -> NumericMatcher:
+        """Alias for ``be_numeric``."""
+        return self.be_numeric
 
     # Aliases
-
-    be_a_number = be_numeric
 
     be_in = be_included_in = be_contained_in
     has = have = include = contain
