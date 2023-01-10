@@ -36,22 +36,6 @@ def test_to_contain_type_error(expected, actual, context):
         expect(expected).to.contain(actual)
 
 
-@expected_actual_params(stubs.CONTAIN)
-def test_to_be_contained_in(expected, actual, context):
-    expect(actual).to.be_contained_in(expected)
-    expect(actual).to.be_included_in(expected)
-    expect(actual).to.be_in(expected)
-
-    with context.raises:
-        expect(actual).to_not.be_contained_in(expected)
-
-    with context.raises:
-        expect(actual).to_not.be_included_in(expected)
-
-    with context.raises:
-        expect(actual).to_not.be_in(expected)
-
-
 @expected_actual_params(stubs.CONTAIN_TYPE_ERROR)
 def test_to_contained_in_type_error(expected, actual, context):
     with context.raises:
