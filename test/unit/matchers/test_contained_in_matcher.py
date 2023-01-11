@@ -21,12 +21,12 @@ def test_via_expect(context):
 
 @parametrize_expectation(
     [
-        (2, [2]),
-        ("a", {"a", "b"}),
-        ("bc", "abcd"),
-        ("", "abcd"),
-        ("a", {"a": 1, "b": 2}),
-        ("string", "string"),
+        (2, [2], "list"),
+        ("a", {"a", "b"}, "set"),
+        ("bc", "abcd", "substr"),
+        ("", "abcd", "empty str"),
+        ("a", {"a": 1, "b": 2}, "dict"),
+        ("string", "string", "full str"),
     ],
     matcher=ContainedInMatcher,
     wrap=False,
@@ -39,10 +39,10 @@ def test_matches(expectation):
 
 @parametrize_expectation(
     [
-        (2, [1]),
-        (["a"], ["a", 2]),
-        ("ings", "string"),
-        ("c", {"a": 1, "b": 2}),
+        (2, [1], "list"),
+        (["a"], ["a", 2], "item in list"),
+        ("ings", "string", "str"),
+        ("c", {"a": 1, "b": 2}, "dict"),
     ],
     matcher=ContainedInMatcher,
     wrap=False,
