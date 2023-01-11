@@ -11,6 +11,5 @@ class ContainedInMatcher(BaseMatcher):
     def _matches(self, *, expected: Any) -> bool:
         try:
             return self._expectation.actual in expected
-
         except Exception:
             return False
