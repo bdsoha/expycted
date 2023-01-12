@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from .be_empty import BeEmptyMatcher
 from .bool_matcher import BoolMatcher
+from .contained_in_matcher import ContainedInMatcher
 from .equal_matcher import EqualMatcher
 from .great_than_matcher import GreatThanMatcher
 from .is_false_matcher import IsFalseMatcher
@@ -14,11 +15,13 @@ from .type_matcher import TypeMatcher
 __all__ = (
     "BeEmptyMatcher",
     "BoolMatcher",
+    "ContainedInMatcher",
     "EqualMatcher",
     "GreatThanMatcher",
     "IsFalseMatcher",
     "IsMatcher",
     "IsTrueMatcher",
     "LessThanMatcher",
-    "NumericMatcher" "TypeMatcher",
+    "NumericMatcher",
+    "TypeMatcher",
 )

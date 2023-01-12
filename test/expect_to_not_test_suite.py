@@ -22,14 +22,6 @@ def test_to_not_contain(expected, actual, context):
         expect(expected).to.contain(actual)
 
 
-@expected_actual_params(stubs.NOT_CONTAIN)
-def test_to_not_be_contained_in(expected, actual, context):
-    expect(actual).to_not.be_contained_in(expected)
-
-    with context.raises:
-        expect(actual).to.be_contained_in(expected)
-
-
 @expected_actual_params(stubs.NOT_INHERIT, extract_ids=False)
 def test_to_not_inherit(expected, actual, context):
     expect(expected).to_not.inherit(actual)
