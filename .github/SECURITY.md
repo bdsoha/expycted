@@ -1,6 +1,6 @@
 # Security Policy
 
-### ⚠️⚠️⚠️ Please do not file GitHub issues for security vulnerabilities as they are public! ⚠️⚠️⚠️
+## ⚠️⚠️⚠️ Please do not file GitHub issues for security vulnerabilities as they are public! ⚠️⚠️⚠️
 
 It's better to discuss privately and try to find a solution first, to limit the potential impact as much as possible.
 

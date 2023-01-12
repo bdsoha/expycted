@@ -5,7 +5,7 @@ description: Contributing
 
 > Your help is welcome to make Expycted even more stable and feature rich.
 
-## Expycted
+## How Can I Contribute?
 
 *Did you find a bug?*
 <br />
@@ -17,6 +17,8 @@ Either open a GitHub issue or submit a pull request.
 
 - [Open an Issue →](https://github.com/bdsoha/expycted/issues/new/choose)
 - [Submit a PR →](https://github.com/bdsoha/expycted/compare)
+
+Ready to contribute? Make sure you have a look at our [contribution workflow →](/docs/contribute/contribution-workflow) and conventions before you get started.
 
 ## Documentation
 
