@@ -17,7 +17,11 @@ We utilize GitHub's services at the core of our development:
 
 ### Branching Scheme
 
-Our project utilized the **GitFlow** branching scheme. GitFlow utilizes the core feature of Git, which is the power of branches. More information about this workflow can be found in this [cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) or [GitFlow examples](https://gitversion.readthedocs.io/en/latest/git-branching-strategies/gitflow-examples/).
+The **Forking Workflow** is fundamentally different than other popular Git workflows. Instead of using a single server-side repository to act as the *central* codebase, it gives every developer their own server-side repository.
+
+The main advantage of the **Forking Workflow** is that contributions can be integrated without the need for everybody to push to a single central repository. Developers push to their own server-side repositories, and only the project maintainer can push to the official repository. This allows the maintainer to accept commits from any developer without giving them write access to the official codebase.
+
+The workflow typically follows a branching model based on the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow). This means that complete feature branches will be purposed for merge into the original project maintainer's repository.
 
 In this model, a repository has two main branches:
 
@@ -35,15 +39,23 @@ Apart from the two abovementioned primary branches, there are other branches in 
 
 2. **Hotfix:** The hotfix branch is derived from the master branch and merged back after completion to the develop and master branches. By convention, the name of this branch starts with `hotfix/*` in lower-kebab-case *(i.e. `hotfix/oops-we-found-a-not-so-cool-bug`)*. This branch is created and used after a particular version of product is released to provide critical bug fixes for the production version.
 
-### Creating a Fork
+#### Step-by-Step
 
-Just head over to [Expycted's GitHub](https://github.com/bdsoha/expycted) page and click the "Fork" button. It's just that simple. Once you've done that, you can use your favorite git client to clone your repo or just head straight to the command line:
+::: tip
+The section below was extracted from an online tutorial, for a more in-depth explaination, have a look at the [orginial tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
+:::
 
-```sh
-# Clone your fork to your local machine
-git clone git@github.com:{USERNAME}/expycted.git  # <--- Replace with your username
-```
+The following is a step-by-step example of this workflow:
 
+1. A developer creates a [*fork*](https://github.com/bdsoha/expycted/fork) of Expycted.
+2. Cloned to their local system.
+3. A Git remote path for the *official* repository is added to the local clone.
+4. A new local feature branch is created *(usually a `feature/*` branch)*.
+5. The developer makes changes on the new branch.
+6. New commits are created for the changes.
+7. The branch gets pushed to the developer's fork.
+8. The developer opens a pull request from the new branch to the *official* repository.
+9. The pull request gets approved for merge and is merged into the original server-side repository.
 
 ## Styleguides
 
@@ -62,11 +74,61 @@ Both of the above mentioned tools are automatically executed using *pre-commit-h
 
 ### Documentation Styleguide
 
-**@TODO:** TBD
+[Pydocstyle](https://github.com/PyCQA/pydocstyle) is used as a static analysis tool for checking compliance of docstring conventions.
 
-### File Naming Conventions
+We ignore the follow rules *(for a [full set of available rules](http://www.pydocstyle.org/en/2.1.1/error_codes.html))*:
 
-**@TODO:** TBD
+- `D100`
+- `D101`
+- `D105`
+- `D107`
+- `D202`
+- `D203`
+
+### File Conventions
+
+#### File Structure
+
+The project structure is split into various folder for organizational purposes.
+The tree below displays the main files and folders and their intended use.
+
+```text
+.
+├── .github                 // Workflows, issue templates, pull request templates, and other GitHub related
+├── .gitignore              // Files to not track in `git`
+├── build                   // Automatically generated build (git-ignored)
+├── dist                    // Automatically generated build (git-ignored)
+├── docs                    // Documentation resources
+│   ├── .vitepress          // Configuration for the documentation website
+│   ├── *.md                // Actual docmentation files
+│   └── index.md            // Documentation entrypoint
+├── node_modules            // Node packages for documentation (git-ignored)
+├── package.json            // Node package dependencies for docs (should be changed using `npm`)
+├── src                     // The main programming directory
+│   └── core                // Core functionality shared accross the package
+│   ├── matchers            // Common matchers provided with package as default
+│   └── ...                 // Additional custom matchers
+├── test                    // The main test directory
+│   ├── helpers             // Global test utilities
+│   ├── unit                // Unit test (follow the same folder layout as `src`)
+│   └── conftest.py         // Setup the test suite
+├── pyproject.toml          // Build system requirements and information, used by pip to build the package
+└── yarn.lock               // Current status of the installed modules (should not be edited)
+```
+
+#### Naming Conventions
+
+Your files should follow the conventions below:
+
+- Must end in a `.py`.
+- Must be in *snake_case*, *(use underscore characters `_` instead of dashes `-`)*.
+- Lowercase characters only.
+- Should represent the *main* exported `class` or `function`.
+
+Your folders should follow the conventions below:
+
+- May not contain any special charachters *(including spaces)*.
+- Lowercase characters only.
 
 ## License
 
