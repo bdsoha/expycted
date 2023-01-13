@@ -40,25 +40,3 @@ def test_to_contain_type_error(expected, actual, context):
 def test_to_contained_in_type_error(expected, actual, context):
     with context.raises:
         expect(actual).to.be_contained_in(expected)
-
-
-@expected_actual_params(stubs.INHERIT, extract_ids=False)
-def test_to_inherit(expected, actual, context):
-    expect(expected).to.inherit(actual)
-    expect(expected).to.have_parent(actual)
-    expect(expected).to.be_subclass_of(actual)
-
-    with context.raises:
-        expect(expected).to_not.inherit(actual)
-
-    with context.raises:
-        expect(expected).to_not.have_parent(actual)
-
-    with context.raises:
-        expect(expected).to_not.be_subclass_of(actual)
-
-
-@expected_actual_params(stubs.INHERIT_TYPE_ERROR, extract_ids=False)
-def test_to_inherit_type_error(expected, actual, context):
-    with context.raises:
-        expect(expected).to.inherit(actual)

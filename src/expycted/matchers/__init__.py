@@ -5,6 +5,7 @@ from .bool_matcher import BoolMatcher
 from .contained_in_matcher import ContainedInMatcher
 from .equal_matcher import EqualMatcher
 from .great_than_matcher import GreatThanMatcher
+from .inherit_matcher import InheritMatcher
 from .is_false_matcher import IsFalseMatcher
 from .is_matcher import IsMatcher
 from .is_true_matcher import IsTrueMatcher
@@ -18,6 +19,7 @@ __all__ = (
     "ContainedInMatcher",
     "EqualMatcher",
     "GreatThanMatcher",
+    "InheritMatcher",
     "IsFalseMatcher",
     "IsMatcher",
     "IsTrueMatcher",
