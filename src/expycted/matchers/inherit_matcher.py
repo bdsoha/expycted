@@ -10,6 +10,6 @@ class InheritMatcher(BaseMatcher):
 
     def _matches(self, *, expected: Any) -> bool:
         try:
-            return issubclass(type(self._expectation.actual), expected)
+            return isinstance(self._expectation.actual, expected)
         except Exception:
             return False
