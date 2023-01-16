@@ -6,7 +6,7 @@ from expycted.core.matchers import BaseMatcher
 
 
 class InheritMatcher(BaseMatcher):
-    """Asserts the actual value inherit from expected value."""
+    """Asserts the actual value inherits from expected value."""
 
     def _matches(self, *, expected: Any) -> bool:
         try:
