@@ -48,9 +48,7 @@ def test_matches(expectation):
 
 
 @parametrize_expectation(
-    [
-        ("string", "str")
-    ],
+    [("string", "str")],
     matcher=InheritMatcher,
     wrap=False,
 )
@@ -61,14 +59,9 @@ def test_to_inherit_type_error(expectation):
 
 
 @parametrize_expectation(
-    [
-        ("string", int),
-        (1, str),
-        (1, float),
-        (1.0, int)
-    ],
+    [("string", int), (1, str), (1, float), (1.0, int)],
     matcher=InheritMatcher,
-    wrap=False
+    wrap=False,
 )
 def test_not_matches(expectation):
     matcher = expectation.matcher()
