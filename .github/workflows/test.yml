@@ -40,13 +40,7 @@ jobs:
       run: python -m pip install .[ci]
 
     - name: 🧪 Run tests
-      run: python -m pytest --cov=src --cov-report=xml
-
-    - name: 💯 Coverage
-      uses: paambaati/codeclimate-action@v3.2.0
-      if: github.ref == 'refs/heads/v1.0.0-next'
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      run: python -m pytest
 
   static:
     name: 👕 Static Checks
@@ -69,3 +63,31 @@ jobs:
 
     - name: 🧹 Pre-Commit
       run: pre-commit run --all-files
+
+  coverage:
+    name: 💯 Coverage
+    needs: static
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/v1.0.0-next'
+
+    steps:
+    - name: 📚 Checkout
+      uses: actions/checkout@v3
+
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: pip
+        cache-dependency-path: pyproject.toml
+
+    - name: ⏬ Install Dependencies
+      run: python -m pip install .[ci]
+
+    - name: 💯 Coverage
+      run: python -m coverage run -m pytest
+
+    - name: ⬆ Upload Results
+      uses: paambaati/codeclimate-action@v3.2.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
