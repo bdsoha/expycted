@@ -1,10 +1,9 @@
-name: Test
+name: 🧪 Test
 
 on:
   push:
     branches:
-      - master
-      - "v*-next"
+      - '*'
 
   pull_request:
     types:
@@ -13,8 +12,11 @@ on:
 
 jobs:
   test:
+    name: 🧪 Test - Python v${{ matrix.python-version }}
     runs-on: ubuntu-latest
+
     strategy:
+      fail-fast: false
       matrix:
         python-version:
         - "3.7"
@@ -22,42 +24,48 @@ jobs:
         - "3.9"
         - "3.10"
         - "3.11"
-      fail-fast: false
-    name: Test - Python v${{ matrix.python-version }}
 
     steps:
-    - uses: actions/checkout@v3
+    - name: 📚 Checkout
+      uses: actions/checkout@v3
 
-    - name: Setup Python ${{ matrix.python-version }}
+    - name: 🐍 Setup - Python v${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
         cache: pip
         cache-dependency-path: pyproject.toml
 
-    - name: Install Dependencies
+    - name: ⏬ Install Dependencies
       run: python -m pip install .[ci]
 
-    - name: Run Tests
-      run: python -m pytest
+    - name: 🧪 Run tests
+      run: python -m pytest --cov=src --cov-report=xml
+
+    - name: 💯 Coverage
+      uses: paambaati/codeclimate-action@v3.2.0
+      if: github.ref == 'refs/heads/v1.0.0-next'
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
   static:
-    name: Static Checks
+    name: 👕 Static Checks
     needs: test
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: 📚 Checkout
+      uses: actions/checkout@v3
 
-    - name: Setup Python
+    - name: 🐍 Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
         cache: pip
         cache-dependency-path: pyproject.toml
 
-    - name: Install Dependencies
+    - name: ⏬ Install Dependencies
       run: python -m pip install .[ci]
 
-    - name: Pre-Commit
+    - name: 🧹 Pre-Commit
       run: pre-commit run --all-files
