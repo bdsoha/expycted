@@ -48,28 +48,67 @@ def test_matches(expectation):
         (stubs.EMPTY_LIST, stubs.DescribedParam([], description="Empty list")),
         (stubs.EMPTY_SET, stubs.DescribedParam(set(), description="Empty set")),
         (stubs.EMPTY_DICT, stubs.DescribedParam({}, description="Empty dict")),
-        (stubs.EMPTY_RANGE, lambda: stubs.DescribedParam(range(0), description="Empty range")),
-        (stubs.EMPTY_GENERATOR, lambda: stubs.DescribedParam(
-            (i for i in range(0)),
-            description="Empty generator",
-        )),
+        (
+            stubs.EMPTY_RANGE,
+            lambda: stubs.DescribedParam(range(0), description="Empty range"),
+        ),
+        (
+            stubs.EMPTY_GENERATOR,
+            lambda: stubs.DescribedParam(
+                (i for i in range(0)),
+                description="Empty generator",
+            ),
+        ),
         (stubs.FLOAT, stubs.DescribedParam(1.1, description="Example float")),
-        (stubs.FLOAT_STR, stubs.DescribedParam("1.1", description="Float value as string")),
-        (stubs.LIST, stubs.DescribedParam([1, "hello", "world"], description="Example list")),
-        (stubs.SET, stubs.DescribedParam({1, "hello", "world"}, description="Example set")),
-        (stubs.STRING, stubs.DescribedParam("hello world", description="Example string")),
-        (stubs.BSTRING, stubs.DescribedParam(b"hello world", description="Example byte string")),
-        (stubs.TUPLE, stubs.DescribedParam((1, "hello", "world"), description="Example tuple")),
-        (stubs.DICT, stubs.DescribedParam({1: "hello world"}, description="Example dict")),
-        (stubs.RANGE, lambda: stubs.DescribedParam(range(1), description="Example range")),
-        (stubs.GENERATOR, lambda: stubs.DescribedParam(
-            (i for i in range(1)), description="Example generator"
-        )),
-        (stubs.SINGLETON_OBJECT, stubs.DescribedParam(stubs.Person(), description="Singleton object")),
-        (stubs.NOT_SINGLETON_OBJECT, lambda: stubs.DescribedParam(
-            stubs.Person(),
-            description="Not singleton object",
-        )),
+        (
+            stubs.FLOAT_STR,
+            stubs.DescribedParam("1.1", description="Float value as string"),
+        ),
+        (
+            stubs.LIST,
+            stubs.DescribedParam([1, "hello", "world"], description="Example list"),
+        ),
+        (
+            stubs.SET,
+            stubs.DescribedParam({1, "hello", "world"}, description="Example set"),
+        ),
+        (
+            stubs.STRING,
+            stubs.DescribedParam("hello world", description="Example string"),
+        ),
+        (
+            stubs.BSTRING,
+            stubs.DescribedParam(b"hello world", description="Example byte string"),
+        ),
+        (
+            stubs.TUPLE,
+            stubs.DescribedParam((1, "hello", "world"), description="Example tuple"),
+        ),
+        (
+            stubs.DICT,
+            stubs.DescribedParam({1: "hello world"}, description="Example dict"),
+        ),
+        (
+            stubs.RANGE,
+            lambda: stubs.DescribedParam(range(1), description="Example range"),
+        ),
+        (
+            stubs.GENERATOR,
+            lambda: stubs.DescribedParam(
+                (i for i in range(1)), description="Example generator"
+            ),
+        ),
+        (
+            stubs.SINGLETON_OBJECT,
+            stubs.DescribedParam(stubs.Person(), description="Singleton object"),
+        ),
+        (
+            stubs.NOT_SINGLETON_OBJECT,
+            lambda: stubs.DescribedParam(
+                stubs.Person(),
+                description="Not singleton object",
+            ),
+        ),
     ],
     matcher=IsMatcher,
     wrap=False,

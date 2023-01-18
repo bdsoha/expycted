@@ -13,10 +13,11 @@ from expycted.matchers import (
     GreatThanMatcher,
     InheritMatcher,
     IsFalseMatcher,
+    IsMatcher,
     IsTrueMatcher,
     LessThanMatcher,
     NumericMatcher,
-    TypeMatcher, IsMatcher,
+    TypeMatcher,
 )
 
 
@@ -58,7 +59,7 @@ class Value(BaseExpectation):
 
     @property
     @assertion
-    def be(self) -> IsMatcher:
+    def be(self) -> Type[IsMatcher]:
         """Asserts that the actual value is the expected value."""
         return IsMatcher
 
