@@ -16,7 +16,7 @@ from expycted.matchers import (
     IsTrueMatcher,
     LessThanMatcher,
     NumericMatcher,
-    TypeMatcher,
+    TypeMatcher, IsMatcher,
 )
 
 
@@ -56,9 +56,11 @@ class Value(BaseExpectation):
 
         return self.equal
 
-    @assertion_old
-    def be(self, actual: Any) -> None:
-        """Checks whether the value is 'softly' equal to something."""
+    @property
+    @assertion
+    def be(self) -> IsMatcher:
+        """Asserts that the actual value is the expected value."""
+        return IsMatcher
 
     @assertion_old
     def contain(self, actual: Any) -> None:
