@@ -77,10 +77,6 @@ readme = { file = ["README.md"] }
 
 [tool.pytest.ini_options]
 python_files = ["*test*.py"]
-addopts = [
-    "--cov=expycted",
-    "--cov-report=term-missing"
-]
 
 
 [tool.coverage.report]
