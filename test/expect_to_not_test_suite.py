@@ -20,11 +20,3 @@ def test_to_not_contain(expected, actual, context):
 
     with context.raises:
         expect(expected).to.contain(actual)
-
-
-@expected_actual_params(stubs.NOT_INHERIT, extract_ids=False)
-def test_to_not_inherit(expected, actual, context):
-    expect(expected).to_not.inherit(actual)
-
-    with context.raises:
-        expect(expected).to.inherit(actual)

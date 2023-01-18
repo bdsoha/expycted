@@ -11,6 +11,7 @@ from expycted.matchers import (
     ContainedInMatcher,
     EqualMatcher,
     GreatThanMatcher,
+    InheritMatcher,
     IsFalseMatcher,
     IsTrueMatcher,
     LessThanMatcher,
@@ -23,7 +24,6 @@ class Value(BaseExpectation):
     _ASSERTION_MESSAGES = {
         "be": "Expected {expected} to be {actual}",
         "contain": "Expected {expected} to contain {actual}",
-        "inherit": "Expected {expected} to inherit {actual}",
     }
 
     def _internal_be(self, actual: Any) -> Tuple[bool, str]:
@@ -42,14 +42,6 @@ class Value(BaseExpectation):
             raise AssertionError(
                 f'Type "{type(self._actual)} cannot contain {expected}"'
             )
-
-    def _internal_inherit(self, expected: type) -> Tuple[bool, str]:
-        try:
-            return issubclass(type(self._actual), expected), self._message(
-                "inherit", expected
-            )
-        except Exception:
-            raise AssertionError("Second argument must be a class, not an instance")
 
     @property
     @assertion
@@ -149,10 +141,6 @@ class Value(BaseExpectation):
         """Alias for ``be_of_type``."""
 
         return self.be_of_type
-
-    @assertion_old
-    def inherit(self, actual: type) -> None:
-        """Checks whether the value inherits from provided type."""
 
     @property
     @assertion
@@ -269,8 +257,22 @@ class Value(BaseExpectation):
         """Alias for ``be_contained_in``."""
         return self.be_contained_in
 
+    @property
+    @assertion
+    def inherit(self) -> Type[InheritMatcher]:
+        """Assert that the actual value inherit from expected value."""
+        return InheritMatcher
+
+    @property
+    def have_parent(self) -> InheritMatcher:
+        """Alias for ``inherit``."""
+        return self.inherit
+
+    @property
+    def be_subclass_of(self) -> InheritMatcher:
+        """Alias for ``inherit``."""
+        return self.inherit
+
     # Aliases
 
     has = have = include = contain
-
-    be_subclass_of = have_parent = inherit
