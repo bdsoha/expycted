@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from .be_empty import BeEmptyMatcher
 from .bool_matcher import BoolMatcher
+from .constant_matcher import ConstantMatcher
 from .contained_in_matcher import ContainedInMatcher
 from .equal_matcher import EqualMatcher
 from .great_than_matcher import GreatThanMatcher
