@@ -79,41 +79,6 @@ LIST_TUPLE_EQUIVALENT = ([True, 1.1], (True, 1.1), "list tuple equivalent")
 SAME_OBJECT = (PERSON, PERSON, "same object in memory")
 COPY_OBJECT = (Person(), Person(), "copied object")
 
-
-NOT_EQUAL = (
-    TRUE_STR_EQUIVALENT,
-    FALSE_STR_EQUIVALENT,
-    INT_STR_EQUIVALENT,
-    COPY_OBJECT,
-    LIST_TUPLE_EQUIVALENT,
-    FALSE_NONE_EQUIVALENT,
-    BYTE_STR_EQUIVALENT,
-)
-
-BE = (
-    (True, 1, "True int equivalent"),
-    (False, 0, "False int equivalent"),
-    (1, 1.0, "int float equivalent"),
-    SAME_OBJECT,
-    (True, True, "bool"),
-    (1, 1, "int"),
-    (1.1, 1.1, "float"),
-    ("hello", "hello", "str"),
-    ([True, 1.1], [True, 1.1], "list"),
-    ({True, 1.1}, {1.1, True}, "set ignore order"),
-    ({"a": [True, 1.1]}, {"a": [True, 1.1]}, "dict"),
-    TRUE_STR_EQUIVALENT,
-    FALSE_STR_EQUIVALENT,
-    INT_STR_EQUIVALENT,
-    COPY_OBJECT,
-)
-
-NOT_BE = (
-    LIST_TUPLE_EQUIVALENT,
-    FALSE_NONE_EQUIVALENT,
-    BYTE_STR_EQUIVALENT,
-)
-
 CONTAIN = (
     ([2], 2, "list"),
     ({"a", "b"}, "a", "set"),
@@ -136,31 +101,3 @@ CONTAIN_TYPE_ERROR = (
     COPY_OBJECT,
     SAME_OBJECT,
 )
-
-
-INHERIT = (
-    ([1], list),
-    (2, int),
-    ("a", str),
-    ({"a", "b"}, set),
-    ({"a": 1, "b": 2}, dict),
-    (True, bool),
-    (PERSON, Person),
-    (1, int),
-    (1.0, float),
-    (type(PERSON), type),
-    (1, object),
-    (1, object),
-    (1.0, object),
-    (PERSON, Parent),
-    (PERSON, object),
-)
-
-NOT_INHERIT = (
-    ("string", int),
-    (1, str),
-    (1, float),
-    (1.0, int),
-)
-
-INHERIT_TYPE_ERROR = (("string", "str"),)

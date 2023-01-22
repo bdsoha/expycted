@@ -59,3 +59,30 @@ def test_not_matches(expectation):
     matcher = expectation.matcher()
 
     assert matcher(expectation.expected) is False
+
+
+@parametrize_expectation(
+    [
+        (True, 1),
+        (False, 0, "False int equivalent"),
+        (1, 1.0, "int float equivalent"),
+        stubs.SAME_OBJECT,
+        (True, True, "bool"),
+        (1, 1, "int"),
+        (1.1, 1.1, "float"),
+        ("hello", "hello", "str"),
+        ([True, 1.1], [True, 1.1], "list"),
+        ({True, 1.1}, {1.1, True}, "set ignore order"),
+        ({"a": [True, 1.1]}, {"a": [True, 1.1]}, "dict"),
+        stubs.TRUE_STR_EQUIVALENT,
+        stubs.FALSE_STR_EQUIVALENT,
+        stubs.INT_STR_EQUIVALENT,
+        stubs.COPY_OBJECT,
+    ],
+    matcher=EqualMatcher,
+    wrap=False,
+)
+def test_weak_matches(expectation):
+    matcher = expectation.matcher(weak=True)
+
+    assert matcher(expectation.expected) is True
