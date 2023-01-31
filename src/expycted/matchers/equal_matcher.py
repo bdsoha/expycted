@@ -15,10 +15,10 @@ class EqualMatcher(BaseMatcher):
         if not self._expectation.qualifiers.weak:
             return self._expectation.actual == expected
 
-        return any(
-            [
-                str(self._expectation.actual) == str(expected),
-                pickle.dumps(self._expectation.actual) == pickle.dumps(expected),
-                self._expectation.actual == expected,
-            ]
-        )
+        check_callbacks = [
+            lambda: str(self._expectation.actual) == str(expected),
+            lambda: pickle.dumps(self._expectation.actual) == pickle.dumps(expected),
+            lambda: self._expectation.actual == expected,
+        ]
+
+        return any(check() for check in check_callbacks)

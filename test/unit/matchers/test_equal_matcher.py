@@ -21,7 +21,7 @@ def test_via_expect(context):
 
 @parametrize_expectation(
     [
-        (stubs.SINGLETON_OBJECT(), stubs.SINGLETON_OBJECT()),
+        (stubs.SINGLETON_OBJECT, stubs.SINGLETON_OBJECT),
         (True, 1, "True int equivalent"),
         (False, 0, "False int equivalent"),
         (1, 1.0, "int float equivalent"),
@@ -45,6 +45,8 @@ def test_matches(expectation):
 @parametrize_expectation(
     [
         (stubs.NOT_SINGLETON_OBJECT(), stubs.NOT_SINGLETON_OBJECT()),
+        (stubs.PERSON_SAME_STR(), stubs.PERSON_SAME_STR()),
+        (stubs.PERSON_DIFFERENT_STR(), stubs.PERSON_DIFFERENT_STR()),
         (True, "True", "bool (True) str equivalent"),
         (False, "False", "bool (False) str equivalent"),
         (1, "1", "int str equivalent"),
@@ -63,6 +65,8 @@ def test_not_matches(expectation):
 
 @parametrize_expectation(
     [
+        (stubs.PERSON_SAME_STR(), stubs.PERSON_SAME_STR()),
+        (stubs.PERSON_DIFFERENT_STR(), stubs.PERSON_DIFFERENT_STR()),
         (True, 1),
         (False, 0, "False int equivalent"),
         (1, 1.0, "int float equivalent"),

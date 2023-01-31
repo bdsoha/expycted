@@ -17,6 +17,18 @@ class Person(Parent):
         self.last_name = last_name
 
 
+class PersonSameStr(Person):
+    def __str__(self):
+        return "same"
+
+
+class PersonDifferentStr(Person):
+    def __str__(self):
+        from random import random
+
+        return str(random())
+
+
 class Day(Enum):
     SUNDAY = 1
     MONDAY = 2
@@ -60,6 +72,9 @@ NOT_SINGLETON_OBJECT = lambda: DescribedParam(
     Person(),
     description="Not singleton object",
 )
+
+PERSON_SAME_STR = lambda: PersonSameStr()
+PERSON_DIFFERENT_STR = lambda: PersonSameStr()
 
 #### OLD
 

@@ -23,8 +23,7 @@ def test_via_expect(context):
         (1, 1),
         ("1", "1"),
         (stubs.LIST, stubs.LIST),
-        (stubs.PERSON, stubs.PERSON),
-        (stubs.SINGLETON_OBJECT.value, stubs.SINGLETON_OBJECT.value),
+        (stubs.SINGLETON_OBJECT, stubs.SINGLETON_OBJECT),
     ],
     matcher=IsMatcher,
     wrap=False,
@@ -38,8 +37,7 @@ def test_matches(expectation):
 @parametrize_expectation(
     [
         ([1, "hello", "world"], [1, "hello", "world"]),
-        (stubs.Person(), stubs.Person()),
-        (stubs.NOT_SINGLETON_OBJECT().value, stubs.NOT_SINGLETON_OBJECT().value),
+        (stubs.NOT_SINGLETON_OBJECT(), stubs.NOT_SINGLETON_OBJECT()),
     ],
     matcher=IsMatcher,
     wrap=False,
