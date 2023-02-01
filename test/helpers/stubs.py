@@ -73,8 +73,8 @@ NOT_SINGLETON_OBJECT = lambda: DescribedParam(
     description="Not singleton object",
 )
 
-PERSON_SAME_STR = lambda: PersonSameStr()
-PERSON_DIFFERENT_STR = lambda: PersonSameStr()
+PERSON_SAME_STR = PersonSameStr
+PERSON_DIFFERENT_STR = PersonDifferentStr
 
 #### OLD
 

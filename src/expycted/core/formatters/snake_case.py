@@ -11,5 +11,4 @@ class SnakeCase(BaseFormatter):
     PATTERN = re.compile(r"(?<!^)(?=[A-Z])")
 
     def __str__(self) -> str:
-
         return self.PATTERN.sub("_", self._value).lower()
