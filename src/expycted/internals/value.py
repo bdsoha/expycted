@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Collection, Tuple, Type
-import pickle
+from typing import Any, Tuple, Type
 
 from expycted.core.matchers import assertion
 from expycted.internals.base import BaseExpectation
@@ -13,6 +12,7 @@ from expycted.matchers import (
     GreatThanMatcher,
     InheritMatcher,
     IsFalseMatcher,
+    IsMatcher,
     IsTrueMatcher,
     LessThanMatcher,
     NumericMatcher,
@@ -22,18 +22,8 @@ from expycted.matchers import (
 
 class Value(BaseExpectation):
     _ASSERTION_MESSAGES = {
-        "be": "Expected {expected} to be {actual}",
         "contain": "Expected {expected} to contain {actual}",
     }
-
-    def _internal_be(self, actual: Any) -> Tuple[bool, str]:
-        return any(
-            [
-                str(self._actual) == str(actual),
-                pickle.dumps(self._actual) == pickle.dumps(actual),
-                self._actual == actual,
-            ]
-        ), self._message("be", actual)
 
     def _internal_contain(self, expected: Any) -> Tuple[bool, str]:
         try:
@@ -56,9 +46,11 @@ class Value(BaseExpectation):
 
         return self.equal
 
-    @assertion_old
-    def be(self, actual: Any) -> None:
-        """Checks whether the value is 'softly' equal to something."""
+    @property
+    @assertion
+    def be(self) -> Type[IsMatcher]:
+        """Asserts that the actual value is the expected value."""
+        return IsMatcher
 
     @assertion_old
     def contain(self, actual: Any) -> None:

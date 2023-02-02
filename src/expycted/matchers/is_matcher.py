@@ -9,4 +9,4 @@ class IsMatcher(BaseMatcher):
     OPERATION = "is"
 
     def _matches(self, expected) -> bool:
-        return self._expectation.actual is self._to_match
+        return self._expectation.actual is expected

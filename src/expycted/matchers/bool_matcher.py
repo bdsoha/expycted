@@ -3,10 +3,10 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Tuple
 
-from .is_matcher import IsMatcher
+from .constant_matcher import ConstantMatcher
 
 
-class BoolMatcher(IsMatcher, ABC):
+class BoolMatcher(ConstantMatcher, ABC):
     """Base class for boolean assertions."""
 
     @abstractmethod
