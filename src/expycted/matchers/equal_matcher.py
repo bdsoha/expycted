@@ -25,9 +25,9 @@ class EqualMatcher(BaseMatcher):
             return self._equal_check(expected)
 
         check_callbacks = [
-            lambda: self._str_check(expected),
-            lambda: self._pickle_check(expected),
-            lambda: self._equal_check(expected),
+            self._str_check,
+            self._pickle_check,
+            self._equal_check,
         ]
 
-        return any(check() for check in check_callbacks)
+        return any(check(expected) for check in check_callbacks)
