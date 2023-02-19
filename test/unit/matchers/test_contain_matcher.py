@@ -1,35 +1,36 @@
 from __future__ import annotations
 
 from expycted import expect
-from expycted.matchers import ContainedInMatcher
+from expycted.matchers import ContainMatcher
 
 from helpers import stubs
 from helpers.utils import parametrize_expectation
 
 
 def test_via_expect(context):
-    expectation = expect(1)
+    expectation = expect([1])
 
-    assert isinstance(expectation.to.be_contained_in, ContainedInMatcher)
-    assert isinstance(expectation.to.be_in, ContainedInMatcher)
-    assert isinstance(expectation.to.be_included_in, ContainedInMatcher)
+    assert isinstance(expectation.to.contain, ContainMatcher)
+    assert isinstance(expectation.to.has, ContainMatcher)
+    assert isinstance(expectation.to.have, ContainMatcher)
+    assert isinstance(expectation.to.include, ContainMatcher)
 
-    expectation.to.be_contained_in([1])
+    expectation.to.contain(1)
 
     with context.raises:
-        expectation.to_not.be_contained_in([1])
+        expectation.to_not.contain(1)
 
 
 @parametrize_expectation(
     [
-        (2, [2], "list"),
-        ("a", {"a", "b"}, "set"),
-        ("bc", "abcd", "substr"),
-        ("", "abcd", "empty str"),
-        ("a", {"a": 1, "b": 2}, "dict"),
+        ([2], 2, "list"),
+        ({"a", "b"}, "a", "set"),
+        ("abcd", "bc", "substr"),
+        ("abcd", "", "empty str"),
+        ({"a": 1, "b": 2}, "a", "dict"),
         ("string", "string", "full str"),
     ],
-    matcher=ContainedInMatcher,
+    matcher=ContainMatcher,
     wrap=False,
 )
 def test_matches(expectation):
@@ -40,12 +41,12 @@ def test_matches(expectation):
 
 @parametrize_expectation(
     [
-        (2, [1], "list"),
-        (["a"], ["a", 2], "item in list"),
-        ("ings", "string", "str"),
-        ("c", {"a": 1, "b": 2}, "dict"),
+        ([1], 2, "list"),
+        (["a", 2], ["a"], "item in list"),
+        ("string", "ings", "str"),
+        ({"a": 1, "b": 2}, "c", "dict"),
     ],
-    matcher=ContainedInMatcher,
+    matcher=ContainMatcher,
     wrap=False,
 )
 def test_not_matches(expectation):
@@ -61,7 +62,7 @@ def test_not_matches(expectation):
         stubs.COPY_OBJECT,
         stubs.SAME_OBJECT,
     ],
-    matcher=ContainedInMatcher,
+    matcher=ContainMatcher,
     wrap=False,
 )
 def test_type_error(expectation):
