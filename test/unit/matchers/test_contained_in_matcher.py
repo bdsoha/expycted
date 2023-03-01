@@ -58,8 +58,11 @@ def test_not_matches(expectation):
     [
         ("hello2", 2, "int in str"),
         stubs.TRUE_STR_EQUIVALENT,
-        stubs.COPY_OBJECT,
-        stubs.SAME_OBJECT,
+        (stubs.NOT_SINGLETON_OBJECT(), stubs.NOT_SINGLETON_OBJECT()),
+        (
+            stubs.SINGLETON_OBJECT(),
+            stubs.SINGLETON_OBJECT(),
+        ),
     ],
     matcher=ContainedInMatcher,
     wrap=False,
