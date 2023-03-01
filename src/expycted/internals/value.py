@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from typing import Any, Tuple, Type
+from typing import Type
 
 from expycted.core.matchers import assertion
 from expycted.internals.base import BaseExpectation
-from expycted.internals.utils import assertion as assertion_old
 from expycted.matchers import (
     BeEmptyMatcher,
     ContainedInMatcher,
+    ContainMatcher,
     EqualMatcher,
     GreatThanMatcher,
     InheritMatcher,
@@ -21,18 +21,6 @@ from expycted.matchers import (
 
 
 class Value(BaseExpectation):
-    _ASSERTION_MESSAGES = {
-        "contain": "Expected {expected} to contain {actual}",
-    }
-
-    def _internal_contain(self, expected: Any) -> Tuple[bool, str]:
-        try:
-            return expected in self._actual, self._message("contain", expected)
-        except Exception:
-            raise AssertionError(
-                f'Type "{type(self._actual)} cannot contain {expected}"'
-            )
-
     @property
     @assertion
     def equal(self) -> Type[EqualMatcher]:
@@ -52,9 +40,29 @@ class Value(BaseExpectation):
         """Asserts that the actual value is the expected value."""
         return IsMatcher
 
-    @assertion_old
-    def contain(self, actual: Any) -> None:
-        """Checks whether the value contains something."""
+    @property
+    @assertion
+    def contain(self) -> Type[ContainMatcher]:
+        """Asserts that expected value contain in actual value."""
+        return ContainMatcher
+
+    @property
+    def has(self) -> ContainMatcher:
+        """Alias for ``contain``."""
+
+        return self.contain
+
+    @property
+    def have(self) -> ContainMatcher:
+        """Alias for ``contain``."""
+
+        return self.contain
+
+    @property
+    def include(self) -> ContainMatcher:
+        """Alias for ``contain``."""
+
+        return self.contain
 
     @property
     @assertion
@@ -264,7 +272,3 @@ class Value(BaseExpectation):
     def be_subclass_of(self) -> InheritMatcher:
         """Alias for ``inherit``."""
         return self.inherit
-
-    # Aliases
-
-    has = have = include = contain

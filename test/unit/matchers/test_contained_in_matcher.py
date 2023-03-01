@@ -3,6 +3,7 @@ from __future__ import annotations
 from expycted import expect
 from expycted.matchers import ContainedInMatcher
 
+from helpers import stubs
 from helpers.utils import parametrize_expectation
 
 
@@ -48,6 +49,22 @@ def test_matches(expectation):
     wrap=False,
 )
 def test_not_matches(expectation):
+    matcher = expectation.matcher()
+
+    assert matcher(expectation.expected) is False
+
+
+@parametrize_expectation(
+    [
+        ("hello2", 2, "int in str"),
+        stubs.TRUE_STR_EQUIVALENT,
+        (stubs.NOT_SINGLETON_OBJECT(), stubs.NOT_SINGLETON_OBJECT()),
+        (stubs.SINGLETON_OBJECT(), stubs.SINGLETON_OBJECT()),
+    ],
+    matcher=ContainedInMatcher,
+    wrap=False,
+)
+def test_type_error(expectation):
     matcher = expectation.matcher()
 
     assert matcher(expectation.expected) is False

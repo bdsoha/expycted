@@ -23,3 +23,5 @@ class MatcherProxy(wrapt.ObjectProxy, Generic[T]):
         )
 
         self._expectation.qualifiers.clear()
+
+        return self._expectation
